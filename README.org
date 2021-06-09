@@ -12,7 +12,7 @@ and made available under a
 [[https://creativecommons.org/licenses/by/4.0/][Creative Commons Attribution 4.0 International (CC BY 4.0)]] License.
 
 
-#+CAPTION: Image of the 3D-printed version of the pump.
+#+CAPTION: Image of the 3D-printed version of the microscope.
 [[images/3dprinted_microscope.jpg]]
 #+BEGIN_QUOTE
 Image of the 3D-printed microscope.
@@ -42,7 +42,7 @@ For the ease of reproduction of the slicer files are also saved within the direc
 #+CAPTION: A screenshot of the microscope in openSCAD.
 [[images/openscad-microscope.jpg]]
 #+BEGIN_QUOTE
-A screenshot of the pump in openSCAD (for the file see
+A screenshot of the microscope in openSCAD (for the file see
 [[./files/3d/openscad-microscope.scad]]).
 #+END_QUOTE
 
@@ -52,32 +52,30 @@ A screenshot of the pump in openSCAD (for the file see
 - this list is for one microscope. Cost of components
   is approximate.
 
-| item [3X Syringe Pumps]                                        |      number | purpose               | bought from   |  part-no | approx  (£/euro) |
+| item [3X Syringe Pumps]                                        |      number | purpose               | bought from   |  part-no | approx  (euro) |
 |----------------------------------------------------------------+-------------+-----------------------+---------------+----------+-------------|
 | Allegro A4983 Based Stepper Boards: here the 'Big Easy Driver' |           3 | stepper board         | Technobots    | 2900-445 | ~ 70        |
-| Nema 17 Steppers (0..9° 2.4A)                                  |           3 | stepper motor         | act-motor     | 1402-050 | ~ 80        |
-| Teensy 4.0 or 4.1 Microcontroller                              |           1 | control               | cpc-Farnell   |  SC13539 | ~ 20        |
+| Nema 17 Steppers (0..9° 2.4A)                                  |           3 | stepper motor         | act-motor     | 1402-050 | ~ 60        |
+| Teensy 4.0 or 4.1 Microcontroller                              |           1 | control               | conrad        |  2269230 | ~ 30        |
 | Fine Hex Adjuster, 1/4"-80, 4" Long                            |           3 | leadscrew             | Thorlabs      | F25SS400 | ~ 40        |
 | Locking Phosphor-Bronze Bushing with Nut, 1/4"-80, L=0.50"     |           3 | leadscrewnut          | Thorlabs      |   N80L6P | ~ 28        |
-| Silver Steel 6mm x 333mm                                       |         ?16 | pump structure        | Technobots    | 4426-006 | ~ 35        |
-| Zinc Collets 6mm pk/4                                          |         ?24 | fasteners             | Technobots    | 4609-060 | ~ 28        |
-| Linear Bearing LM6UU 6mm Bushing                               |         ?16 | slides motorpart      | Technobots    | 4604-606 | ~ 16        |
+| Linear Bearing LM6UU 6mm Bushing                               |          12 | slides motorpart      | Technobots    | 4604-606 | ~ 16        |
 | Universal Coupling Body                                        |           3 | motor-screw-connector | Technobots    | 4604-050 | ~ 12        |
 | Universal Coupling Insert - 5mm                                |           3 | motor-side            | Technobots    | 4604-059 | ~ 8         |
 | Universal Coupling Insert - 1/4"                               |           3 | screw-side            | Technobots    | 4604-066 | ~ 8         |
 | OTHER SMALL ITEMS                                              |             |                       |               |          |             |
 | 95mm x 127mm Copper Clad Stripboard (or bigger)                |           1 | mount for electronics | Technobots    |          | ~ 2         |
 | Male & Female PCB Headers 2.45mm pitch                         |        some | simple connectors     | cpc-Farnell   |          | ~ 10        |
-| Screws M3 (25mm): to mount motors                              |          16 |                       | Technobots    | 4300-006 | ~ 3 for 100 |
-| Screws M3 (<10mm), optional                                    |        many | fix collets better    | Technobots    | 4300-002 | ~ 2 for 100 |
-| Screws M6 (~100mm), syringe part lasercut version              |           8 | reduces acrylic       | hardware shop |          |             |
+| Screws M3 (25mm): to mount motors                              |          12 |                       | Technobots    | 4300-006 |             |
+| Screws M3 (<10mm), optional                                    |        many | fix collets better    | Technobots    | 4300-002 |             |
+| Screws M6 (~100mm), syringe part lasercut version              |           6 | reduces acrylic       | hardware shop |          |             |
 | USB (micro) cable                                              |           1 |                       | cpc-Farnell   |          | ~ 3         |
-| 6 wire colored ribbon cable                                    |          4m |                       | Technobots    |          | ~ 3         |
+| 6 wire colored ribbon cable                                    |          3m |                       | Technobots    |          | ~ 3         |
 | 12V/>=5A power supply                                          |           1 |                       | cpc-farnell   |          | ~ 20        |
-| 197 g 3D-printer filament (PLA 1.75mm)                         | 1kg/5sheets | microscope structure  | 3d jake       |          | ~ 5         |
+| 197 g 3D-printer filament (PLA 1.75mm)                         |      1*250g | microscope structure  | 3d jake       |          | ~ 10        |
 | USA Digital Microscope 40x-1000x                               |           1 | microscope camera     | Bysameyee     |          | ~ 20        |
 |----------------------------------------------------------------+-------------+-----------------------+---------------+----------+-------------|
-|                                                                |             |                       |               |          | ~        |
+|                                                                |             |                       |               |          | <  400     |
 
 **** Companies:
 - Technobots:  http://www.technobotsonline.com
@@ -161,7 +159,7 @@ Finally, the microscope-camera can be put in the ring on top where it is held in
 - done!     
 
 ** Electronics
-To drive the stepper motors of the pumps we use a A4983 stepper driver
+To drive the stepper motors we use a A4983 stepper driver
 chip from Allegro Microsystems (datasheet
 http://www.technobotsonline.com/Datasheets2/1518-009-A4983SETTR-T.pdf).
 For convenience we use one 'Big Easy Driver' for each motor
@@ -172,9 +170,7 @@ when the 'MS1, MS2, MS3' pins are left unconnected (which means that
 less soldering has to be done). With 16-step microstepping, one
 revelation of the leadscrew (318 micrometer movement) is divided into
 400*16=6400 steps resulting in a stable flow even at very low
-flowrates. If you use a stepper with 200 steps/revolution (1.8 instead
-of 0.9 degrees/step), the pumps will still work very well but you will
-have to adjust the calibration in the software. The stepper drivers are controlled
+flowrates. The stepper drivers are controlled
 with a teensy 4.0 or 4.1 microcontroller.
 
 #+CAPTION: Left: Images of the electronics board with three stepper driver boards mounted. Right: Schematic diagram.
@@ -210,7 +206,7 @@ mounted. Right: Schematic diagram.
     - shared GND between teensy and the quadstepper board (or single
       big easy drivers)
     - step-pin (stp): if high for >1 microsecond, the motor will step
-    - direction-pin (dir): high/low sets the direction (if your pump
+    - direction-pin (dir): high/low sets the direction (if one of the motors
       steps the 'wrong' direction, just reverse the connections of the
       leads from (e.g. green, black, blue, red --> to red, blue,
       black, green).
@@ -222,10 +218,10 @@ mounted. Right: Schematic diagram.
 - Don't forget to adjust the current supplied to the motor with the
   small potentiometer on the stepper driver board. On max, the chip
   gets hot and the motor might have enough torque to continue beyond
-  the end-stop, damaging the pump assembly.
+  the end-stop, damaging the microscope assembly.
 
 
-* Software for Syringe Pumps
+* Software for the Microscope
 ** Introduction - mode of operation and choice of tools
 
 The microscope motors are controlled with a microcontroller (a 'teensy' 4.0 or 4.1)
@@ -282,16 +278,9 @@ On a Linux system, you should use 'PD-L2ORK'
 up-to-date, maintained and beautified version of PD-extended from the
 'Linux Laptop Orchestra' (Virginia Tech Music Department). Beta
 versions for Mac and Win are now also available. PD-L2ORK runs well on
-Ubuntu, but also under Raspbian on Raspberry Pi Model 3 and 4. This
+Ubuntu, but also under Raspberry OS on Raspberry Pi Model 3 and 4. This
 allows a small touchscreen interface to be used resulting in a
 small-footprint solution.
-
-#+CAPTION: Raspberry Pi Model 3 based to control syringe pumps.).
-[[images/RaspberryPi.jpeg]]
-#+BEGIN_QUOTE
-Raspberry Pi Model 3 used to control syringe pumps.
-#+END_QUOTE
-
 
 ** Setting up the System 
 - program the teensy
