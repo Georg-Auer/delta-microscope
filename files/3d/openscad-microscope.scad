@@ -254,99 +254,7 @@ echo("Top column C0=", C0,"C=", C, "+z", z, "=", C+z, "travel_from_0=", C-C0);
 //=================
 //Pumps
 //=================
-     
-//shared variables    
-movepump_in_z=0;//moves pump with respect to delta assembly
-movepump_in_x=64;//moves pump with respect to delta assembly....64 is close
-spaceforsliders=12.5;//adjust this to make space for the slider
-awayfrombaseline_x=40; //=change here to move center-line from bottom of pump
-railawayfrombaseline_x=10;
-p_sink_depth_for_nuts=6;//depth of access with screws to mount rail
-pump_smallbottom=50; //play with this to make the cutout at the bottom the 'right' size (or vanish)
-//variables motorpart
-pump_mx=62;
-pump_my=50;
-motorpart_z=85;
-spaceforcoupler_r=12;//r must be bigger than r of motorcoupler used
-thickness_motormount=20;
-//endstop
-endstop_x=20.3;
-endstop_y=14;
-endstop_z=7;
-
-//variables syringepart
-//=====================
-pump_sx=42;
-pump_sy=pump_my;
-syringepart_z=100; //total length of part: syringepart_z & length_of_syringeholder determine length of movement possible with pump
-length_of_syringeholder=45; //length for syringe to sit on plastic
-move_p_slide_from_Zzero=move_slide_from_Zzero;//here you can move hiwin-rail+screws up & down
-//--------------------------------------------------------------------------------------------
-leadscrewopening_r=6.5; //r for hole to accomodate end of leadscrew
-s_cutout_awayfrombaseline_x=pump_sx; //center-height of cutout to harbor syringe
-s_cutout_r=9; //r of cutout
-add_thickness_to_hiwin_slider=1+2*tolerance; //add height to cutout so that slider can move a bit into part
-screw_access_r=M6insert_r; //openings to screw syringepart to hiwin slide from top, also used to make space for M3-nuts at the very bottom of pump & used to fit M6-brass inserts in
-//insert_holder_magnets 
-    magnetinsertheight=5; //play with this to adjust height    
-    syr_holder_magnet_r1=3.3;
-    syr_holder_magnet_r1height=12; //too high so tht it cuts through so that access to rail is open
-    syr_holder_magnet_r2=5.3;
-    syr_holder_magnet_r2height=5;//rawn double to be sure it cuts everything  
-
-//variables - syringe-holder-part1 - with magnets
-//===============================================
-s_holder_part1_thickness=4;//thickness of the part
-move_s_holder_part1_in_x=60; //move the part in x  
-//variables syringe-holder-part2 - the one with the M6-rods
-//===============================================
-s_holder_part2_thickness=4;//thickness of part
-s_holder_part2_move_z=10; //move in z from syringe-part edge
-s_holder_part2_cut=21;//cut the part over the slider=height of part
-
-//variables pump_leadscrewpart
-//============================
-moveholesupforfixture=15;//moves M6 holes for syringeholder up/down
-leadscrewpart_z=38;
-pump_lx=44;
-pump_ly=pump_my;
-l_distance_from_bottom=18; //move the part towards desired height (so that it can slide nicely)
-leadscrewnut_access_lpart=11; //hole to fit motorcoupler
-p_hiwincarrier_access_r=M6insert_r; //must be big enough for screwdriver to fit & fit M6 brass inserts
-p_move_carrier_screws_relative_to_part=-8; //this value moves all 4 screws to mount on hiwin-carrier up/down
-p_height_slider=79;//moves part + leadscrewnut up/down
-
-//variables syringe-holder Leadscrewpart
-//======================================
-leadscrewpart_syrholder_z=4;//thickness of part
-leadscrewpart_syrholder_takeaway=25;//place where the part is cut in x
-
-
-
-
-//variables 2mL-terumo-syringe
-//=======================
-//variables - with drawing, '0' will be the point between syr-cylinder and end-piece before plunger starts
-syr_body_r=5;
-syr_body_r2=5.25;
-syr_body_r2_length=7;
-syr_body_totallength=52.75;
-syr_body_end_r=6.7;
-syr_body_end_dist_between_r=6.6;   //20-2*6.7
-syr_body_end_thickness=2.25;
-
-syr_tip_r=2.25;
-syr_tip_length=9;
-
-syr_plunger_r=3; //approx r on the last 5mm of plunger
-syr_plunger_end_r=6.25;
-syr_plunger_end_thickness=1.3;
-
-syr_plunger_length_min=10.5;
-syr_plunger_length_max=52;
-//========================================================
-//========================================================
-
+    
 //===============
 //begin Deltapart
 //===============
@@ -469,18 +377,7 @@ hull (){
     }}   
 //end baseunit
 //=============  
-//subtract hiwin-slides and make M4-holes
-//=======================================
-for(turn2 = [0 : 120 : 360])
-     rotate([0,0,turn2]){ 
-     translate([base_r+slider_distance-hiwin_carrierheight+2*tolerance,-hiwin_carrier_width/2,platethickness+reinforcementheight]) //tolerance added so that movement is smooth (not at slider of course to keep kinematics 'right')           
-     cube([hiwin_carrier_thickness,hiwin_carrier_width,slide_length-platethickness],center=false);
-     //these are the screws 
-     for( M4hole = [0 : M4_distance : slide_length])    
-     translate([base_r+slider_distance,0,M4hole+move_slide_from_Zzero])     
-     rotate([0,90,0])    
-     #cylinder(r = M4_r, h = M4length, $fa=1, $fs=0.5);    
-     }       
+      
 //subtract cylindrical shape from walls
 //=====================================
 
@@ -784,7 +681,7 @@ for(turn = [0 : 120 : 360])
 //================================================================ 
 // draw OPTICS
 //================================================================
-
+/*
 translate ([0,0,platethickness]){//translates all of optics plate
 //====================
 //optics ground plate
@@ -888,7 +785,7 @@ cylinder(r = M6_r+sliderwall+8*tolerance, h = optics_plate_z_high, $fa=1, $fs=0.
 //=============================
 //optics-plate - fixture on top
 //=============================
-
+/*
 translate ([0,0,optics_plate_z_high+platethickness+opticsfixture_height/2]){
 
 difference (){
@@ -912,12 +809,12 @@ cylinder(r = tube1inch_outer_r+opticsfixture_wallsize, h = 2*opticsfixture_heigh
           translate ([0,0,-opticsfixture_height/2])     
           cylinder(r = tube1inch_outer_r+4*tolerance, h = 2*opticsfixture_height, $fa=1, $fs=0.5);
 }}
-
+*/
 
 //====================
 //optics ADDED plate
 //====================
-
+/*
 translate ([0,0,0]){//translates all of optics plate    
 //color ("yellow")  
 difference (){
@@ -957,11 +854,13 @@ difference (){
     cylinder(r = M6baseholeaccess_r, h = M6_sinking_depth, $fa=1, $fs=0.5); 
     } } } } }   
 
-translate ([0,0,optics_plate_z]){//translates everything optics    
+translate ([0,0,optics_plate_z]){
+*/
+//translates everything optics    
 //=========
 //draw cage
 //=========   
-  
+/*
     
 rotate ([0,0,0]) 
 color ("cyan") 
@@ -1028,375 +927,8 @@ cylinder(r = olympus10x_body1_r, h = olympus10x_bodylength1, $fa=1, $fs=0.5);
 cylinder(r = olympus10x_body2_r, h = olympus10x_bodylength2, $fa=1, $fs=0.5);
 cylinder(r = olympus10x_body3_r, h = olympus10x_bodylength3, $fa=1, $fs=0.5);
 cylinder(r = olympus10x_parfocal_r, h = olympus10x_parfocal_length, $fa=1, $fs=0.5);} 
-}}  
-//================================================================================================
-    
-//==========================================================
-//DRAW PUMPS
-//==========================================================
-
-
-for(turn0 = [0 : 120 : 360])
-   rotate([0,0,turn0]){ 
-        
-translate ([movepump_in_x,0,movepump_in_z]){
-//motorpart
-//=========
-    
-difference (){    
-translate ([0,-pump_my/2,0])    
-cube([pump_mx,pump_my,motorpart_z],center=false);
-//take away most of the block  
-translate ([spaceforsliders,-2*pump_my/2,thickness_motormount])    
-cube([pump_mx,2*pump_my,motorpart_z],center=false);    
-
-//make the pump small near the bottom   
-translate([awayfrombaseline_x,0,0])
-difference (){    
-     rotate ([0,0,45])    
-     cylinder(r = 2*pump_smallbottom, h = motorpart_z, $fn=4);
-     cylinder(r = pump_smallbottom, h = motorpart_z, $fn=4);}
-//space for endstop
-translate ([spaceforsliders,pump_my/2-endstop_x,thickness_motormount-endstop_y])     
-cube([endstop_z,endstop_x,endstop_y],center=false);     
-    
-//M3 motor screws
-translate ([awayfrombaseline_x,0,0]){    
-  for(turn = [45 : 90 : 405])
-     rotate([0,0,turn]) 
-     translate([motor_screw_diagonal/2,0,0])
-     cylinder(r = M3_r, h = motorpart_z, $fa=1, $fs=0.5); 
-//motor - middle hole
-     cylinder(r = spaceforcoupler_r, h = motorpart_z, $fa=1, $fs=0.5);} 
-//this is the rail   
-    translate([railawayfrombaseline_x,-(slide_width/2+tolerance),move_p_slide_from_Zzero])       
-    cube([slide_thickness+2*tolerance,slide_width+2*tolerance,slide_length],center=false);//2*tolerance in thickness and width added so that rail can be slit through
-//this is the hiwin-carrier     
-    translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight-hiwin_carrier_thickness-2*tolerance,-hiwin_carrier_width/2,thickness_motormount])//2*tolerance added so that carrier can move freely      
-    cube([hiwin_carrier_thickness,hiwin_carrier_width,slide_length-thickness_motormount],center=false);
-     
-     //these are the screws 
-     for( M4hole = [0 : M4_distance : slide_length]){    
-     translate([railawayfrombaseline_x,0, M4hole+move_p_slide_from_Zzero])     
-     rotate([0,-90,0])    
-     cylinder(r = M4_r, h = M4length, $fa=1, $fs=0.5);  
-     translate([p_sink_depth_for_nuts,0, M4hole+move_p_slide_from_Zzero])     
-     rotate([0,-90,0])     
-     cylinder(r = screw_access_r , h = M4length, $fa=1, $fs=0.5);    
-     }    
+}
 
 }
 
-//Syringepart
-//============
-difference (){    
-translate ([0,-pump_my/2,motorpart_z])    
-cube([pump_sx,pump_sy,syringepart_z],center=false);
-//take away most of the block  
-translate ([spaceforsliders,-2*pump_sy/2,motorpart_z])    
-cube([pump_mx,2*pump_sy,syringepart_z-length_of_syringeholder],center=false);
-//make the pump small near the bottom   
-translate([awayfrombaseline_x,0,motorpart_z])
-difference (){    
-     rotate ([0,0,45])    
-     cylinder(r = 2*pump_smallbottom, h = syringepart_z, $fn=4);
-     cylinder(r = pump_smallbottom, h = syringepart_z, $fn=4);}    
-//space for endstop
-translate ([spaceforsliders,pump_my/2-endstop_x,motorpart_z+syringepart_z-length_of_syringeholder])     
-cube([endstop_z,endstop_x,endstop_y],center=false);    
-    
-//cutouts for leadscew and syringes 
-//leadscrew-cutout    
-translate ([awayfrombaseline_x,0,motorpart_z+syringepart_z-length_of_syringeholder]) 
-cylinder(r = leadscrewopening_r, h = length_of_syringeholder, $fa=1, $fs=0.5);
-//syringe-cutout1 - for terumo2mL    
-translate ([s_cutout_awayfrombaseline_x,pump_sy/3,motorpart_z+syringepart_z-length_of_syringeholder ]){
-    cylinder(r = syr_body_r+tolerance, h = length_of_syringeholder, $fa=1, $fs=0.5);    
-    cylinder(r = syr_body_r2+tolerance, h = syr_body_r2_length, $fa=1, $fs=0.5);} 
-//syringe-cutout2 - for terumo2mL    
-translate ([s_cutout_awayfrombaseline_x,-pump_sy/3,motorpart_z+syringepart_z-length_of_syringeholder ]){
-    cylinder(r = syr_body_r+tolerance, h = length_of_syringeholder, $fa=1, $fs=0.5);    
-    cylinder(r = syr_body_r2+tolerance, h = syr_body_r2_length, $fa=1, $fs=0.5);}     
-  
-  
-//cutout the rail   
-    translate([railawayfrombaseline_x,-(slide_width/2+tolerance),0])       
-    cube([slide_thickness+2*tolerance,slide_width+2*tolerance,slide_length],center=false);//2*tolerance on thickness and width added to allow insertion of rail
-//cutout slider, 2*tolerance added so that slider can move freely + (a bit higher (add_thickness_to_hiwin_slider) so that carrier can move into part 
-    
-    translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight-hiwin_carrier_thickness-2*tolerance,-hiwin_carrier_width/2,motorpart_z])      
-    cube([hiwin_carrier_thickness+add_thickness_to_hiwin_slider,hiwin_carrier_width,syringepart_z-length_of_syringeholder],center=false);
-     
-     //these are the screws 
-     for( M4hole = [0 : M4_distance : slide_length]){    
-     translate([railawayfrombaseline_x,0,M4hole ])    
-     rotate([0,-90,0])    
-     cylinder(r = M4_r, h = M4length, $fa=1, $fs=0.5);
-     //bottom-make space for nuts
-     translate([p_sink_depth_for_nuts,0,M4hole])     
-     rotate([0,-90,0])     
-     cylinder(r = screw_access_r , h = M4length, $fa=1, $fs=0.5);    
-     //insert_holder_magnets   
-     translate([railawayfrombaseline_x+magnetinsertheight,0,M4hole ])  
-     rotate([0,90,0])    
-     cylinder(r = syr_holder_magnet_r1, h = syr_holder_magnet_r1height, $fa=1, $fs=0.5);
-     translate([railawayfrombaseline_x+magnetinsertheight+syr_holder_magnet_r1height,0,M4hole ])  
-     rotate([0,90,0])    
-     cylinder(r = syr_holder_magnet_r2, h = 2*syr_holder_magnet_r2height, $fa=1, $fs=0.5);}
-         
-         
-     //cutout holes in z for M6 rods
-     //cutout1    
-    translate ([s_cutout_awayfrombaseline_x*2/3,pump_sy/3,motorpart_z+syringepart_z-length_of_syringeholder ]){
-    #cylinder(r = M6_r, h = length_of_syringeholder, $fa=1, $fs=0.5);    
-    } 
-    //cutout2   
-    translate ([s_cutout_awayfrombaseline_x*2/3,-pump_sy/3,motorpart_z+syringepart_z-length_of_syringeholder ]){
-    #cylinder(r = M6_r, h = length_of_syringeholder, $fa=1, $fs=0.5);    
-    }   
-          
-}
-}
-//syringe-holder-part1 - with magnets
-//======================================
-translate ([move_s_holder_part1_in_x+movepump_in_x,0,0]){         
-difference (){    
-translate ([0,-pump_my/2,motorpart_z+syringepart_z-length_of_syringeholder])    
-cube([s_holder_part1_thickness,pump_sy,length_of_syringeholder],center=false);
-//insert M6 holes
-for( M4hole = [0 : M4_distance : slide_length]){    
-     translate([0,0,M4hole ])    
-     rotate([0,90,0])    
-     cylinder(r = M6_r, h = s_holder_part1_thickness, $fa=1, $fs=0.5);}    
-}}
-
-//syringe-holder-part2 - the one with the M6-rods
-//===============================================
-translate ([movepump_in_x,-pump_my/2,motorpart_z+syringepart_z-length_of_syringeholder-s_holder_part2_move_z]){ 
-difference (){       
-cube([pump_sx,pump_sy,s_holder_part2_thickness],center=false);
-//take away the underside of the block  
-translate ([-s_holder_part2_cut,0,0])    
-cube([pump_sx,pump_sy,s_holder_part2_thickness],center=false);
-//cutouts for rods, leadscrew and syringes
-//take away the space for the syringes
-//syringe - right    
-translate ([s_cutout_awayfrombaseline_x,pump_my/2+pump_sy/3,0]){
-    cylinder(r = syr_body_r+tolerance, h = s_holder_part2_thickness, $fa=1, $fs=0.5);} 
-//syringe - left    
-translate ([s_cutout_awayfrombaseline_x,pump_my/2-pump_sy/3,0]){
-    cylinder(r = syr_body_r+tolerance, h = s_holder_part2_thickness, $fa=1, $fs=0.5);}     
-//make the holes for the M6-rods  
-     //cutout1    
-    translate ([s_cutout_awayfrombaseline_x*2/3,pump_my/2-pump_sy/3,0]){
-    cylinder(r = M6_r, h = s_holder_part2_thickness, $fa=1, $fs=0.5);    
-    } 
-    //cutout2   
-   translate ([s_cutout_awayfrombaseline_x*2/3,pump_my/2+pump_sy/3,0]){
-    cylinder(r = M6_r, h = s_holder_part2_thickness, $fa=1, $fs=0.5);    
-    }  
-   
-//take away the space for the leadscrew   
-translate ([awayfrombaseline_x,pump_my/2,0]) 
-cylinder(r = leadscrewopening_r, h = s_holder_part2_thickness, $fa=1, $fs=0.5);   
-}}
-
-
-
-
-//==============
-//leadscrewpart
-//=============
-translate ([movepump_in_x,0,movepump_in_z]){
-difference (){
-translate ([l_distance_from_bottom,-pump_ly/2,p_height_slider+leadscrewnut_length-leadscrewpart_z])    
-cube([pump_lx,pump_ly,leadscrewpart_z],center=false);
-
-//take away stuff
-//make the part open to see in (commentd out)
-translate ([l_distance_from_bottom+pump_lx*0.4,-pump_ly/2,p_height_slider+leadscrewnut_length-leadscrewpart_z*1.35])
-    cube([pump_lx,pump_ly,leadscrewpart_z],center=false);    
-//leadscrew-hole (size of leadscrew-nut)
-translate ([awayfrombaseline_x, 0, p_height_slider])  
-cylinder(r = leadscrewnut_minradius, h = leadscrewnut_length, $fa=1, $fs=0.5);
-//bigger access-hole that motor coupler can move in
-translate ([awayfrombaseline_x, 0, p_height_slider+leadscrewnut_length-leadscrewpart_z]) 
-cylinder(r = leadscrewnut_access_lpart, h = leadscrewpart_z-leadscrewnut_length, $fa=1, $fs=0.5);
-
-
-//make the holes for the M6-rods  
-     //cutout1    
-    
-    translate ([awayfrombaseline_x+moveholesupforfixture, -pump_ly/3, p_height_slider+leadscrewnut_length-leadscrewpart_z])
-    #cylinder(r = M6_r, h = leadscrewpart_z, $fa=1, $fs=0.5);     
-    //cutout2   
-    translate ([awayfrombaseline_x+moveholesupforfixture, pump_ly/3, p_height_slider+leadscrewnut_length-leadscrewpart_z])
-    #cylinder(r = M6_r, h = leadscrewpart_z, $fa=1, $fs=0.5);     
-
-//this is the carrier     
-    translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight-hiwin_carrier_thickness,-hiwin_carrier_width/2,thickness_motormount])      
-    cube([hiwin_carrier_thickness+2*tolerance,hiwin_carrier_width,slide_length-thickness_motormount],center=false);//2*tolerance added to adjust for 2*0.3 deviation to cad-data
-     
-//holes for M3 screws to connect carriage to hiwin-carrier
-//-------------------------------------------------------
-translate ([0,0,p_move_carrier_screws_relative_to_part]){     
-//screw2
-translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight,-bolt_distance_carrier/2,p_height_slider-bolt_distance_carrier/2])
-rotate([0,90,0])
-cylinder(r = M3_r, h = pump_lx, $fa=1, $fs=0.5);
-//screw-access2
-translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight+screw_lengthinplastic,-bolt_distance_carrier/2,p_height_slider-bolt_distance_carrier/2])
-rotate([0,90,0])
-cylinder(r = p_hiwincarrier_access_r, h = pump_lx, $fa=1, $fs=0.5);
-//screw4
-translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight,+bolt_distance_carrier/2,p_height_slider-bolt_distance_carrier/2])
-rotate([0,90,0])
-cylinder(r = M3_r, h = pump_lx, $fa=1, $fs=0.5);
-//screw-access4
-translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight+screw_lengthinplastic,+bolt_distance_carrier/2,p_height_slider-bolt_distance_carrier/2])
-rotate([0,90,0])
-cylinder(r = p_hiwincarrier_access_r, h = pump_lx, $fa=1, $fs=0.5);     
-          
-//screw1
-translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight,-bolt_distance_carrier/2,p_height_slider+bolt_distance_carrier/2])
-rotate([0,90,0])
-cylinder(r = M3_r, h = pump_lx, $fa=1, $fs=0.5);
-//screw-access1
-translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight+screw_lengthinplastic,-bolt_distance_carrier/2,p_height_slider+bolt_distance_carrier/2])
-rotate([0,90,0])
-cylinder(r = p_hiwincarrier_access_r, h = pump_lx, $fa=1, $fs=0.5);
-//screw3
-translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight,+bolt_distance_carrier/2,p_height_slider+bolt_distance_carrier/2])
-rotate([0,90,0])
-cylinder(r = M3_r, h = pump_lx, $fa=1, $fs=0.5);
-//screw-access3
-translate([railawayfrombaseline_x+slide_thickness+hiwin_carrierheight+screw_lengthinplastic,+bolt_distance_carrier/2,p_height_slider+bolt_distance_carrier/2])
-rotate([0,90,0])
-cylinder(r = p_hiwincarrier_access_r, h = pump_lx, $fa=1, $fs=0.5);}
-}
-
-//syringe-holder Leadscrewpart
-//============================
-translate ([0,0,movepump_in_z]){
-difference (){
-translate ([l_distance_from_bottom,-pump_ly/2,p_height_slider+3*leadscrewpart_syrholder_z])    
-cube([pump_lx,pump_ly,leadscrewpart_syrholder_z],center=false);
-//take away stuff
-//cut away bottom part
-translate ([l_distance_from_bottom-leadscrewpart_syrholder_takeaway,-pump_ly/2,p_height_slider+3*leadscrewpart_syrholder_z])    
-cube([pump_lx,pump_ly,leadscrewpart_syrholder_z],center=false);    
-    
-//middle access-hole for leadscrewnut-nut
-translate ([awayfrombaseline_x, 0, p_height_slider+3*leadscrewpart_syrholder_z]) 
-cylinder(r = leadscrewnut_top_bottom_r+2*tolerance, h = leadscrewpart_syrholder_z, $fa=1, $fs=0.5);
-
-//make the holes for the M6-rods  
-     //cutout1        
-    translate ([awayfrombaseline_x+moveholesupforfixture, -pump_ly/3, p_height_slider+3*leadscrewpart_syrholder_z])
-    cylinder(r = M6_r, h = leadscrewpart_syrholder_z, $fa=1, $fs=0.5);     
-    //cutout2   
-    translate ([awayfrombaseline_x+moveholesupforfixture, pump_ly/3, p_height_slider+3*leadscrewpart_syrholder_z])
-    cylinder(r = M6_r, h = leadscrewpart_syrholder_z, $fa=1, $fs=0.5);  
-
-//take away the space for the syringes
-//syringe - right
-hull (){
-translate ([s_cutout_awayfrombaseline_x,pump_sy/3,p_height_slider+3*leadscrewpart_syrholder_z])
-    cylinder(r = syr_plunger_r+tolerance, h = leadscrewpart_syrholder_z, $fa=1, $fs=0.5); 
-translate ([s_cutout_awayfrombaseline_x-5*syr_plunger_r,pump_sy/3,p_height_slider+3*leadscrewpart_syrholder_z])
-    cylinder(r = syr_plunger_r+tolerance, h = leadscrewpart_syrholder_z, $fa=1, $fs=0.5); 
-}
-//syringe - left 
-hull(){
-translate ([s_cutout_awayfrombaseline_x,-pump_sy/3,p_height_slider+3*leadscrewpart_syrholder_z]){
-    cylinder(r = syr_plunger_r+tolerance, h = leadscrewpart_syrholder_z, $fa=1, $fs=0.5);} 
-translate ([s_cutout_awayfrombaseline_x-5*syr_plunger_r,-pump_sy/3,p_height_slider+3*leadscrewpart_syrholder_z]){
-    cylinder(r = syr_plunger_r+tolerance, h = leadscrewpart_syrholder_z, $fa=1, $fs=0.5);}    
-}
-}}
-}
-}
-
-//==================================
-//MECHANICAL PARTS FOR VISUALIZATION
-//==================================
-
-//draw syringe
-//============
-//make three of them all around 
-for(turn0 = [0 : 120 : 360])
-  rotate([0,0,turn0]){ 
-//start drawing all parts    
-translate ([movepump_in_x,-pump_sy/3,movepump_in_z]){
-color ("orange"){
-    translate ([s_cutout_awayfrombaseline_x,0,motorpart_z+syringepart_z-length_of_syringeholder ]){
-    cylinder(r = syr_body_r, h = syr_body_totallength, $fa=1, $fs=0.5);    
-    cylinder(r = syr_body_r2, h = syr_body_r2_length, $fa=1, $fs=0.5);}
-//draw syringe-tip   
-    translate ([s_cutout_awayfrombaseline_x,0,motorpart_z+syringepart_z-length_of_syringeholder+syr_body_totallength ])
-    cylinder(r = syr_tip_r, h = syr_tip_length, $fa=1, $fs=0.5); 
-//draw syr-body endpart 
-  hull (){  
-    translate ([s_cutout_awayfrombaseline_x-syr_body_end_dist_between_r/2,0,motorpart_z+syringepart_z-length_of_syringeholder-syr_body_end_thickness ])    
-    cylinder(r = syr_body_end_r, h = syr_body_end_thickness, $fa=1, $fs=0.5);
-    translate ([s_cutout_awayfrombaseline_x+syr_body_end_dist_between_r/2,0,motorpart_z+syringepart_z-length_of_syringeholder-syr_body_end_thickness ])    
-    cylinder(r = syr_body_end_r, h = syr_body_end_thickness, $fa=1, $fs=0.5);  
-  }
-//draw plunger
-    translate ([s_cutout_awayfrombaseline_x,0,motorpart_z+syringepart_z-length_of_syringeholder-syr_plunger_length_max])
-    cylinder(r = syr_plunger_r, h = syr_plunger_length_max, $fa=1, $fs=0.5); 
-//draw plunger-end in min and max
-  //max
-    translate ([s_cutout_awayfrombaseline_x,0,motorpart_z+syringepart_z-length_of_syringeholder-syr_plunger_length_max])
-    cylinder(r = syr_plunger_end_r, h = syr_plunger_end_thickness, $fa=1, $fs=0.5);
-  //min
-    translate ([s_cutout_awayfrombaseline_x,0,motorpart_z+syringepart_z-length_of_syringeholder-syr_plunger_length_min])
-    cylinder(r = syr_plunger_end_r, h = syr_plunger_end_thickness, $fa=1, $fs=0.5);
-}}  
-
-//draw motors+leadscrew-assembly for visualization
-//=================================================
-translate ([movepump_in_x,0,movepump_in_z]){
-     //motor 
-     //=====   
-     color ("black")    
-     translate ([awayfrombaseline_x,0,-motor_length/2])
-     rotate([0,0,45])    
-     cylinder(h = motor_length, r=motor_halfdiagonal, $fn=4, center=true);
-    
-     //shaftcoupler
-     //============
-     color ("orange")
-     translate ([awayfrombaseline_x,0,0 ])
-     cylinder(r = shaftcoupler_radius, h = shaftcoupler_length, $fa=1, $fs=0.5); 
-    
-     //Leadscrew
-     //==========
-     color ("silver")
-     translate ([awayfrombaseline_x,0,0])
-     cylinder(r = leadscrew_radius, h = leadscrew_length, $fa=1, $fs=0.5); 
-    
-     //Leadscrewnut
-     //=============
-     color ("orange"){
-     translate ([awayfrombaseline_x, 0, p_height_slider])  
-     cylinder(r = leadscrewnut_minradius, h = leadscrewnut_length, $fa=1, $fs=0.5); 
-     //topnut
-     translate ([awayfrombaseline_x, 0, p_height_slider+leadscrewnut_length])  
-     cylinder(r = leadscrewnut_top_bottom_r, h = leadscrewnut_top_bottom_thickness, $fa=1, $fs=0.5); 
-     //bottomnut
-     translate ([awayfrombaseline_x, 0, p_height_slider-leadscrewnut_top_bottom_thickness])  
-     cylinder(r = leadscrewnut_top_bottom_r, h = leadscrewnut_top_bottom_thickness, $fa=1, $fs=0.5);  
-     }
-     //draw the rail
-     //============== 
-     color ("orange")  
-     translate([railawayfrombaseline_x,-slide_width/2,move_p_slide_from_Zzero])       
-     cube([slide_thickness,slide_width,slide_length],center=false);
- }}
- 
- 
- 
- 
-     
-
+*/
