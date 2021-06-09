@@ -21,22 +21,13 @@ Image of the 3D-printed microscope.
 
 ** Introduction
 
-Das Mikroskop ist so entworfen, dass es möglichst günstig und schnell herstellbar ist,
-und trotzdem eine hohe Genauigkeit erreicht. Durch die gewählte Delta-Kinematik
-hat das Gerät einen sehr kleinen Fußabdruck, und ist auch dafür geeignet in einem
-Inkubator verwendet zu werden. Im SPOC labor wird das Mikroskop verwendet,
-um die Erzeugung von Spheroiden in selbst konstruierten Chips beobachten und
-überwachen zu können.
-Die Mikroskopsteuerung kann direkt vorgenommen werden,
-oder auch automatisiert über ein Programm iterativ ein Experiment beobachten.
-
 The microscope is designed to be as cheap and quick to manufacture as possible,
 and still achieve high accuracy. Due to the chosen delta kinematics
 the device has a very small footprint, and is also suitable for use in an incubator.
 incubator. In the SPOC lab, the microscope is used
-to observe and monitor the generation of spheroids in self-constructed chips.
-monitor the process. The microscope can be controlled directly
-or automated via a program to iteratively observe an experiment.
+to observe and monitor the generation of spheroids in self-constructed chips and monitor the process.
+The microscope can be controlled directly
+or automated via a program to observe an experiment over time.
 
 
 ** Mechanics - Files and Bill of Materials   
@@ -48,11 +39,11 @@ For each part, an stl file was created and all files where then sliced
 with Prusa Slicer and sent to print on an 3D filament printer (Prusa MK3).
 For the ease of reproduction of the slicer files are also saved within the directory.
 
-#+CAPTION: A screenshot of the microscope in openSCAD (for the file see [[./files/SyringePump3Dmodel.scad]]).
+#+CAPTION: A screenshot of the microscope in openSCAD.
 [[images/openscad-microscope.jpg]]
 #+BEGIN_QUOTE
 A screenshot of the pump in openSCAD (for the file see
-[[./files/SyringePump3Dmodel.scad]]).
+[[./files/3d/openscad-microscope.scad]]).
 #+END_QUOTE
 
 
@@ -130,11 +121,24 @@ Pre-assemble motor with leadscrew (bottom right) and component inventory.
 #+END_QUOTE
 
 ***** Camera
-Microscope can be exchanged with an variety of solutions. We tried an Raspberry HQ Camera v1.0
+The Microscope can be exchanged with an variety of solutions. We tried an Raspberry HQ Camera v1.0
 with SM1 to C-mount adapter (thorlabs, SM1A9) to 1 inch optics connected to an Zeiss Plan 2,5 objective,
-but eventually ended up with an 25€ USB microscope camera.
+but eventually ended up with an 25€ USB microscope camera that has a 40x-1000x zoom option for maximal flexibility.
 
-**** Assembly of the Pump
+**** Assembly of the microscope
+
+The STL files for the microscope where sliced in Prusa Slicer 2.2.0 and printed in ecoPLA NeonOrange with 20% infill.
+The linear guide rails where screwed onto the main part, and the top part was then screwed onto the guide rails with 15xM3 screws and nuts.
+For correct assembly, the top part has to end on height of the guide rails.
+The three stepper motors where then screwed (12xM3) onto the bottom part.
+The bottom part needs to be screwed on the other end of the guide rails (3xM3).
+Now the ACHSENVERBINDUNGSDINGER are screwed onto the motors and the optical fine threaded rods are fixed on the other side of the ACHSENVERBINDUNGSDINGER.
+For better durability, the plastic part of the ACHSENVERBINDUNGSDINGER are glued to the metallic part with epoxy glue.
+Six M6 screws are glued into the three slider parts, and 6 M6 are glued into the platform.
+The slider parts are now joined with their threaded insert and can be screwed onto the guide rails.
+The end nuts are now placed on the LONG?? M6 screws and the microscope stage is completed by putting the neodymium magnets in the joint positions.
+Finally, the microscope-camera can be put in the ring on top where it is held in position with the printed clamp.
+
 
 - slot the steel shafts into the assembled motor part. Take care not
   to harm the LM6UU linear bearings. 
@@ -142,14 +146,6 @@ but eventually ended up with an 25€ USB microscope camera.
 - add endpart, leadscrew-part and syringe part. Do not forget to
   insert the collets (8 collets/part, before and after). Don't fix
   them yet.
-
-#+CAPTION: Three pumps before adjusting the leadscrew part & fixing everything with collets.
-[[images/3Pumps.jpeg]]
-#+BEGIN_QUOTE
-Three pumps before adjusting the leadscrew part & fixing everything
-with collets.
-#+END_QUOTE
-
 
 - add the electronics to the motor and drive it back and forth (at
   this point you could add some lithium grease or other lubricant).
@@ -232,7 +228,7 @@ mounted. Right: Schematic diagram.
 * Software for Syringe Pumps
 ** Introduction - mode of operation and choice of tools
 
-The pumps are controlled with a microcontroller (a 'teensy' 4.0 or 4.1)
+The microscope motors are controlled with a microcontroller (a 'teensy' 4.0 or 4.1)
 and a software front end written in Pure Data (PD). The teensy
 (https://www.pjrc.com/teensy/teensy31.html) is a 3.3V, 32-bit ARM
 based microcontroller that is compatible with the Arduino toolchain
@@ -246,8 +242,7 @@ acquisition tasks.
 Pure Data (PD, https://puredata.info/) is an open source dataflow
 programming language used primarily for music and video applications.
 It runs on nearly every computing platform, is straightforward to
-learn and can be modified 'live', which is great for microfluidics
-experimentation.
+learn and can be modified 'live'.
 
 The communication protocol between the microcontroller and PD is OSC
 ('Open Sound Control', https://www.opensoundcontrol.org). It is a very
@@ -302,17 +297,7 @@ Raspberry Pi Model 3 used to control syringe pumps.
 - program the teensy
 - open the PD-program 
 
-You can test the system without the microcontroller attached to the
-pumps. If the communication works via OSC, the flow rates you transfer
-(in microL/h) and the direction of movement will be mirrored in the
-smaller sliders beneath the main control elements in the PD-frontend.
-
 ** How the System Works  
-In der Frontend Ansteuerung im PureData werd die für die xyz Bewegung
-notwendige Rotationsbewegung der einzelnen Motoren errechnet.
-Diese Schrittanzahl wird nun zum Mikrokontroller geschickt,
-der wiederum über das Step/Dir Protokoll den Motortreiber ansteuert.
-
 In the frontend control in the PureData, the rotation movement of the individual
 of the individual motors is calculated.
 This number of steps is now sent to the microcontroller,
