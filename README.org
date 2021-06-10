@@ -1,5 +1,5 @@
 
-* Low-cost, automated microscope with machine vision
+* Low-cost, automated microscope stage
 
 *This page describes how to build an automated inverted 3d printed microscope for observing microfluidics chips.*
 
@@ -7,8 +7,7 @@ This is a [[https://www.plus.ac.at/biowissenschaften/der-fachbereich/arbeitsgrup
 is provided under MIT License. The source may contain code under a different license, if this is the case it is stated in the LICENSE file.
 
 If not stated otherwise, the designs and documentation in this repository
-is Copyright (c) 2021 Georg Auer,
-and made available under a
+are made publicly available under a
 [[https://creativecommons.org/licenses/by/4.0/][Creative Commons Attribution 4.0 International (CC BY 4.0)]] License.
 
 
@@ -40,7 +39,7 @@ with Prusa Slicer and sent to print on an 3D filament printer (Prusa MK3).
 For the ease of reproduction of the slicer files are also saved within the directory.
 
 #+CAPTION: A screenshot of the microscope in openSCAD.
-[[images/openscad-microscope.jpg]]
+[[./images/openscad_microscope.png]]
 #+BEGIN_QUOTE
 A screenshot of the microscope in openSCAD (for the file see
 [[./files/3d/openscad-microscope.scad]]).
