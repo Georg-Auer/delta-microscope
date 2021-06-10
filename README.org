@@ -39,7 +39,7 @@ with Prusa Slicer and sent to print on an 3D filament printer (Prusa MK3).
 For the ease of reproduction of the slicer files are also saved within the directory.
 
 #+CAPTION: A screenshot of the microscope in openSCAD.
-[[./images/openscad_microscope.png]]
+[[images/openscad_microscope.png]]
 #+BEGIN_QUOTE
 A screenshot of the microscope in openSCAD (for the file see
 [[./files/3d/openscad-microscope.scad]]).
