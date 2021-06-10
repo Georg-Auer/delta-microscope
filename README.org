@@ -70,7 +70,7 @@ A screenshot of the microscope in openSCAD (for the file see
 | Nuts M3                                                        |          33 | fixing screws         | hardware shop |          |             |
 | Screws M6 (15 mm)                                              |          12 | suspension            | hardware shop |          |             |
 | Screws M6 (60 mm)                                              |           6 | suspension            | hardware shop |          |             |
-| Nuts M6 ()                                              |           6 | suspension            | hardware shop |          |             |
+| Nuts M6 ()                                                     |           6 | suspension            | hardware shop |          |             |
 | neodymium bullet magnets ⌀ 10 mm                               |           6 | suspension            | hardware shop |          |             |
 | USB (micro) cable                                              |           1 |                       | cpc-Farnell   |          | ~ 3         |
 | 6 wire colored ribbon cable                                    |         3 m |                       | Technobots    |          | ~ 3         |
@@ -107,7 +107,7 @@ adapted to the distance/revolution grading.
   PCB-connector (or any other connector of your choosing. On our
   motors the colored leads are GREEN, BLACK, BLUE, RED).
 - we use heatshrinking tube to electrically isolate the connectors at the end.
-- add the connector for the leadscrew (5mm brass insert) to the
+- add the connector for the leadscrew (5 mm brass insert) to the
   motor - you might not have space to do that later.
 
 ***** Leadscrew Part
@@ -141,30 +141,9 @@ The end nuts are now placed on the LONG?? M6 screws and the microscope stage is 
 Finally, the microscope-camera can be put in the ring on top where it is held in position with the printed clamp.
 
 
-- slot the steel shafts into the assembled motor part. Take care not
-  to harm the LM6UU linear bearings. 
-
-- add endpart, leadscrew-part and syringe part. Do not forget to
-  insert the collets (8 collets/part, before and after). Don't fix
-  them yet.
-
-- add the electronics to the motor and drive it back and forth (at
-  this point you could add some lithium grease or other lubricant).
-  The leadscrew-part has to be adjusted such that the turning
-  leadscrew stays centered without wobble. Fix the collets
-  securely.
-
-- when finished use a bit of epoxy glue to permanently connect the
-  'universal coupling body' with the brass inserts. The assembly can
-  still be taken apart by loosening the grub-screws holding the motor
-  shaft and the leadscrew together.
- 
-- done!     
-
 ** Electronics
 To drive the stepper motors we use a A4983 stepper driver
-chip from Allegro Microsystems (datasheet
-http://www.technobotsonline.com/Datasheets2/1518-009-A4983SETTR-T.pdf).
+chip from Allegro Microsystems (datasheet http://www.technobotsonline.com/Datasheets2/1518-009-A4983SETTR-T.pdf).
 For convenience we use one 'Big Easy Driver' for each motor
 (http://www.technobotsonline.com/big-easy-driver.html,
 http://www.schmalzhaus.com/BigEasyDriver/). The 'Big Easy Driver'
@@ -248,7 +227,7 @@ The communication protocol between the microcontroller and PD is OSC
 flexible, easy to use two-way communication.
 
 #+CAPTION: System diagram.
-[[images/PumpsSoftwareWorkflow.png]]
+[[images/SoftwareWorkflow.png]]
 #+BEGIN_QUOTE
 System diagram.
 #+END_QUOTE
