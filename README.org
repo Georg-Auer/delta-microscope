@@ -52,27 +52,30 @@ A screenshot of the microscope in openSCAD (for the file see
 - this list is for one microscope. Cost of components
   is approximate.
 
-| item [3X Syringe Pumps]                                        |      number | purpose               | bought from   |  part-no | approx  (euro) |
+| item                                                           |      number | purpose               | bought from   |  part-no | costs in  € |
 |----------------------------------------------------------------+-------------+-----------------------+---------------+----------+-------------|
 | Allegro A4983 Based Stepper Boards: here the 'Big Easy Driver' |           3 | stepper board         | Technobots    | 2900-445 | ~ 70        |
-| Nema 17 Steppers (0..9° 2.4A)                                  |           3 | stepper motor         | act-motor     | 1402-050 | ~ 60        |
-| Teensy 4.0 or 4.1 Microcontroller                              |           1 | control               | conrad        |  2269230 | ~ 30        |
+| Teensy 4.0 or 4.1 Microcontroller                              |           1 | stepper control       | conrad        |  2269230 | ~ 30        |
+| Nema 17 Steppers (0.9° 2.4 A)                                  |           3 | stepper motor         | act-motor     | 1402-050 | ~ 60        |
 | Fine Hex Adjuster, 1/4"-80, 4" Long                            |           3 | leadscrew             | Thorlabs      | F25SS400 | ~ 40        |
 | Locking Phosphor-Bronze Bushing with Nut, 1/4"-80, L=0.50"     |           3 | leadscrewnut          | Thorlabs      |   N80L6P | ~ 28        |
-| Linear Bearing LM6UU 6mm Bushing                               |          12 | slides motorpart      | Technobots    | 4604-606 | ~ 16        |
+| Linear Guide Rails (min 200 mm)                                |           3 | slides platform       | Technobots    | 4604-606 | ~ 45        |
 | Universal Coupling Body                                        |           3 | motor-screw-connector | Technobots    | 4604-050 | ~ 12        |
-| Universal Coupling Insert - 5mm                                |           3 | motor-side            | Technobots    | 4604-059 | ~ 8         |
+| Universal Coupling Insert - 5 mm                               |           3 | motor-side            | Technobots    | 4604-059 | ~ 8         |
 | Universal Coupling Insert - 1/4"                               |           3 | screw-side            | Technobots    | 4604-066 | ~ 8         |
 | OTHER SMALL ITEMS                                              |             |                       |               |          |             |
 | 95mm x 127mm Copper Clad Stripboard (or bigger)                |           1 | mount for electronics | Technobots    |          | ~ 2         |
-| Male & Female PCB Headers 2.45mm pitch                         |        some | simple connectors     | cpc-Farnell   |          | ~ 10        |
-| Screws M3 (25mm): to mount motors                              |          12 |                       | Technobots    | 4300-006 |             |
-| Screws M3 (<10mm), optional                                    |        many | fix collets better    | Technobots    | 4300-002 |             |
-| Screws M6 (~100mm), syringe part lasercut version              |           6 | reduces acrylic       | hardware shop |          |             |
+| Male & Female PCB Headers 2.45 mm pitch                        |        some | simple connectors     | cpc-Farnell   |          | ~ 10        |
+| Screws M3 (10 mm): 12 for motors, 6 for sliders, 15 for guides |          33 | mount slider & motors | hardware shop |          |             |
+| Nuts M3                                                        |          33 | fixing screws         | hardware shop |          |             |
+| Screws M6 (15 mm)                                              |          12 | suspension            | hardware shop |          |             |
+| Screws M6 (60 mm)                                              |           6 | suspension            | hardware shop |          |             |
+| Nuts M6 ()                                              |           6 | suspension            | hardware shop |          |             |
+| neodymium bullet magnets ⌀ 10 mm                               |           6 | suspension            | hardware shop |          |             |
 | USB (micro) cable                                              |           1 |                       | cpc-Farnell   |          | ~ 3         |
-| 6 wire colored ribbon cable                                    |          3m |                       | Technobots    |          | ~ 3         |
-| 12V/>=5A power supply                                          |           1 |                       | cpc-farnell   |          | ~ 20        |
-| 197 g 3D-printer filament (PLA 1.75mm)                         |      1*250g | microscope structure  | 3d jake       |          | ~ 10        |
+| 6 wire colored ribbon cable                                    |         3 m |                       | Technobots    |          | ~ 3         |
+| 12 V / >=5 A power supply                                      |           1 |                       | cpc-farnell   |          | ~ 20        |
+| 197 g 3D-printer filament (PLA 1.75 mm)                        |     1*250 g | microscope structure  | 3d jake       |          | ~ 10        |
 | USA Digital Microscope 40x-1000x                               |           1 | microscope camera     | Bysameyee     |          | ~ 20        |
 |----------------------------------------------------------------+-------------+-----------------------+---------------+----------+-------------|
 |                                                                |             |                       |               |          | <  400     |
