@@ -67,7 +67,7 @@ A screenshot of the microscope in openSCAD (for the file see
 | Male & Female PCB Headers 2.45 mm pitch                        |        some | simple connectors     | cpc-Farnell   |          | ~ 10        |
 | Screws M3 (10 mm): 12 for motors, 6 for sliders, 15 for guides |          33 | mount slider & motors | hardware shop |          |             |
 | Nuts M3                                                        |          33 | fixing screws         | hardware shop |          |             |
-| Screws M6 (15 mm)                                              |          12 | suspension            | hardware shop |          |             |
+| Screws M6 (M6x15 mm)                                              |          12 | suspension            | hardware shop |          |             |
 | Screws M6 (60 mm)                                              |           6 | suspension            | hardware shop |          |             |
 | Nuts M6 ()                                                     |           6 | suspension            | hardware shop |          |             |
 | neodymium bullet magnets ⌀ 10 mm                               |           6 | suspension            | hardware shop |          |             |
@@ -132,11 +132,11 @@ The linear guide rails where screwed onto the main part, and the top part was th
 For correct assembly, the top part has to end on height of the guide rails.
 The three stepper motors where then screwed (12xM3) onto the bottom part.
 The bottom part needs to be screwed on the other end of the guide rails (3xM3).
-Now the ACHSENVERBINDUNGSDINGER are screwed onto the motors and the optical fine threaded rods are fixed on the other side of the ACHSENVERBINDUNGSDINGER.
-For better durability, the plastic part of the ACHSENVERBINDUNGSDINGER are glued to the metallic part with epoxy glue.
-Six M6 screws are glued into the three slider parts, and 6 M6 are glued into the platform.
+Now the universal couplings are screwed onto the motors and the optical fine threaded rods are fixed on the other side of the universal couplings.
+For better durability, the plastic part of the universal couplings are glued to the metallic part with epoxy glue.
+Six M6x15 mm screws are glued into the three slider parts, and M6x15 mm are glued into the platform as preparation for the magnetic joints.
 The slider parts are now joined with their threaded insert and can be screwed onto the guide rails.
-The end nuts are now placed on the LONG?? M6 screws and the microscope stage is completed by putting the neodymium magnets in the joint positions.
+The end nuts are now placed on the M6 screws (60 mm) and the microscope stage is completed by putting the neodymium magnets in the joint positions.
 Finally, the microscope-camera can be put in the ring on top where it is held in position with the printed clamp.
 
 
