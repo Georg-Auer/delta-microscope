@@ -47,36 +47,34 @@ depicted in SFigure 4.3.
 
 Stable 4.1
 
-| item                                                           | number | purpose               | bought from   |  part-no | costs in € |
-|----------------------------------------------------------------+--------+-----------------------+---------------+----------+------------|
-| Allegro A4983 Based Stepper Boards: here the 'Big Easy Driver' |      3 | stepper board         | Technobots    | 2900-445 | ~ 70       |
-| Teensy 4.0 or 4.1 Microcontroller                              |      1 | stepper control       | Conrad        |  2269230 | ~ 30       |
-| Nema 17 Steppers (0.9° 2.4 A)                                  |      3 | stepper motor         | Act-motor     | 1402-050 | ~ 60       |
-| Fine Hex Adjuster, 1/4"-80, 4" Long                            |      3 | leadscrew             | Thorlabs      | F25SS400 | ~ 40       |
-| Locking Phosphor-Bronze Bushing with Nut, 1/4"-80, L=0.50"     |      3 | leadscrewnut          | Thorlabs      |   N80L6P | ~ 28       |
-| Linear Guide Rails (min 200 mm)                                |      3 | slides platform       | Amazon        | CNBTR214 | ~ 45       |
-| Universal Coupling Body                                        |      3 | motor-screw-connector | Technobots    | 4604-050 | ~ 12       |
-| Universal Coupling Insert - 5 mm                               |      3 | motor-side            | Technobots    | 4604-059 | ~ 8        |
-| Universal Coupling Insert - 1/4"                               |      3 | screw-side            | Technobots    | 4604-066 | ~ 8        |
-| OTHER SMALL ITEMS                                              |        |                       |               |          |            |
-| 160 mm x 100 mm Copper Clad Stripboard                         |      1 | mount for electronics | Conrad        |          | ~ 2        |
-| Male & Female PCB Headers 2.45 mm pitch                        |   some | simple connectors     | Conrad        |          | ~ 10       |
-| Screws M3 (10 mm): 12 for motors, 6 for sliders, 15 for guides |     33 | mount slider & motors | Bauhaus       |          |            |
-| Nuts M3                                                        |     33 | fixing screws         | Bauhaus       |          |            |
-| Screws M6 (15 mm)                                              |     12 | suspension            | Bauhaus       |          |            |
-| Screws M6 (60 mm)                                              |      6 | suspension            | Bauhaus       |          |            |
-| Nuts M6 (end nut)                                              |      6 | suspension            | Bauhaus       |          |            |
-| Neodymium bullet magnets ⌀ 10 mm                               |      6 | suspension            | Bauhaus       |          |            |
-| USB (micro) cable                                              |      1 |                       | Conrad        |          | ~ 3        |
-| 6 wire colored ribbon cable                                    |    3 m |                       | Conrad        |          | ~ 3        |
-| 12 V / >=5 A power supply                                      |      1 |                       | Conrad        |          | ~ 20       |
-| 197 g 3D-printer filament (PLA 1.75 mm)                        |1*250 g | microscope structure  | 3d jake       |          | ~ 10       |
-| USA Digital Microscope 40x-1000x                               |      1 | microscope camera     | Bysameyee     |          | ~ 20       |
-|----------------------------------------------------------------+--------+-----------------------+---------------+----------+------------|
-|                                                                |        |                       |               |          | <  400     |
+
+|    <br>item                                                              |    <br>number    |    <br>purpose                    |    <br>Company*      |    <br>part-no     |
+|--------------------------------------------------------------------------|------------------|-----------------------------------|----------------------|--------------------|
+|    <br>Allegro A4983 Based Stepper Boards: here the ‘Big Easy Driver’    |    <br>3         |    <br>stepper board              |    <br>Technobots    |    <br>2900-445    |
+|    <br>Teensy   4.0 or 4.1 Microcontroller                               |    <br>1         |    <br>stepper   control          |    <br>Conrad        |    <br>2269230     |
+|    <br>Nema 17   Steppers (0.9° 2.4 A)                                   |    <br>3         |    <br>stepper   motor            |    <br>Act-motor     |    <br>1402-050    |
+|    <br>Fine Hex   Adjuster, 1/4”-80, 4” Long                             |    <br>3         |    <br>leadscrew                  |    <br>Thorlabs      |    <br>F25SS400    |
+|    <br>Locking Phosphor-Bronze Bushing with Nut, 1/4”-80, L=0.50”        |    <br>3         |    <br>leadscrew   nut            |    <br>Thorlabs      |    <br>N80L6P      |
+|    <br>Linear Guide Rails (min 200 mm)                                   |    <br>3         |    <br>slides   platform          |    <br>Amazon        |    <br>CNBTR214    |
+|    <br>Universal   Coupling Body                                         |    <br>3         |    <br>motor-screw-connector      |    <br>Technobots    |    <br>4604-050    |
+|    <br>Universal   Coupling Insert - 5 mm                                |    <br>3         |    <br>motor-side                 |    <br>Technobots    |    <br>4604-059    |
+|    <br>Universal   Coupling Insert - 1/4”                                |    <br>3         |    <br>screw-side                 |    <br>Technobots    |    <br>4604-066    |
+|    <br>OTHER   SMALL ITEMS                                               |                  |                                   |                      |                    |
+|    <br>160 mm x 100 mm Copper Clad Stripboard                            |    <br>1         |    <br>mount for   electronics    |    <br>Conrad        |                    |
+|    <br>Male & Female PCB Headers 2.45 mm pitch                           |    <br>~10       |    <br>simple   connectors        |    <br>Conrad        |                    |
+|    <br>Screws M3 (10 mm): 12 for motors, 6 for sliders, 15 for guides    |    <br>33        |    <br>mount   slider & motors    |    <br>Bauhaus       |                    |
+|    <br>Nuts M3                                                           |    <br>33        |    <br>fixing   screws            |    <br>Bauhaus       |                    |
+|    <br>Screws M6   (15 mm)                                               |    <br>12        |    <br>suspension                 |    <br>Bauhaus       |                    |
+|    <br>Screws M6   (60 mm)                                               |    <br>6         |    <br>suspension                 |    <br>Bauhaus       |                    |
+|    <br>Nuts M6 (end   nut)                                               |    <br>6         |    <br>suspension                 |    <br>Bauhaus       |                    |
+|    <br>neodymium   bullet magnets ⌀ 10 mm                                |    <br>6         |    <br>suspension                 |    <br>Bauhaus       |                    |
+|    <br>USB   (micro) cable                                               |    <br>1         |                                   |    <br>Conrad        |                    |
+|    <br>6 wire   colored ribbon cable                                     |    <br>3 m       |                                   |    <br>Conrad        |                    |
+|    <br>12 V /   >=5 A power supply                                       |    <br>1         |                                   |    <br>Conrad        |                    |
+|    <br>197 g   3D-printer filament (PLA 1.75 mm)                         |    <br>~250 g    |    <br>microscope   structure     |    <br>3d jake       |                    |
+|    <br>USA   Digital Microscope 40x-1000x                                |    <br>1         |    <br>microscope   camera        |    <br>Bysameyee     |                    |
 
 
-\*Technobots:
 [www.technobotsonline.com](http://www.technobotsonline.com); Thorlabs:
 [www.thorlabs.com](http://www.thorlabs.com); Conrad:
 [www.conrad.at](http://www.conrad.at); Bauhaus:
