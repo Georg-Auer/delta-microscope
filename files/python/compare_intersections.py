@@ -29,14 +29,6 @@ def compare_found_coordinates(picturenames):
     return(coordinates)
 
 def plot_precision(coordinates):
-    def add_titlebox(ax, text):
-        ax.text(.55, .8, text,
-            horizontalalignment='center',
-            transform=ax.transAxes,
-            bbox=dict(facecolor='white', alpha=0.6),
-            fontsize=12.5)
-        return ax
-
     # calculate standard deviation along axis=0 meaning for x and y
     # https://numpy.org/doc/stable/reference/generated/numpy.std.html
     standard_deviation = (np.std(coordinates, axis=0))
@@ -58,10 +50,18 @@ def plot_precision(coordinates):
     plt.boxplot(coordinates_relative_um[:], labels=["X","Y"])
     plt.title('Result')
     # plt.xlabel('Axis')
+    plt.ylim([-15,15])
     plt.ylabel('Derivation in [μm]')
     plt.show()
     #fig = plt.figure(figsize=(12, 8))
 
+    # def add_titlebox(ax, text):
+    #     ax.text(.55, .8, text,
+    #         horizontalalignment='center',
+    #         transform=ax.transAxes,
+    #         bbox=dict(facecolor='white', alpha=0.6),
+    #         fontsize=12.5)
+    #     return ax
     # gridsize = (3, 3)
     # ax1 = plt.subplot2grid(gridsize, (0, 0), colspan=3, rowspan=2)
     # ax2 = plt.subplot2grid(gridsize, (2, 0))
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     #mypath = r'C:\SPOC\DOC\Calibration\images\set'
     #mypath = r'C:\\Users\\Georg\\Documents\\Python Scripts\\delta_bot\\calibration\\cal'
     # mypath = (os.path.join(os.getcwd(), "detection/line_detection/2,5plan"))
-    mypath = (os.path.join(os.getcwd(), "2,5plan/4"))
+    mypath = (os.path.join(os.getcwd(), "2,5plan/1"))
     # mypath = (os.path.join(os.getcwd(), "6,3neofluar"))
     #C:\Users\Georg\Documents\Python Scripts\delta_bot\dustbin
     os.chdir(mypath)
