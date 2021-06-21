@@ -37,45 +37,49 @@ def plot_precision(coordinates):
             fontsize=12.5)
         return ax
 
+    # calculate standard deviation along axis=0 meaning for x and y
+    # https://numpy.org/doc/stable/reference/generated/numpy.std.html
     standard_deviation = (np.std(coordinates, axis=0))
-
-    gridsize = (3, 3)
-    #fig = plt.figure(figsize=(12, 8))
-    ax1 = plt.subplot2grid(gridsize, (0, 0), colspan=3, rowspan=2)
-    ax2 = plt.subplot2grid(gridsize, (2, 0))
-    ax3 = plt.subplot2grid(gridsize, (2, 1))
-    ax4 = plt.subplot2grid(gridsize, (2, 2))
-
-    ax1.set_title('Standard x/y deviation of the microscope [μm]\n {}'.format(np.true_divide(standard_deviation, 0.272)), fontsize=14)
+    print(f"Standard deviation in pixel for x, y: {np.around(standard_deviation, decimals=2)}")
     #272 px = 1mm
     #0.272 px = 1um
-    pixel_per_um = 0.120
+    # pixel_per_um = 0.120 
+    pixel_per_um = 0.272
+    standard_deviation_um = np.true_divide(standard_deviation, pixel_per_um)
+    print(f"Standard deviation in μm for x, y: {np.around(standard_deviation_um, decimals=2)}")
+
     means = np.mean(coordinates, axis=0)
-    print(means)
+    print(f"Means for all lines for x, y: {means}")
     coordinates_minus_mean = np.subtract(coordinates, means)
-
-    print(coordinates_minus_mean)
-
+    print(f"Relative coordinates: {coordinates_minus_mean}")
     coordinates_relative_um = np.true_divide(coordinates_minus_mean, pixel_per_um)
-
     print(coordinates_relative_um)
 
-    ax1.plot(coordinates_relative_um[:,0], coordinates_relative_um[:,1], 'ro')
-    ax2.boxplot(coordinates_relative_um[:])
-    ax3.hist(coordinates_relative_um[:,0], bins='auto')
-    ax4.hist(coordinates_relative_um[:,1], bins='auto')
-
-    add_titlebox(ax2, 'Boxplot for x/y [μm]')
-    add_titlebox(ax3, 'Histogram: x axis [μm]')
-    add_titlebox(ax4, 'Histogram: y axis [μm]')
-
-    #set axis to middle
-    ax1.spines['left'].set_position(('data', 0))
-    ax1.spines['bottom'].set_position(('data', 0))
-    ax1.spines['top'].set_visible(False)
-    ax1.spines['right'].set_visible(False)
-
+    plt.boxplot(coordinates_relative_um[:], labels=["X","Y"])
+    plt.title('Result')
+    # plt.xlabel('Axis')
+    plt.ylabel('Derivation in [μm]')
     plt.show()
+    #fig = plt.figure(figsize=(12, 8))
+
+    # gridsize = (3, 3)
+    # ax1 = plt.subplot2grid(gridsize, (0, 0), colspan=3, rowspan=2)
+    # ax2 = plt.subplot2grid(gridsize, (2, 0))
+    # ax3 = plt.subplot2grid(gridsize, (2, 1))
+    # ax4 = plt.subplot2grid(gridsize, (2, 2))
+    # ax1.set_title(f'Standard x/y deviation of the microscope [μm]\n {np.around(standard_deviation_um, decimals=2)}', fontsize=14)
+    # ax1.plot(coordinates_relative_um[:,0], coordinates_relative_um[:,1], 'ro')
+    # ax2.boxplot(coordinates_relative_um[:])
+    # ax3.hist(coordinates_relative_um[:,0], bins='auto')
+    # ax4.hist(coordinates_relative_um[:,1], bins='auto')
+    # add_titlebox(ax2, 'Boxplot for x/y [μm]')
+    # add_titlebox(ax3, 'Histogram: x axis [μm]')
+    # add_titlebox(ax4, 'Histogram: y axis [μm]')
+    # ax1.spines['left'].set_position(('data', 0))
+    # ax1.spines['bottom'].set_position(('data', 0))
+    # ax1.spines['top'].set_visible(False)
+    # ax1.spines['right'].set_visible(False)
+    # plt.show()
 
 # Only relevant if run as __main__
 if __name__ == '__main__':
@@ -88,7 +92,9 @@ if __name__ == '__main__':
     from os.path import isfile, join        
     #mypath = r'C:\SPOC\DOC\Calibration\images\set'
     #mypath = r'C:\\Users\\Georg\\Documents\\Python Scripts\\delta_bot\\calibration\\cal'
-    mypath = (os.path.join(os.getcwd(), "detection/line_detection/2,5plan"))
+    # mypath = (os.path.join(os.getcwd(), "detection/line_detection/2,5plan"))
+    mypath = (os.path.join(os.getcwd(), "2,5plan/4"))
+    # mypath = (os.path.join(os.getcwd(), "6,3neofluar"))
     #C:\Users\Georg\Documents\Python Scripts\delta_bot\dustbin
     os.chdir(mypath)
     # get names of pictures in a folder

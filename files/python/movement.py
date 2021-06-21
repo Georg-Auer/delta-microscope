@@ -44,21 +44,9 @@ import cv2
 # logo = pygame.image.load(os.path.join('images','ico-delta.png'))
 from pathlib import Path
 
-# test_folder = '..\microscope\images\ico-delta.png'
-# logo = pygame.image.load(test_folder)
-# logo = pygame.image.load('..\microscope\images\ico-delta.png')
 image_folder = Path("../microscope/images/")
 file_to_open = image_folder / "ico-delta.png"
-
-# https://www.reddit.com/r/learnpython/comments/ao9tjo/using_pathlib_with_pygameimageload/
-# print('Folder:')
-# print(repr(test_folder))
-# print(repr(file_to_open))
-# if (test_folder == str(file_to_open)):
-#     print('folder exactly the same')
-# else: print('folder not equal')
 logo = pygame.image.load(str(file_to_open))
-
 pygame.display.set_icon(logo)
 
 BLACK = (0, 0, 0)
