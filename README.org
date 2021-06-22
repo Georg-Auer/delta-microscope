@@ -284,6 +284,15 @@ Screenshot of the program.
  together with a little helper-program for OSC ([[./files/o.io.slipserial.pd]]) in a folder and
   open it in PD-extended or PD-L2ORK.
 - The file 'delta_microscope.pd' is the software front end for contol of the microscope stage.
-  
+- The files ([[./files/python/calibration.py]]) and ([[./files/frontend/delta_microscope_pd_osc_receiver.pd]])
+  can be used together to calibrate the microscope.
 
-
+#+CAPTION: Screenshot of the program. 
+[[images/boxplot.png]]
+#+BEGIN_QUOTE
+The microscope stage can now be controlled via an additional
+PureData program ([[./files/frontend/delta_microscope_pd_osc_receiver.pd]])
+and a python script (files/python/calibration.py) to run to different x/y positions and back to the origin.
+After reaching the origin again, a picture of a raster is taken and analyzed for the line intersection.
+After running the experiment 25 times (n = 25), this resulting boxplot was calculated automatically.
+#+END_QUOTE

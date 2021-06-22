@@ -39,7 +39,7 @@ sudo apt-get -y install puredata --fix-missing
 # comport 1.1.1 for linuxarmv7-32
 # mrpeach for linuxarmv7-32
 
-# alternative automated install?
+# alternative automated install:
 # cd /home/pi/
 # sudo mkdir Pd
 # sudo mkdir Pd/externals
