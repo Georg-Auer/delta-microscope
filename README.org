@@ -289,7 +289,7 @@ Screenshot of the program.
 - place the PD-programs ([[./files/delta_microscope/delta_microscope.pd]])
  together with a little helper-program for OSC ([[./files/o.io.slipserial.pd]]) in a folder and
   open it in PD-extended or PD-L2ORK.
-- The file 'delta_microscope.pd' is the software front end.
+- The file 'delta_microscope.pd' is the software front end for contol of the microscope stage.
   
 
 
