@@ -1,4 +1,5 @@
 pygame
 matplotlib
 numpy
+osc4py3
 opencv-python==4.5.2
