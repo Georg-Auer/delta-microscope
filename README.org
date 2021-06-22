@@ -111,12 +111,6 @@ adapted to the distance/revolution grading.
 - insert the screw VERY carefully to avoid damaging the thread which can
   happen rather easily.
 
-#+CAPTION: Pre-assemble motor with leadscrew (bottom right) and component inventory.
-[[images/MotorAssembly.jpeg]]
-#+BEGIN_QUOTE
-Pre-assemble motor with leadscrew (bottom right) and component inventory.
-#+END_QUOTE
-
 ***** Camera
 The Microscope can be exchanged with an variety of solutions. We tried an Raspberry HQ Camera v1.0
 with SM1 to C-mount adapter (thorlabs, SM1A9) to 1 inch optics connected to an Zeiss Plan 2,5 objective,
