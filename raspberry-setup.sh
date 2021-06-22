@@ -71,7 +71,7 @@ sudo rm -rf TeensyduinoInstall.linuxarm
 # now just go to the ip of the raspberry in any browser, it should open the web interface
 
 cd ~
-git clone git@github.com:spoc-lab/delta_microscope.git
+git clone git@github.com:spoc-lab/delta-microscope.git
 
 #sudo apt-get install -y libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev  libqtgui4  libqt4-test
 # install opencv 4.4.0.44 prerequisites on raspian buster, using preinstalled python3.7
@@ -100,9 +100,6 @@ sudo pip3 install opencv-python
 # cd Python-3.9.5
 # sudo ./configure --enable-optimizations
 # make altinstall 
-
-#for gui installation just use
-# pip3 install dearpygui
 
 # check if any python processes are running
 # pgrep -lf python
