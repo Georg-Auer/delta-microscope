@@ -11,12 +11,11 @@ Created on Wed Nov  6 10:23:40 2019
 # Question remains: Is osc4py3.as_eventloop perfect for such a usage?
 
 # programs used: Python 3.6.9, Pd-l2ork-2.9.0
-# FlyCap2 2.13.3.61 driver and respective PyCapture2
 # following files where used: 
 # calibration.py (this python code)
 # movement.py, position.py and camera.py are needed for this script to work
-# 191021_delta_module_cam_trigger_endstops.pd, this is dependent on the file o.io.slipserial.pd
-# 191029_delta_module_OSC_Receiver-Georg.pd
+# delta_microscope.pd, this is dependent on the file o.io.slipserial.pd
+# delta_microscope_osc_receiver.pd
 
 # Import needed modules from osc4py3
 from osc4py3.as_eventloop import osc_udp_client, \
