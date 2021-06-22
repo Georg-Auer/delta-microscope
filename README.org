@@ -274,7 +274,7 @@ which in turn controls the motor driver via the Step/Dir protocol.
 *** To get a debian system to run all necessary programs, use the new-raspi.sh shell script.
 
 #+CAPTION: Screenshot of the program. 
-[[images/software_screenshot.png]]
+[[images/software-screenshot.png]]
 #+BEGIN_QUOTE
 Screenshot of the program. 
 #+END_QUOTE
