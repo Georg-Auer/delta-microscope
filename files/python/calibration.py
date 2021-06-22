@@ -58,7 +58,7 @@ from find_intersection import find_intersection_point
 from compare_intersections import compare_found_coordinates
 from compare_intersections import plot_precision
 
-def calibration_pictures(border = 1000, iterations = 1, positioning_time = 0.8, homing_time = 1):
+def calibration_pictures(border1 = 1000, border2 = 1000, iterations = 1, positioning_time = 0.8, homing_time = 1):
     z = 0 # z value where object should be in focus
     #border = 100000 # value the microscope should move to each side
     #positioning_time = 9 # time it takes to move (9)
@@ -73,22 +73,22 @@ def calibration_pictures(border = 1000, iterations = 1, positioning_time = 0.8, 
         # calibrations.append(Position("cnorm", 0, 0, z))
         # calibrations.append(Position("cdown", 0, 0, z+up_down_z))
         calibrations.append(Position("c0", 0, 0, z))
-        calibrations.append(Position("c1", border, border, z))
+        calibrations.append(Position("c1", border1, border2, z))
 
-        # calibrations.append(Position("cnorm", 0, 0, z))
-        # calibrations.append(Position("cdown", 0, 0, z+up_down_z))
-        calibrations.append(Position("c0", 0, 0, z))
-        calibrations.append(Position("c2", border, -border, z))
+        # # calibrations.append(Position("cnorm", 0, 0, z))
+        # # calibrations.append(Position("cdown", 0, 0, z+up_down_z))
+        # calibrations.append(Position("c0", 0, 0, z))
+        # calibrations.append(Position("c2", border1, -border2, z))
 
-        # calibrations.append(Position("cnorm", 0, 0, z))
-        # calibrations.append(Position("cdown", 0, 0, z+up_down_z))
-        calibrations.append(Position("c0", 0, 0, z))
-        calibrations.append(Position("c3", -border, -border, z))
+        # # calibrations.append(Position("cnorm", 0, 0, z))
+        # # calibrations.append(Position("cdown", 0, 0, z+up_down_z))
+        # calibrations.append(Position("c0", 0, 0, z))
+        # calibrations.append(Position("c3", -border1, -border2, z))
 
-        # calibrations.append(Position("cnorm", 0, 0, z))
-        # calibrations.append(Position("cdown", 0, 0, z+up_down_z))
-        calibrations.append(Position("c0", 0, 0, z))
-        calibrations.append(Position("c4", -border, border, z))
+        # # calibrations.append(Position("cnorm", 0, 0, z))
+        # # calibrations.append(Position("cdown", 0, 0, z+up_down_z))
+        # calibrations.append(Position("c0", 0, 0, z))
+        # calibrations.append(Position("c4", -border1, border2, z))
 
         i += 1
 
@@ -112,9 +112,9 @@ def calibration_pictures(border = 1000, iterations = 1, positioning_time = 0.8, 
     #time.sleep(time_between_iterations)
     return calibrations
 
-def analyze_and_calibrate(iterations):
+def analyze_and_calibrate(border1, border2, iterations):
     # do calibration and get array
-    calibrations = calibration_pictures(10000, iterations)
+    calibrations = calibration_pictures(border1, border2, iterations)
     # for each c0 picture, compare_intersections
     #print(calibrations[1].name)
     #print(calibrations[0].picture)
@@ -133,8 +133,6 @@ def analyze_and_calibrate(iterations):
     # print("Variance axis=1")
     # print(np.var(coordinates, axis=1))
     plot_precision(coordinates)
-
-#analyze_and_calibrate(1)
 
 def pictures_at_positions(experiment_positions, iterations = 1, positioning_time = 9, time_between_iterations = 0):
     # positioning_time = time it takes to move (9)
@@ -245,3 +243,13 @@ def autofocus(x, y, z, iterations, stepsize = 1000):
     # print(z_value)
     return z_value
 
+if __name__ == '__main__':
+    iterations = 100
+    border1 = border2 = 10000
+    print("This module can find intersection points on pictures with lines.")
+    print("It will only work, if the user makes sure that only one intersection is visible on the picture.")
+    print("For testing the stage, the stage is moved to a coordinate, moved back and a picture is taken.")
+    print("This is repeated for {iterations} iterations.")
+    print(f"For each picture, the intersection of the calibration lines is searched.")
+    print(f"The intersections x/y coordinates can be used to measure the accuracy of the stage.")
+    analyze_and_calibrate(border1, border2, iterations)

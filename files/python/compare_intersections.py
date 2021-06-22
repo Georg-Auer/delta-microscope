@@ -55,6 +55,7 @@ def plot_precision(coordinates):
     plt.show()
     #fig = plt.figure(figsize=(12, 8))
 
+    # alternatively: subplots with scatter plot, boxplot and histogram
     # def add_titlebox(ax, text):
     #     ax.text(.55, .8, text,
     #         horizontalalignment='center',
