@@ -1,0 +1,41 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Gallery {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="panel-header panel-header-sm">
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="title">
+                Captured Images
+              </h5>
+              <p class="category">
+                  Images from experiment <b>{{experiment_name}}</b>
+              </p>
+            </div>
+              <div class="card-body">
+                {% for name in images %}
+                {{name}}<br>
+                <img src="{{ url_for('static', filename='upload/' + image_foldername + name) }}" ><br>
+                {% endfor %}
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
+
+
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
