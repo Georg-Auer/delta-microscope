@@ -18,10 +18,6 @@
 # The rest is automatically done with this script:
 sudo apt-get -y install feh
 
-# remove unwanted stuff
-sudo apt-get purge wolfram-engine -y
-sudo apt-get purge libreoffice* -y
-
 #upgrades..
 sudo apt update -y
 sudo apt upgrade -y
