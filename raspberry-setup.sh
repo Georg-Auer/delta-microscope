@@ -60,7 +60,7 @@ cd ~/Downloads
 sudo wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxarm # compatible with arduino 1.8.13
 sudo chmod 755 TeensyduinoInstall.linuxarm
 ./TeensyduinoInstall.linuxarm
-#choose where you put the installation files in the GUI
+#choose where you put the installation files in the GUI with X11
 sudo rm -rf TeensyduinoInstall.linuxarm
 
 # now choose a picture folder, and install
