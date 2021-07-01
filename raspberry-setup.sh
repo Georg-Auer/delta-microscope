@@ -1,12 +1,16 @@
 # How to set up a Raspberry 3b / 4 for use with the SPOC lab Microscope
 
-# Download Raspberry Pi Imager and install the latest version of Raspberry OS on an SD card with at least 32 GB
-# Create a file on the card named SSH (no file extension), the Raspberry can now be used "headless" over network without a display.
+# Download Raspberry Pi Imager and install the latest version of Raspberry OS
+# on an SD card with at least 32 GB
+# Create a file on the card named SSH (no file extension),
+# the Raspberry can now be used "headless" over network without a display.
 # https://www.raspberrypi.org/software/
 
-# Now find the ip of the raspberry, it is displayed at the first boot (Display needed for this step)
+# Now find the ip of the raspberry, it is displayed at the first boot
+# (Display needed for this step)
 # or found via Advanced IP Scanner (Windows) or nmap in linux
-# Now install a X11 "X Server" on your machine, for instance VcXSrv https://sourceforge.net/projects/vcxsrv/ in Windows 10,
+# Now install a X11 "X Server" on your machine,
+# for instance VcXSrv https://sourceforge.net/projects/vcxsrv/ in Windows 10,
 # or xquartz for Mac OS X http://xquartz.macosforge.org/
 # Login via SSH, for instance PuTTy in Windows 10 or MacOS X (enable X11!)
 # login with username: "pi" and password "raspberry"
@@ -15,8 +19,12 @@
 # sudo raspi-config
 # Expand the filesystem with: “7 Advanced Options” menu item if applicable
 
-# The rest is automatically done with this script:
-sudo apt-get -y install feh
+# The rest is automatically done with this script
+# or could be done by copying/executing its content
+# to make the .sh executable first run
+# chmod +x ./raspberry-setup.sh
+# then execute the script with
+# ./raspberry-setup.sh
 
 #upgrades..
 sudo apt update -y
@@ -25,25 +33,31 @@ sudo apt upgrade -y
 sudo apt clean -y
 sudo apt autoremove -y
 
-#installs puredata, externals are missing..
-sudo apt-get -y install puredata --fix-missing
+cd ~
+git clone git@github.com:spoc-lab/delta-microscope.git
 
-# now you have to boot puredata, an add externals:
-# Help -> finde externals -> preferences: add externals to path = YES
-# hide foreign architectures: NO
-# now search for the following two modules and install them, click on add to path if asked:
-# comport 1.1.1 for linuxarmv7-32
-# mrpeach for linuxarmv7-32
+#sudo apt-get install -y libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev  libqtgui4  libqt4-test
+# install opencv prerequisites on raspberry OS, using preinstalled python3.7
+sudo apt install -y libaom0 libatk-bridge2.0-0 libatk1.0-0 libatlas3-base libatspi2.0-0 libavcodec58 libavformat58 libavutil56 libbluray2 libcairo-gobject2 libcairo2 libchromaprint1 libcodec2-0.8.1 libcroco3 libdatrie1 libdrm2 libepoxy0 libfontconfig1 libgdk-pixbuf2.0-0 libgfortran5 libgme0 libgraphite2-3 libgsm1 libgtk-3-0 libharfbuzz0b libilmbase23 libjbig0 libmp3lame0 libmpg123-0 libogg0 libopenexr23 libopenjp2-7 libopenmpt0 libopus0 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 librsvg2-2 libshine3 libsnappy1v5 libsoxr0 libspeex1 libssh-gcrypt-4 libswresample3 libswscale5 libthai0 libtheora0 libtiff5 libtwolame0 libva-drm2 libva-x11-2 libva2 libvdpau1 libvorbis0a libvorbisenc2 libvorbisfile3 libvpx5 libwavpack1 libwayland-client0 libwayland-cursor0 libwayland-egl1 libwebp6 libwebpmux3 libx264-155 libx265-165 libxcb-render0 libxcb-shm0 libxcomposite1 libxcursor1 libxdamage1 libxfixes3 libxi6 libxinerama1 libxkbcommon0 libxrandr2 libxrender1 libxvidcore4 libzvbi0
 
-# alternative automated install:
-# cd /home/pi/
-# sudo mkdir Pd
-# sudo mkdir Pd/externals
-# cd /home/pi/Pd/externals/
-#import externals here - skript breaks anyway?
+# torch and torchvision for armv7
+#requirements:
+sudo apt install libopenblas-dev libblas-dev m4 cmake cython python3-dev python3-yaml python3-setuptools
+
+cd ~
+sudo mkdir Downloads
+cd ~/Downloads
+git clone https://github.com/Kashu7100/pytorch-armv7l.git
+cd pytorch-armv7l
+sudo pip3 install torch-1.7.0a0-cp37-cp37m-linux_armv7l.whl
+sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
+
+# the local python3 will be modified (!):
+sudo pip3 install -r requirements.txt
 
 #arduino:
-mkdir -p ~/Applications
+cd ~
+sudo mkdir Applications
 cd ~/Applications
 wget https://downloads.arduino.cc/arduino-1.8.13-linuxarm.tar.xz
 tar xvJf arduino-1.8.13-linuxarm.tar.xz
@@ -60,21 +74,13 @@ cd ~/Downloads
 sudo wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxarm # compatible with arduino 1.8.13
 sudo chmod 755 TeensyduinoInstall.linuxarm
 ./TeensyduinoInstall.linuxarm
-#choose where you put the installation files in the GUI with X11
+#choose where you put the installation files in the GUI(!) with X11
 sudo rm -rf TeensyduinoInstall.linuxarm
 
 # now choose a picture folder, and install
 # now just go to the ip of the raspberry in any browser, it should open the web interface
 
-cd ~
-git clone git@github.com:spoc-lab/delta-microscope.git
 
-#sudo apt-get install -y libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev  libqtgui4  libqt4-test
-# install opencv 4.4.0.44 prerequisites on raspian buster, using preinstalled python3.7
-sudo apt install -y libaom0 libatk-bridge2.0-0 libatk1.0-0 libatlas3-base libatspi2.0-0 libavcodec58 libavformat58 libavutil56 libbluray2 libcairo-gobject2 libcairo2 libchromaprint1 libcodec2-0.8.1 libcroco3 libdatrie1 libdrm2 libepoxy0 libfontconfig1 libgdk-pixbuf2.0-0 libgfortran5 libgme0 libgraphite2-3 libgsm1 libgtk-3-0 libharfbuzz0b libilmbase23 libjbig0 libmp3lame0 libmpg123-0 libogg0 libopenexr23 libopenjp2-7 libopenmpt0 libopus0 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 librsvg2-2 libshine3 libsnappy1v5 libsoxr0 libspeex1 libssh-gcrypt-4 libswresample3 libswscale5 libthai0 libtheora0 libtiff5 libtwolame0 libva-drm2 libva-x11-2 libva2 libvdpau1 libvorbis0a libvorbisenc2 libvorbisfile3 libvpx5 libwavpack1 libwayland-client0 libwayland-cursor0 libwayland-egl1 libwebp6 libwebpmux3 libx264-155 libx265-165 libxcb-render0 libxcb-shm0 libxcomposite1 libxcursor1 libxdamage1 libxfixes3 libxi6 libxinerama1 libxkbcommon0 libxrandr2 libxrender1 libxvidcore4 libzvbi0
-
-# the local python3 will be modified:
-sudo pip3 install opencv-python
 
 # # python 3.8.9 install
 # sudo mkdir ~/Downloads
