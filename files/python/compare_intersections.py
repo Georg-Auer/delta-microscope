@@ -92,14 +92,13 @@ if __name__ == '__main__':
     from os import listdir
     from os.path import isfile, join        
     #mypath = r'C:\SPOC\DOC\Calibration\images\set'
-    #mypath = r'C:\\Users\\Georg\\Documents\\Python Scripts\\delta_bot\\calibration\\cal'
     # mypath = (os.path.join(os.getcwd(), "detection/line_detection/2,5plan"))
-    mypath = (os.path.join(os.getcwd(), "2,5plan/1"))
+    # mypath = (os.path.join(os.getcwd(), "2,5plan/1"))
     # mypath = (os.path.join(os.getcwd(), "6,3neofluar"))
-    #C:\Users\Georg\Documents\Python Scripts\delta_bot\dustbin
-    os.chdir(mypath)
+    # os.chdir(mypath)
+    mypath = os.getcwd()
     # get names of pictures in a folder
-    print(f"Searching files in directory {os.getcwd()}")
+    print(f"Searching files in directory {mypath}")
     picturenames = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     print(picturenames)
     # use the list of picture names

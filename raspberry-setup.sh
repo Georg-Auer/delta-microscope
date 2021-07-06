@@ -33,8 +33,15 @@ sudo apt upgrade -y
 sudo apt clean -y
 sudo apt autoremove -y
 
+
+# https://git-scm.com/book/en/v2/Git-Tools-Submodules
+# git clone git@github.com:spoc-lab/delta-microscope.git
+# git submodule init
+# git submodule update
+# clone with yolov5 submodule:
 cd ~
-git clone git@github.com:spoc-lab/delta-microscope.git
+git clone --recurse-submodules git@github.com:spoc-lab/delta-microscope.git
+
 
 #sudo apt-get install -y libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev  libqtgui4  libqt4-test
 # install opencv prerequisites on raspberry OS, using preinstalled python3.7
@@ -80,7 +87,11 @@ sudo rm -rf TeensyduinoInstall.linuxarm
 # now choose a picture folder, and install
 # now just go to the ip of the raspberry in any browser, it should open the web interface
 
-
+# how tu run on boot:
+# sudo nano /etc/rc.local
+# insert:
+# cd home/pi/het-cam-dashboard
+# sudo CAMERA=opencv python3 run.py &
 
 # # python 3.8.9 install
 # sudo mkdir ~/Downloads
