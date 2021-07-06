@@ -63,10 +63,12 @@ sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
 sudo pip3 install -r requirements.txt
 
 #arduino:
+# to avoid a bug that stops creating the Arduino IDE icon:
+mkdir -p $HOME/.local/share/icons/hicolor
 cd ~
-sudo mkdir Applications
+mkdir Applications
 cd ~/Applications
-wget https://downloads.arduino.cc/arduino-1.8.13-linuxarm.tar.xz
+wget arduino-1.8.13-linuxarm.tar.xz https://downloads.arduino.cc/arduino-1.8.13-linuxarm.tar.xz
 tar xvJf arduino-1.8.13-linuxarm.tar.xz
 cd arduino-1.8.13/
 ./install.sh
@@ -75,10 +77,11 @@ rm ../arduino-1.8.13-linuxarm.tar.xz
 #teensy:
 cd /etc/udev/rules.d/
 sudo wget https://www.pjrc.com/teensy/49-teensy.rules
+sudo cp /tmp/49-teensy.rules /etc/udev/rules.d/
 cd ~
-sudo mkdir Downloads
+mkdir Downloads
 cd ~/Downloads
-sudo wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxarm # compatible with arduino 1.8.13
+wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxarm # compatible with arduino 1.8.13
 sudo chmod 755 TeensyduinoInstall.linuxarm
 ./TeensyduinoInstall.linuxarm
 #choose where you put the installation files in the GUI(!) with X11
