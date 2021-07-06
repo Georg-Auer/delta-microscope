@@ -148,10 +148,10 @@ void loop()
   motor2.moveTo(arduino_motorC);
   // motor3.moveTo(testStruct.motor3_position);
 
-  motor0.setSpeed(10000);
-  motor1.setSpeed(10000);
-  motor2.setSpeed(10000);
-  motor3.setSpeed(10000);
+  motor0.setSpeed(20000);
+  motor1.setSpeed(20000);
+  motor2.setSpeed(20000);
+  motor3.setSpeed(20000);
 
   motor0.runSpeedToPosition();  
   motor1.runSpeedToPosition();
