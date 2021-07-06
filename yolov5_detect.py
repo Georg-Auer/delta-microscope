@@ -4,10 +4,10 @@ import torch
 # def detect(raw_image_foldername, exp_foldername, yolo_dir):
 def detect():
     model = torch.hub.load('yolov5/', 'custom', path='weights/spheroids.pt', source='local')  # local repo
-    img1 = cv2.imread('het-cam-test.jpg')  # OpenCV image (BGR to RGB)
-    results = model(img1, size=640)  # includes NMS
-    # results.print()
-    # print(results.xyxy)
+    img1 = cv2.imread('spheroids1.jpg')  # OpenCV image (BGR to RGB)
+    results = model(img1, size=416)  # includes NMS
+    results.print()
+    print(results.xyxy)
     result2 = results.pandas().xyxy[0]  # img1 predictions (pandas)
     print(result2)
 
