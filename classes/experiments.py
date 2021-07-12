@@ -285,6 +285,7 @@ class Position(object):
         self.raw_dir = raw_dir
         self.skeleton_dir = skeleton_dir
         self.yolo_dir = yolo_dir
+        self.yolo_results = []
         # should it take a starting image here?
         # video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
         # filename = f'{IMAGEPATH}/het-cam-raw/position{task_position}_{video_frame_timepoint}.jpg'
@@ -316,10 +317,10 @@ class Position(object):
         # print(type(self.raw_image))
         file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         print(file_in_foldername)
-        results = detect(file_in_foldername)
+        self.yolo_results = detect(file_in_foldername)
         # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = 
         # this should also get bounding boxes and found classes
-        print(results)
+        print(self.yolo_results)
         # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = results
 
 if __name__ == '__main__':

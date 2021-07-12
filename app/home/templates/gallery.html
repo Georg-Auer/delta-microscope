@@ -26,6 +26,11 @@
                 {{name}}<br>
                 <img src="{{ url_for('static', filename='upload/' + image_foldername + name) }}" ><br>
                 {% endfor %}
+                <!-- only used for yolo_results -->
+                {% for position in saved_positions %}
+                {{position.yolo_results}}<br>
+                {% endfor %}
+
               </div>
           </div>
         </div>

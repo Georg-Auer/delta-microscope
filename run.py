@@ -263,7 +263,7 @@ def show_yolo():
     yolo_image_list = os.listdir(yolo_image_foldername)
     print(yolo_image_list)
     foldername_gallery = f'{current_experiment.name}/{current_experiment.yolo_dir}/'
-    return render_template("gallery.html", image_foldername = foldername_gallery,
+    return render_template("gallery.html", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
     experiment_name = current_experiment.name, images = yolo_image_list)
 
 @app.route("/add-position")

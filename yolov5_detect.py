@@ -2,9 +2,10 @@ import cv2
 import torch
 
 # def detect(raw_image_foldername, exp_foldername, yolo_dir):
-def detect():
+def detect(file_in_foldername):
     model = torch.hub.load('yolov5/', 'custom', path='weights/spheroids.pt', source='local')  # local repo
-    img1 = cv2.imread('spheroids1.jpg')  # OpenCV image (BGR to RGB)
+    # img1 = cv2.imread('spheroids1.jpg')  # OpenCV image (BGR to RGB)
+    img1 = cv2.imread(file_in_foldername)  # OpenCV image (BGR to RGB)
     results = model(img1, size=416)  # includes NMS
     results.print()
     print(results.xyxy)
