@@ -226,26 +226,6 @@ def show_gallery():
     return render_template("gallery.html", experiment_name = current_experiment.name, 
     image_foldername = foldername_gallery, images = raw_image_list)
 
-@app.route("/gallery-skeleton")
-def show_gallery_skeleton():
-    current_experiment = select_flagged_experiment()
-    print(f"Current experiment name(s): {current_experiment.name}")
-
-    # this should be done via button or algorithm
-    # in times where cpu load is low or after experiment
-    # current_experiment.saved_positions.calculate_skeleton()
-    for position in current_experiment.saved_positions:
-        position.calculate_skeleton()
-        # current_experiment.saved_positions[-1].timestamp
-
-    skeleton_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.skeleton_dir}/'
-    print(f"skeleton img foldername: {skeleton_image_foldername}")
-    skeleton_image_list = os.listdir(skeleton_image_foldername)
-    print(skeleton_image_list)
-    foldername_gallery = f'{current_experiment.name}/{current_experiment.skeleton_dir}/'
-    return render_template("gallery.html", image_foldername = foldername_gallery,
-    experiment_name = current_experiment.name, images = skeleton_image_list)
-
 @app.route("/gallery-yolo")
 def show_yolo():
     current_experiment = select_flagged_experiment()
@@ -255,13 +235,15 @@ def show_yolo():
     # in times where cpu load is low or after experiment
     # current_experiment.saved_positions.calculate_yolo()
     for position in current_experiment.saved_positions:
-        position.calculate_yolo()
+        if (position):
+            position.calculate_yolo()
         # current_experiment.saved_positions[-1].timestamp
 
     yolo_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.yolo_dir}/'
     print(f"yolo img foldername: {yolo_image_foldername}")
     yolo_image_list = os.listdir(yolo_image_foldername)
     print(yolo_image_list)
+
     foldername_gallery = f'{current_experiment.name}/{current_experiment.yolo_dir}/'
     return render_template("gallery.html", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
     experiment_name = current_experiment.name, images = yolo_image_list)

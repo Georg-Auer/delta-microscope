@@ -198,7 +198,7 @@ class Experiment(object):
         # create new position with image
         self.saved_positions.append(Position(self.name, self.current_position,
         self.exp_foldername, self.raw_dir, self.skeleton_dir,
-        self.yolo_dir, filename, image))
+        self.yolo_dir, filename, file_in_foldername))
 
     def create_directories(self):
         for variant in self.img_variant_folders:
@@ -275,13 +275,15 @@ class Position(object):
     # raw_image, skeletal_image,
     # feature_bifurcations, feature_endings, yolo_image, yolo_classes,
     # yolo_coordinates, yolo_poi_circles, features_bifurcations_poi, feature_endings_poi
-    def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, filename, RGB_img):
+    def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, filename, fullpath_raw_image):
         self.name = name
         self.position = xyz_position
         self.timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         self.filename = filename
-        self.raw_image = RGB_img
+        # self.raw_image = RGB_img
         self.exp_foldername = exp_foldername
+        # self.fullpath_raw_image = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
+        self.fullpath_raw_image = fullpath_raw_image
         self.raw_dir = raw_dir
         self.skeleton_dir = skeleton_dir
         self.yolo_dir = yolo_dir
@@ -289,19 +291,6 @@ class Position(object):
         # should it take a starting image here?
         # video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
         # filename = f'{IMAGEPATH}/het-cam-raw/position{task_position}_{video_frame_timepoint}.jpg'
-    
-    # def take_raw_image(self):
-    #     print(f"raw image should be taken")
-    #     self.raw_image = take_image(self)
-    def calculate_skeleton(self):
-        print(f"raw image is sent to analyze skeleton")
-        print(f"Calculating for position {self.name}")
-        print(type(self.raw_image))
-        self.skeletal_image, self.x_terminations, self.y_terminations, self.x_bifurcations, self.y_bifurcations = prepare_and_analyze(self.raw_image)
-        print(self.skeletal_image,self.x_terminations, self.y_terminations, self.x_bifurcations, self.y_bifurcations)
-        file_in_foldername = f"{self.exp_foldername}/{self.skeleton_dir}/{self.filename}"
-        print(file_in_foldername)
-        cv2.imwrite(file_in_foldername, self.skeletal_image)
 
     # def calculate_yolo(self):
     #     print(f"raw image should be sent to analyze objects")
@@ -315,9 +304,9 @@ class Position(object):
         print(f"raw image is sent to detection")
         print(f"Calculating for position {self.name}")
         # print(type(self.raw_image))
-        file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
-        print(file_in_foldername)
-        self.yolo_results = detect(file_in_foldername)
+        # file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
+        # print(file_in_foldername)
+        self.yolo_results = detect(self.fullpath_raw_image)
         # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = 
         # this should also get bounding boxes and found classes
         print(self.yolo_results)
