@@ -320,7 +320,7 @@ class Position(object):
         # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = 
         # this should also get bounding boxes and found classes
         print(results)
-        self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = results
+        # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = results
 
 if __name__ == '__main__':
 
