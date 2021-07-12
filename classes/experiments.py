@@ -6,7 +6,7 @@ import numpy as np
 import os
 from classes.pyserial_connection_arduino import connect_to_arduino, list_available_ports
 from classes.bifurcation_detection import prepare_and_analyze
-from classes.yolov5_detect import detect
+from yolov5_detect import detect
 
 from classes.scientific_camera import take_raspicampic
 
@@ -302,15 +302,25 @@ class Position(object):
         print(file_in_foldername)
         cv2.imwrite(file_in_foldername, self.skeletal_image)
 
+    # def calculate_yolo(self):
+    #     print(f"raw image should be sent to analyze objects")
+    #     print(f"Calculating for position {self.name}")
+    #     print(type(self.raw_image))
+    #     file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
+    #     print(file_in_foldername)
+    #     detect(file_in_foldername, self.exp_foldername, self.yolo_dir)
+        
     def calculate_yolo(self):
-        print(f"raw image should be sent to analyze objects")
+        print(f"raw image is sent to detection")
         print(f"Calculating for position {self.name}")
-        print(type(self.raw_image))
+        # print(type(self.raw_image))
         file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         print(file_in_foldername)
-        detect(file_in_foldername, self.exp_foldername, self.yolo_dir)
-        # self.yolo_image = 
+        results = detect(file_in_foldername)
+        # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = 
         # this should also get bounding boxes and found classes
+        print(results)
+        self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = results
 
 if __name__ == '__main__':
 
