@@ -13,7 +13,7 @@ def detect(file_in_foldername):
     print(result2)
 
 if __name__ == '__main__':
-    detect()
+    detect("spheroids2.jpg")
 
 # if __name__ == '__main__':
         
