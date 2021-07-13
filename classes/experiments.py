@@ -307,6 +307,8 @@ class Position(object):
         # file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         # print(file_in_foldername)
         self.yolo_results = detect(self.fullpath_raw_image)
+
+        print(f"Detection results {self.yolo_results} stored to position")
         # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = 
         # this should also get bounding boxes and found classes
         print(self.yolo_results)
