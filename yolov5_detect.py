@@ -1,19 +1,28 @@
 import cv2
 import torch
+# import pandas as pd
 
 # def detect(raw_image_foldername, exp_foldername, yolo_dir):
 def detect(file_in_foldername):
     model = torch.hub.load('yolov5/', 'custom', path='weights/spheroids.pt', source='local')  # local repo
-    # img1 = cv2.imread('spheroids1.jpg')  # OpenCV image (BGR to RGB)
-    img1 = cv2.imread(file_in_foldername)  # OpenCV image (BGR to RGB)
-    results = model(img1, size=416)  # includes NMS
+    image = cv2.imread(file_in_foldername)  # OpenCV image (BGR to RGB)
+    results = model(image, size=416)  # includes NMS
     results.print()
-    print(results.xyxy)
-    result2 = results.pandas().xyxy[0]  # img1 predictions (pandas)
-    print(result2)
+    # print(results.xyxy)
+    # result2 = pd.DataFrame()
+    pandaresult = results.pandas().xyxy[0]  # image predictions (pandas)
+    # print(result2)
+    # print(type(result2))
+    # print(result2.sort_values("confidence",ascending=True))
+    # print(result2.head(1))
+    # result2 = pd.DataFrame(results.pandas().xyxy[0])  # image predictions (pandas)
+    # print(result2)
+    return pandaresult
 
 if __name__ == '__main__':
-    detect("spheroids2.jpg")
+    result = detect("spheroids2.jpg")
+    print(result)
+    print(type(result))
 
 # if __name__ == '__main__':
         

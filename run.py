@@ -241,7 +241,7 @@ def show_yolo():
 
     #show stored results
     for position in current_experiment.saved_positions:
-        print(position.yolo_results)
+        print(f"Detection results for {position.name}{position.yolo_results}")
 
     yolo_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.yolo_dir}/'
     print(f"yolo img foldername: {yolo_image_foldername}")
