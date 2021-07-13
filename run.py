@@ -243,14 +243,21 @@ def show_yolo():
     for position in current_experiment.saved_positions:
         print(f"Detection results for {position.name}{position.yolo_results}")
 
-    yolo_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.yolo_dir}/'
-    print(f"yolo img foldername: {yolo_image_foldername}")
-    yolo_image_list = os.listdir(yolo_image_foldername)
-    print(yolo_image_list)
+    # yolo_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.yolo_dir}/'
+    # print(f"yolo img foldername: {yolo_image_foldername}")
+    # yolo_image_list = os.listdir(yolo_image_foldername)
+    # print(yolo_image_list)
+    # foldername_gallery = f'{current_experiment.name}/{current_experiment.yolo_dir}/'
 
-    foldername_gallery = f'{current_experiment.name}/{current_experiment.yolo_dir}/'
+    raw_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.raw_dir}/'
+    raw_image_list = os.listdir(raw_image_foldername)
+    print(raw_image_list)
+    foldername_gallery = f'{current_experiment.name}/{current_experiment.raw_dir}/'
+
+    # return render_template("gallery.html", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
+    # experiment_name = current_experiment.name, images = yolo_image_list)
     return render_template("gallery.html", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
-    experiment_name = current_experiment.name, images = yolo_image_list)
+    experiment_name = current_experiment.name, images = raw_image_list)
 
 @app.route("/add-position")
 def add_position():
