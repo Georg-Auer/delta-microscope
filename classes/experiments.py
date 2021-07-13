@@ -307,6 +307,8 @@ class Position(object):
         # file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         # print(file_in_foldername)
         self.yolo_results = detect(self.fullpath_raw_image)
+        import pandas
+        self.yolo_results_json = self.yolo_results.to_json(orient='records')
 
         print(f"Detection results {self.yolo_results} stored to position")
 
