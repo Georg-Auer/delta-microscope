@@ -23,8 +23,8 @@ if __name__ == '__main__':
     yolo_results = detect("spheroids2.jpg")
     print(yolo_results)
     print(type(yolo_results))
-    # yolo_results_json = yolo_results.to_json(orient='records')
-    # print(yolo_results_json)
+    yolo_results_json = yolo_results.to_json(orient='records')
+    print(yolo_results_json)
 
 # if __name__ == '__main__':
         
