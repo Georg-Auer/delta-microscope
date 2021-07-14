@@ -160,7 +160,8 @@ def detect(raw_image_foldername, exp_foldername, yolo_dir):
     parser = argparse.ArgumentParser()
     parser.add_argument('--weights', nargs='+', type=str, default='weights/spheroids.pt', help='model.pt path(s)')
     # parser.add_argument('--source', type=str, default='app/base/static/upload/het-cam-raw', help='source')  # file/folder, 0 for webcam
-    parser.add_argument('--source', type=str, default=f'{raw_image_foldername}', help='source')  # file/folder, 0 for webcam
+    # parser.add_argument('--source', type=str, default=f'{raw_image_foldername}', help='source')  # file/folder, 0 for webcam
+    parser.add_argument('--source', type=str, default='spheroids1.jpg', help='source')  # file/folder, 0 for webcam
     parser.add_argument('--img-size', type=int, default=416, help='inference size (pixels)') #default 640
     parser.add_argument('--conf-thres', type=float, default=0.4, help='object confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.45, help='IOU threshold for NMS')
