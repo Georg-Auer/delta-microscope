@@ -25,6 +25,7 @@
 # chmod +x ./raspberry-setup.sh
 # then execute the script with
 # ./raspberry-setup.sh
+# the local python3 will be modified (!)
 
 #upgrades..
 sudo apt update -y
@@ -47,13 +48,33 @@ git clone --recurse-submodules https://github.com/spoc-lab/delta-microscope.git
 
 #sudo apt-get install -y libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev  libqtgui4  libqt4-test
 # install opencv prerequisites on raspberry OS, using preinstalled python3.7
-sudo apt install -y libaom0 libatk-bridge2.0-0 libatk1.0-0 libatlas3-base libatspi2.0-0 libavcodec58 libavformat58 libavutil56 libbluray2 libcairo-gobject2 libcairo2 libchromaprint1 libcodec2-0.8.1 libcroco3 libdatrie1 libdrm2 libepoxy0 libfontconfig1 libgdk-pixbuf2.0-0 libgfortran5 libgme0 libgraphite2-3 libgsm1 libgtk-3-0 libharfbuzz0b libilmbase23 libjbig0 libmp3lame0 libmpg123-0 libogg0 libopenexr23 libopenjp2-7 libopenmpt0 libopus0 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 librsvg2-2 libshine3 libsnappy1v5 libsoxr0 libspeex1 libssh-gcrypt-4 libswresample3 libswscale5 libthai0 libtheora0 libtiff5 libtwolame0 libva-drm2 libva-x11-2 libva2 libvdpau1 libvorbis0a libvorbisenc2 libvorbisfile3 libvpx5 libwavpack1 libwayland-client0 libwayland-cursor0 libwayland-egl1 libwebp6 libwebpmux3 libx264-155 libx265-165 libxcb-render0 libxcb-shm0 libxcomposite1 libxcursor1 libxdamage1 libxfixes3 libxi6 libxinerama1 libxkbcommon0 libxrandr2 libxrender1 libxvidcore4 libzvbi0
+sudo apt install -y libaom0 libatk-bridge2.0-0 libatk1.0-0 libatlas3-base libatspi2.0-0
+sudo apt install -y libavcodec58 libavformat58 libavutil56 libbluray2 libcairo-gobject2
+sudo apt install -y libcairo2 libchromaprint1 libcodec2-0.8.1 libcroco3 libdatrie1 libdrm2
+sudo apt install -y libepoxy0 libfontconfig1 libgdk-pixbuf2.0-0 libgfortran5 libgme0
+sudo apt install -y libgraphite2-3 libgsm1 libgtk-3-0 libharfbuzz0b libilmbase23 libjbig0
+sudo apt install -y libmp3lame0 libmpg123-0 libogg0 libopenexr23 libopenjp2-7 libopenmpt0
+sudo apt install -y libopus0 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0
+sudo apt install -y librsvg2-2 libshine3 libsnappy1v5 libsoxr0 libspeex1 libssh-gcrypt-4
+sudo apt install -y libswresample3 libswscale5 libthai0 libtheora0 libtiff5 libtwolame0
+sudo apt install -y libva-drm2 libva-x11-2 libva2 libvdpau1 libvorbis0a libvorbisenc2
+sudo apt install -y libvorbisfile3 libvpx5 libwavpack1 libwayland-client0 libwayland-cursor0
+sudo apt install -y libwayland-egl1 libwebp6 libwebpmux3 libx264-155 libx265-165 libxcb-render0
+sudo apt install -y libxcb-shm0 libxcomposite1 libxcursor1 libxdamage1 libxfixes3 libxi6
+sudo apt install -y libxinerama1 libxkbcommon0 libxrandr2 libxrender1 libxvidcore4 libzvbi0
 
-sudo apt install cmake # for scikit-image
-sudo apt install libssl-dev # for scikit-image
+sudo apt install -y cmake # for scikit-image
+sudo apt install -y libssl-dev # for scikit-image
 # torch and torchvision for armv7
 #requirements:
-sudo apt install libopenblas-dev libblas-dev m4 cmake cython python3-dev python3-yaml python3-setuptools
+sudo apt install -y libopenblas-dev libblas-dev m4 cmake cython
+sudo apt install -y python3-devpython3-yamlpython3-setuptools
+
+sudo apt install -y python3-matplotlib python3-numpy python3-scipy
+sudo apt install -y python3-opencv python3-pandas python3-dev
+
+# install of the requirements:
+sudo pip3 install -r requirements.txt
 
 # installation of torch and torchvision for raspberry os 32bit:
 cd ~
@@ -63,9 +84,6 @@ git clone https://github.com/Kashu7100/pytorch-armv7l.git
 cd pytorch-armv7l
 sudo pip3 install torch-1.7.0a0-cp37-cp37m-linux_armv7l.whl
 sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
-
-# the local python3 will be modified (!):
-sudo pip3 install -r requirements.txt
 
 #arduino:
 # to avoid a bug that stops creating the Arduino IDE icon:
