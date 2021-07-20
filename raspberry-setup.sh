@@ -85,6 +85,12 @@ cd pytorch-armv7l
 sudo pip3 install torch-1.7.0a0-cp37-cp37m-linux_armv7l.whl
 sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
 
+#installing on 64bit:
+pip install torch -f https://torch.kmtea.eu/whl/stable.html
+pip install torchvision -f https://torch.kmtea.eu/whl/stable.html
+# building does not work because scipy==1.1 is installed via apt and >=1.5 needed
+# building scipy does not work either
+
 #arduino:
 # to avoid a bug that stops creating the Arduino IDE icon:
 mkdir -p $HOME/.local/share/icons/hicolor
