@@ -29,7 +29,9 @@
 
 # The rest is automatically done with this script
 # or could be done by copying/executing its content
-# to make the .sh executable first run
+# first, go into the newly created git folder and make the .sh executable
+# cd ~
+# cd delta-microscope
 # chmod +x ./raspberry-setup.sh
 # then execute the script with
 # ./raspberry-setup.sh
