@@ -39,10 +39,10 @@
 sudo apt install --upgrade python3-pip -y
 sudo apt install --upgrade git -y
 
-#upgrades..
+# upgrades:
 sudo apt update -y
 sudo apt upgrade -y
-
+# cleanup
 sudo apt clean -y
 sudo apt autoremove -y
 
