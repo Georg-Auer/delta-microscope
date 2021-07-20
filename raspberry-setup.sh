@@ -19,6 +19,14 @@
 # sudo raspi-config
 # Expand the filesystem with: “7 Advanced Options” menu item if applicable
 
+# https://git-scm.com/book/en/v2/Git-Tools-Submodules
+# git clone git@github.com:spoc-lab/delta-microscope.git
+# git submodule init
+# git submodule update
+# clone with yolov5 submodule:
+# cd ~
+# git clone --recurse-submodules https://github.com/spoc-lab/delta-microscope.git
+
 # The rest is automatically done with this script
 # or could be done by copying/executing its content
 # to make the .sh executable first run
@@ -27,24 +35,16 @@
 # ./raspberry-setup.sh
 # the local python3 will be modified (!)
 
+# if raspberry os lite 64 is installed:
+sudo apt install --upgrade python3-pip -y
+sudo apt install --upgrade git -y
+
 #upgrades..
 sudo apt update -y
 sudo apt upgrade -y
 
 sudo apt clean -y
 sudo apt autoremove -y
-
-# if raspberry os lite 64 is installed:
-sudo apt install python3-pip -y
-sudo apt install git -y
-
-# https://git-scm.com/book/en/v2/Git-Tools-Submodules
-# git clone git@github.com:spoc-lab/delta-microscope.git
-# git submodule init
-# git submodule update
-# clone with yolov5 submodule:
-cd ~
-git clone --recurse-submodules https://github.com/spoc-lab/delta-microscope.git
 
 #sudo apt-get install -y libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev  libqtgui4  libqt4-test
 # install opencv prerequisites on raspberry OS, using preinstalled python3.7
@@ -65,18 +65,22 @@ sudo apt install -y libxinerama1 libxkbcommon0 libxrandr2 libxrender1 libxvidcor
 
 sudo apt install -y cmake # for scikit-image
 sudo apt install -y libssl-dev # for scikit-image
+
+sudo pip3 install --upgrade pip
+# install of the requirements:
+sudo pip3 install -r requirements.txt
 # torch and torchvision for armv7
 #requirements:
 sudo apt install -y libopenblas-dev libblas-dev m4 cmake cython
 sudo apt install -y python3-devpython3-yamlpython3-setuptools
-
 sudo apt install -y python3-matplotlib python3-numpy python3-scipy
 sudo apt install -y python3-opencv python3-pandas python3-dev
 
-# install of the requirements:
+# install of the requirements to catch everything:
 sudo pip3 install -r requirements.txt
 
 # installation of torch and torchvision for raspberry os 32bit:
+# if 64 bit, this will be invalid anyways
 cd ~
 sudo mkdir Downloads
 cd ~/Downloads
@@ -84,8 +88,9 @@ git clone https://github.com/Kashu7100/pytorch-armv7l.git
 cd pytorch-armv7l
 sudo pip3 install torch-1.7.0a0-cp37-cp37m-linux_armv7l.whl
 sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
+cd ~
 
-#installing on 64bit:
+#installing on 64bit, if it did not work earlier:
 pip install torch -f https://torch.kmtea.eu/whl/stable.html
 pip install torchvision -f https://torch.kmtea.eu/whl/stable.html
 # building does not work because scipy==1.1 is installed via apt and >=1.5 needed
