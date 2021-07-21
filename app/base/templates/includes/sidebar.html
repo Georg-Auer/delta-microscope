@@ -19,8 +19,7 @@
       <ul class="nav">
       {% if current_user.is_authenticated %}
         <li class="active">
-          <!-- / means: index.html -->
-          <a href="/">
+          <a href="/"> {# / means: index.html #}
             <i class="now-ui-icons media-1_camera-compact"></i>
             <p>Camera</p>
           </a>
@@ -31,12 +30,6 @@
             <p>Recorded Images</p>
           </a>
         </li>
-        <!-- <li class="active">
-          <a href="/gallery-skeleton">
-            <i class="now-ui-icons design_image"></i>
-            <p>Skeletonized Images</p>
-          </a>
-        </li> -->
         <li class="active">
           <a href="/gallery-yolo">
             <i class="now-ui-icons design_image"></i>
@@ -55,6 +48,13 @@
             <p>Camera</p>
           </a>
         </li>
+        {#
+        <!-- <li class="active">
+          <a href="/gallery-skeleton">
+            <i class="now-ui-icons design_image"></i>
+            <p>Skeletonized Images</p>
+          </a>
+        </li> -->
         <!-- <li class="active">
           <a href="/dashboard.html">
             <i class="now-ui-icons education_atom"></i>
@@ -104,6 +104,7 @@
                 <p>Error 404</p>
             </a>
         </li>         -->
+        #}
         <li class="">
             <a href="{{ url_for('base_blueprint.logout') }}">
                 <i class="now-ui-icons media-1_button-power"></i>
