@@ -15,10 +15,12 @@ def index():
 
     return render_template('index.html', segment='index')
 
+# this route is not active!?
 @blueprint.route('/<template>')
 @login_required
 def route_template(template):
-
+    print("template:::::::::::::::::::::::::::::::::::::::::")
+    print(template)
     try:
 
         if not template.endswith( '.html' ):
@@ -40,12 +42,11 @@ def route_template(template):
 def get_segment( request ): 
 
     try:
-
         segment = request.path.split('/')[-1]
-
         if segment == '':
             segment = 'index'
-
+        print("segment:::::::::::::::::::::::::::::::::::::::::")
+        print(segment)
         return segment    
 
     except:

@@ -18,93 +18,100 @@
     <div class="sidebar-wrapper" id="sidebar-wrapper">
       <ul class="nav">
       {% if current_user.is_authenticated %}
-        <li class="active">
-          <a href="/"> {# / means: index.html #}
+        <li class="{% if 'index' in segment %} active {% endif %}">
+          {#<!-- / means: index.html -->#}
+          <a href="/">
             <i class="now-ui-icons media-1_camera-compact"></i>
             <p>Camera</p>
           </a>
         </li>
-        <li class="">
+        <li class="{% if 'gallery' in segment %} active {% endif %}">
           <a href="/gallery">
             <i class="now-ui-icons design_image"></i>
             <p>Recorded Images</p>
           </a>
         </li>
-        <li class="">
+        <li class="{% if 'yolo' in segment %} active {% endif %}">
           <a href="/gallery-yolo">
             <i class="now-ui-icons design_image"></i>
             <p>Yolov5 object detection</p>
           </a>
         </li>        
-        <li class="">
+        <li class="{% if 'experiments' in segment %} active {% endif %}">
           <a href="/experiments">
             <i class="now-ui-icons education_atom"></i>
             <p>Experiments</p>
           </a>
         </li>
-        <li class="">
+        <li class="{% if 'camera-settings' in segment %} active {% endif %}">
           <a href="/camera-settings">
             <i class="now-ui-icons ui-1_settings-gear-63"></i>
             <p>Camera</p>
           </a>
         </li>
         {#
-        <!-- <li class="active">
+        <!-- <li class="{% if 'skeleton' in segment %} active {% endif %}">
           <a href="/gallery-skeleton">
             <i class="now-ui-icons design_image"></i>
             <p>Skeletonized Images</p>
           </a>
         </li> -->
-        <!-- <li class="active">
-          <a href="/dashboard.html">
-            <i class="now-ui-icons education_atom"></i>
-            <p>Dashboard</p>
-          </a>
-        </li> -->
-        <!-- <li class="active">
-          <a href="/user.html">
-            <i class="now-ui-icons users_single-02"></i>
-            <p>User Profile</p>
-          </a>
-        </li>
-        <li class="active">
-          <a href="/icons.html">
-            <i class="now-ui-icons design_app location_map-big"></i>
-            <p>Icons</p>
-          </a>
-        </li>
-        <li class="active">
-          <a href="/notifications.html">
-            <i class="now-ui-icons ui-1_bell-53"></i>
-            <i class="now-ui-icons loader_gear"></i>
-            <p>Notifications</p>
-          </a>
-        </li>
-        <li class="active">
-          <a href="/tables.html">
-            <i class="now-ui-icons design_bullet-list-67"></i>
-            <p>Table List</p>
-          </a>
-        </li>
-        <li class="active">
-          <a href="/typography.html">
-            <i class="now-ui-icons text_caps-small"></i>
-            <p>Typography</p>
-          </a>
-        </li> -->
-        <!-- <li class="active">
-            <a href="/page-blank.html">
-                <i class="now-ui-icons text_caps-small"></i>
-                <p>Blank Page</p>
+          <!-- <li class="active">
+            <a href="/gallery-skeleton">
+              <i class="now-ui-icons design_image"></i>
+              <p>Skeletonized Images</p>
             </a>
-        </li>
-        <li class="active">
-            <a href="/page-404.html">
-                <i class="now-ui-icons loader_gear"></i>
-                <p>Error 404</p>
+          </li> -->
+          <!-- <li class="active">
+            <a href="/dashboard.html">
+              <i class="now-ui-icons education_atom"></i>
+              <p>Dashboard</p>
             </a>
-        </li>         -->
-        #}
+          </li> -->
+          <!-- <li class="active">
+            <a href="/user.html">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>User Profile</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="/icons.html">
+              <i class="now-ui-icons design_app location_map-big"></i>
+              <p>Icons</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="/notifications.html">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <i class="now-ui-icons loader_gear"></i>
+              <p>Notifications</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="/tables.html">
+              <i class="now-ui-icons design_bullet-list-67"></i>
+              <p>Table List</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="/typography.html">
+              <i class="now-ui-icons text_caps-small"></i>
+              <p>Typography</p>
+            </a>
+          </li> -->
+          <!-- <li class="active">
+              <a href="/page-blank.html">
+                  <i class="now-ui-icons text_caps-small"></i>
+                  <p>Blank Page</p>
+              </a>
+          </li>
+          <li class="active">
+              <a href="/page-404.html">
+                  <i class="now-ui-icons loader_gear"></i>
+                  <p>Error 404</p>
+              </a>
+          </li>         -->
+          #}
         <li class="">
             <a href="{{ url_for('base_blueprint.logout') }}">
                 <i class="now-ui-icons media-1_button-power"></i>
@@ -119,7 +126,7 @@
           </a>
         </li>
         {% else %}
-        <li class="">
+        <li class="{% if 'gallery' in segment %} active {% endif %}">
           <a href="/gallery">
             <i class="now-ui-icons design_image"></i>
             <p>Recorded Images</p>
