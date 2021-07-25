@@ -6,6 +6,14 @@ flask_login>=0.5.0
 flask_migrate>=2.7.0
 flask_wtf>=0.14.3
 flask_sqlalchemy>=2.4.4
+flask_migrate
+flask_login
+flask_apscheduler
+flask_wtf
+flask_bootstrap
+email_validator
+imutils
+python_decouple
 sqlalchemy>=1.3.23
 email_validator>=1.1.2
 python-decouple>=3.4
@@ -13,7 +21,7 @@ gunicorn>=20.0.4
 jinja2>=2.11.3
 pillow>=6.2.0
 pySerial
-pySerialTransfer>=2.1.2
+pySerialTransfer
 imutils
 scikit-image
 opencv-python

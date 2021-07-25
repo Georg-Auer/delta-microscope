@@ -40,14 +40,12 @@
 # if raspberry os lite 64 is installed:
 sudo apt install --upgrade python3-pip -y
 sudo apt install --upgrade git -y
-
 # upgrades:
 sudo apt update -y
 sudo apt upgrade -y
 # cleanup
 sudo apt clean -y
 sudo apt autoremove -y
-
 #sudo apt-get install -y libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev  libqtgui4  libqt4-test
 # install opencv prerequisites on raspberry OS, using preinstalled python3.7
 sudo apt install -y libaom0 libatk-bridge2.0-0 libatk1.0-0 libatlas3-base libatspi2.0-0
@@ -64,10 +62,8 @@ sudo apt install -y libvorbisfile3 libvpx5 libwavpack1 libwayland-client0 libway
 sudo apt install -y libwayland-egl1 libwebp6 libwebpmux3 libx264-155 libx265-165 libxcb-render0
 sudo apt install -y libxcb-shm0 libxcomposite1 libxcursor1 libxdamage1 libxfixes3 libxi6
 sudo apt install -y libxinerama1 libxkbcommon0 libxrandr2 libxrender1 libxvidcore4 libzvbi0
-
 sudo apt install -y cmake # for scikit-image
 sudo apt install -y libssl-dev # for scikit-image
-
 sudo pip3 install --upgrade pip
 # install of the requirements:
 sudo pip3 install -r requirements.txt
@@ -77,62 +73,40 @@ sudo apt install -y libopenblas-dev libblas-dev m4 cmake cython
 sudo apt install -y python3-devpython3-yamlpython3-setuptools
 sudo apt install -y python3-matplotlib python3-numpy python3-scipy
 sudo apt install -y python3-opencv python3-pandas python3-dev
-
 # install of the requirements to catch everything:
 sudo pip3 install -r requirements.txt
-
 # installation of torch and torchvision for raspberry os 32bit:
 # if 64 bit, this will be invalid anyways
 cd ~
-sudo mkdir Downloads
+mkdir Downloads
 cd ~/Downloads
 git clone https://github.com/Kashu7100/pytorch-armv7l.git
 cd pytorch-armv7l
 sudo pip3 install torch-1.7.0a0-cp37-cp37m-linux_armv7l.whl
 sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
 cd ~
-
 #installing on 64bit, if it did not work earlier:
 pip install torch -f https://torch.kmtea.eu/whl/stable.html
 pip install torchvision -f https://torch.kmtea.eu/whl/stable.html
 # building does not work because scipy==1.1 is installed via apt and >=1.5 needed
 # building scipy does not work either
+# command line only install:
+# https://www.pjrc.com/teensy/td_download.html
 
-#arduino:
-# to avoid a bug that stops creating the Arduino IDE icon:
-mkdir -p $HOME/.local/share/icons/hicolor
-cd ~
-mkdir Applications
-cd ~/Applications
-wget arduino-1.8.13-linuxarm.tar.xz https://downloads.arduino.cc/arduino-1.8.13-linuxarm.tar.xz
-tar xvJf arduino-1.8.13-linuxarm.tar.xz
-cd arduino-1.8.13/
-./install.sh
-rm ../arduino-1.8.13-linuxarm.tar.xz
-
-#teensy:
-cd /etc/udev/rules.d/
-sudo wget https://www.pjrc.com/teensy/49-teensy.rules
-# sudo cp /tmp/49-teensy.rules /etc/udev/rules.d/
-cd ~
-mkdir Downloads
-cd ~/Downloads
-# for 32 bit:
-wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxarm # compatible with arduino 1.8.13
-sudo chmod 755 TeensyduinoInstall.linuxarm
-./TeensyduinoInstall.linuxarm
-#choose where you put the installation files in the GUI(!) with X11
-sudo rm -rf TeensyduinoInstall.linuxarm
-
-# for 64 bit:
+wget https://downloads.arduino.cc/arduino-1.8.15-linux64.tar.xz
+wget https://www.pjrc.com/teensy/td_154/TeensyduinoInstall.linux64
+wget https://www.pjrc.com/teensy/00-teensy.rules
+sudo cp 00-teensy.rules /etc/udev/rules.d/
+tar -xf arduino-1.8.15-linux64.tar.xz
+chmod 755 TeensyduinoInstall.linux64
+./TeensyduinoInstall.linux64 --dir=arduino-1.8.15
+cd arduino-1.8.15/hardware/teensy/avr/cores/teensy4
+make
 wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxaarch64 # compatible with arduino 1.8.13
 sudo chmod 755 TeensyduinoInstall.linuxaarch64
 ./TeensyduinoInstall.linuxaarch64
 #choose where you put the installation files in the GUI(!) with X11
 sudo rm -rf TeensyduinoInstall.linuxaarch64
-
-# new command line only install:
-# https://www.pjrc.com/teensy/td_download.html
 cd ~
 wget https://downloads.arduino.cc/arduino-1.8.15-linuxaarch64.tar.xz
 wget https://www.pjrc.com/teensy/td_154/TeensyduinoInstall.linuxaarch64
@@ -144,13 +118,32 @@ chmod 755 TeensyduinoInstall.linuxaarch64
 cd arduino-1.8.15/hardware/teensy/avr/cores/teensy4
 make
 
+
+# install for 64bit
+# for 64 bit:
+# wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxaarch64 # compatible with arduino 1.8.13
+# sudo chmod 755 TeensyduinoInstall.linuxaarch64
+# ./TeensyduinoInstall.linuxaarch64
+# #choose where you put the installation files in the GUI(!) with X11
+# sudo rm -rf TeensyduinoInstall.linuxaarch64
+# cd ~
+# wget https://downloads.arduino.cc/arduino-1.8.15-linuxaarch64.tar.xz
+# wget https://www.pjrc.com/teensy/td_154/TeensyduinoInstall.linuxaarch64
+# wget https://www.pjrc.com/teensy/00-teensy.rules
+# sudo cp 00-teensy.rules /etc/udev/rules.d/
+# tar -xf arduino-1.8.15-linuxaarch64.tar.xz
+# chmod 755 TeensyduinoInstall.linuxaarch64
+# ./TeensyduinoInstall.linuxaarch64 --dir=arduino-1.8.15
+# cd arduino-1.8.15/hardware/teensy/avr/cores/teensy4
+# make
+
 # now choose a picture folder, and install
 # now just go to the ip of the raspberry in any browser, it should open the web interface
 
 # how tu run on boot:
 # sudo nano /etc/rc.local
 # insert:
-# cd home/pi/het-cam-dashboard
+# cd home/pi/delta-microscope
 # sudo CAMERA=opencv python3 run.py &
 
 # # python 3.8.9 install
@@ -182,3 +175,29 @@ make
 # or:
 # kill -9 <PID found previously>
 
+# install with gui:
+# #arduino:
+# # to avoid a bug that stops creating the Arduino IDE icon:
+# mkdir -p $HOME/.local/share/icons/hicolor
+# cd ~
+# mkdir Applications
+# cd ~/Applications
+# wget arduino-1.8.13-linuxarm.tar.xz https://downloads.arduino.cc/arduino-1.8.13-linuxarm.tar.xz
+# tar xvJf arduino-1.8.13-linuxarm.tar.xz
+# cd arduino-1.8.13/
+# ./install.sh
+# rm ../arduino-1.8.13-linuxarm.tar.xz
+
+# #teensy:
+# cd /etc/udev/rules.d/
+# sudo wget https://www.pjrc.com/teensy/49-teensy.rules
+# # sudo cp /tmp/49-teensy.rules /etc/udev/rules.d/
+# cd ~
+# mkdir Downloads
+# cd ~/Downloads
+# # for 32 bit:
+# wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxarm # compatible with arduino 1.8.13
+# sudo chmod 755 TeensyduinoInstall.linuxarm
+# ./TeensyduinoInstall.linuxarm
+# #choose where you put the installation files in the GUI(!) with X11
+# sudo rm -rf TeensyduinoInstall.linuxarm
