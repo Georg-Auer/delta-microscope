@@ -103,8 +103,9 @@ DATABASE = []
 def index():
     """Video streaming home page."""
     # return render_template('index.html', images=images)
-    # return render_template("index.html", experiment_name = current_experiment.name)
-    return render_template('index.html')
+    current_experiment = select_flagged_experiment()
+    return render_template("index.html", segment="index", experiment_name = current_experiment.name)
+    # return render_template('index.html')
     
 
 def gen(camera):
@@ -223,7 +224,7 @@ def show_gallery():
     raw_image_list = os.listdir(raw_image_foldername)
     print(raw_image_list)
     foldername_gallery = f'{current_experiment.name}/{current_experiment.raw_dir}/'
-    return render_template("gallery.html", experiment_name = current_experiment.name, 
+    return render_template("gallery.html", segment="gallery", experiment_name = current_experiment.name, 
     image_foldername = foldername_gallery, images = raw_image_list)
 
 @app.route("/gallery-yolo")
@@ -256,7 +257,7 @@ def show_yolo():
 
     # return render_template("gallery.html", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
     # experiment_name = current_experiment.name, images = yolo_image_list)
-    return render_template("gallery.html", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
+    return render_template("gallery.html", segment="gallery-yolo", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
     experiment_name = current_experiment.name, images = raw_image_list)
 
 @app.route("/add-position")
@@ -357,7 +358,7 @@ def experiments():
             DATABASE.append(new_experiment)
             message = (f"The experiment {new_experiment.name} was created. Positions set to {new_experiment.experiment_positions}. Interval time set to {new_experiment.interval_minutes} minutes")
 
-    return render_template('experiments.html', names=names, positions=positions, intervals=intervals, form=form, message=message)
+    return render_template('experiments.html', names=names, segment="experiments" ,positions=positions, intervals=intervals, form=form, message=message)
 
 @app.route('/get_experiment_status') 
 # @app.route('/experiments')
