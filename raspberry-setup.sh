@@ -113,15 +113,36 @@ rm ../arduino-1.8.13-linuxarm.tar.xz
 #teensy:
 cd /etc/udev/rules.d/
 sudo wget https://www.pjrc.com/teensy/49-teensy.rules
-sudo cp /tmp/49-teensy.rules /etc/udev/rules.d/
+# sudo cp /tmp/49-teensy.rules /etc/udev/rules.d/
 cd ~
 mkdir Downloads
 cd ~/Downloads
+# for 32 bit:
 wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxarm # compatible with arduino 1.8.13
 sudo chmod 755 TeensyduinoInstall.linuxarm
 ./TeensyduinoInstall.linuxarm
 #choose where you put the installation files in the GUI(!) with X11
 sudo rm -rf TeensyduinoInstall.linuxarm
+
+# for 64 bit:
+wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxaarch64 # compatible with arduino 1.8.13
+sudo chmod 755 TeensyduinoInstall.linuxaarch64
+./TeensyduinoInstall.linuxaarch64
+#choose where you put the installation files in the GUI(!) with X11
+sudo rm -rf TeensyduinoInstall.linuxaarch64
+
+# new command line only install:
+# https://www.pjrc.com/teensy/td_download.html
+cd ~
+wget https://downloads.arduino.cc/arduino-1.8.15-linuxaarch64.tar.xz
+wget https://www.pjrc.com/teensy/td_154/TeensyduinoInstall.linuxaarch64
+wget https://www.pjrc.com/teensy/00-teensy.rules
+sudo cp 00-teensy.rules /etc/udev/rules.d/
+tar -xf arduino-1.8.15-linuxaarch64.tar.xz
+chmod 755 TeensyduinoInstall.linuxaarch64
+./TeensyduinoInstall.linuxaarch64 --dir=arduino-1.8.15
+cd arduino-1.8.15/hardware/teensy/avr/cores/teensy4
+make
 
 # now choose a picture folder, and install
 # now just go to the ip of the raspberry in any browser, it should open the web interface
