@@ -64,17 +64,15 @@ sudo apt install -y libxcb-shm0 libxcomposite1 libxcursor1 libxdamage1 libxfixes
 sudo apt install -y libxinerama1 libxkbcommon0 libxrandr2 libxrender1 libxvidcore4 libzvbi0
 sudo apt install -y cmake # for scikit-image
 sudo apt install -y libssl-dev # for scikit-image
+sudo apt install -y libopenblas-dev libblas-dev m4 cmake cython
 sudo pip3 install --upgrade pip
 # install of the requirements:
 sudo pip3 install -r requirements.txt
 # torch and torchvision for armv7
-#requirements:
-sudo apt install -y libopenblas-dev libblas-dev m4 cmake cython
-sudo apt install -y python3-devpython3-yamlpython3-setuptools
-sudo apt install -y python3-matplotlib python3-numpy python3-scipy
-sudo apt install -y python3-opencv python3-pandas python3-dev
-# install of the requirements to catch everything:
-sudo pip3 install -r requirements.txt
+# # for 64 bit emergency install only:
+# sudo apt install -y python3-devpython3-yamlpython3-setuptools
+# sudo apt install -y python3-matplotlib python3-numpy python3-scipy
+# sudo apt install -y python3-opencv python3-pandas python3-dev
 # installation of torch and torchvision for raspberry os 32bit:
 # if 64 bit, this will be invalid anyways
 cd ~
