@@ -23,6 +23,7 @@
 # git clone git@github.com:spoc-lab/delta-microscope.git
 # git submodule init
 # git submodule update
+
 # clone with yolov5 submodule:
 # cd ~
 # git clone --recurse-submodules https://github.com/spoc-lab/delta-microscope.git
@@ -33,7 +34,7 @@
 # cd ~
 # cd delta-microscope
 # chmod +x ./raspberry-setup.sh
-# then execute the script with
+# # then execute the script with
 # ./raspberry-setup.sh
 # the local python3 will be modified (!)
 
@@ -84,8 +85,8 @@ sudo pip3 install torch-1.7.0a0-cp37-cp37m-linux_armv7l.whl
 sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
 cd ~
 #installing on 64bit, if it did not work earlier:
-pip install torch -f https://torch.kmtea.eu/whl/stable.html
-pip install torchvision -f https://torch.kmtea.eu/whl/stable.html
+pip3 install torch -f https://torch.kmtea.eu/whl/stable.html
+pip3 install torchvision -f https://torch.kmtea.eu/whl/stable.html
 # building does not work because scipy==1.1 is installed via apt and >=1.5 needed
 # building scipy does not work either
 # command line only install:

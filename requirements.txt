@@ -1,3 +1,7 @@
+pillow>=6.2.0
+pySerial
+pySerialTransfer
+imutils
 numpy>=1.16.5
 flask_apscheduler
 flask_bootstrap
@@ -19,10 +23,6 @@ email_validator>=1.1.2
 python-decouple>=3.4
 gunicorn>=20.0.4
 jinja2>=2.11.3
-pillow>=6.2.0
-pySerial
-pySerialTransfer
-imutils
 scikit-image
 opencv-python
 pandas
