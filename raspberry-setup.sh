@@ -27,6 +27,7 @@
 # clone with yolov5 submodule:
 # cd ~
 # git clone --recurse-submodules https://github.com/spoc-lab/delta-microscope.git
+# git clone --recurse-submodules https://github.com/georg-auer/delta-microscope.git
 
 # The rest is automatically done with this script
 # or could be done by copying/executing its content
