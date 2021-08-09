@@ -2,7 +2,7 @@ pillow>=6.2.0
 pySerial
 pySerialTransfer
 imutils
-PyYAML
+PyYAML>=5.3.1
 numpy>=1.16.5
 flask_apscheduler
 flask_bootstrap
@@ -29,7 +29,6 @@ opencv-python
 pandas
 requests
 tqdm
-pyyaml
 seaborn
 torch
 torchvision
