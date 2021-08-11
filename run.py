@@ -148,7 +148,7 @@ def move_deg():
     # if(xyz_position <= -90):
     #     xyz_position = -90
 
-    print(f"Moving to {xyz_position}°")
+    print(f"Moving to {xyz_position}")
     current_experiment = select_flagged_experiment()
     print(f"Current experiment name(s): {current_experiment.name}")
     # it should be possible to add to the planned position, not the current

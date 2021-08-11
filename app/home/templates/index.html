@@ -126,7 +126,7 @@
     //json - parse to Python
     // Motor - 90°
     $('a#href_0').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=0&xyz_position=10000&xyz_position=0',
+      $.getJSON('/move_deg?xyz_position=0&xyz_position=5000&xyz_position=0',
           function(data) {
         //do nothing
       });
@@ -135,7 +135,7 @@
     
     // - Motor - 90°
     $('a#href_90').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=10000&xyz_position=0&xyz_position=0',
+      $.getJSON('/move_deg?xyz_position=5000&xyz_position=0&xyz_position=0',
           function(data) {
         //do nothing
       });
@@ -144,7 +144,7 @@
 
     // - Motor - 180°
     $('a#href_180').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=0&xyz_position=-10000&xyz_position=0',
+      $.getJSON('/move_deg?xyz_position=0&xyz_position=-5000&xyz_position=0',
           function(data) {
         //do nothing
       });
@@ -153,7 +153,7 @@
 
     // - Motor - 270°
     $('a#href_270').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=-10000&xyz_position=0&xyz_position=0',
+      $.getJSON('/move_deg?xyz_position=-5000&xyz_position=0&xyz_position=0',
           function(data) {
         //do nothing
       });
@@ -161,14 +161,14 @@
     });
 
     $('a#href_zoom_out').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=0&xyz_position=0&xyz_position=-10000',
+      $.getJSON('/move_deg?xyz_position=0&xyz_position=0&xyz_position=-5000',
           function(data) {
         //do nothing
       });
       return false;
     });
     $('a#href_zoom_in').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=0&xyz_position=0&xyz_position=10000',
+      $.getJSON('/move_deg?xyz_position=0&xyz_position=0&xyz_position=5000',
           function(data) {
         //do nothing
       });
