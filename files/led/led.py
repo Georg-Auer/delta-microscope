@@ -12,8 +12,10 @@ except:
 time.sleep(5)
 GPIO.output(23, GPIO.HIGH)
 time.sleep(5)
+GPIO.output(23, GPIO.LOW)
 GPIO.output(24, GPIO.HIGH)
 time.sleep(5)
+GPIO.output(24, GPIO.LOW)
 GPIO.output(25, GPIO.HIGH)
 
 # GPIO.output(23, GPIO.LOW)
