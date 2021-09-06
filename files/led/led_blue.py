@@ -9,16 +9,16 @@ try:
 except:
     print("GPIOs already set or unavailable")
 
-time.sleep(5)
+# setting blue led to on
 GPIO.output(23, GPIO.HIGH)
-time.sleep(5)
-GPIO.output(23, GPIO.LOW)
-GPIO.output(24, GPIO.HIGH)
-time.sleep(5)
-GPIO.output(24, GPIO.LOW)
-GPIO.output(25, GPIO.HIGH)
-time.sleep(5)
-GPIO.output(25, GPIO.LOW)
+# time.sleep(5)
+# GPIO.output(23, GPIO.LOW)
+# GPIO.output(24, GPIO.HIGH)
+# time.sleep(5)
+# GPIO.output(24, GPIO.LOW)
+# GPIO.output(25, GPIO.HIGH)
+# time.sleep(5)
+# GPIO.output(25, GPIO.LOW)
 
 # GPIO.output(23, GPIO.LOW)
 # GPIO.output(24, GPIO.LOW)
