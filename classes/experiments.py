@@ -29,6 +29,7 @@ class Experiment(object):
         # self.resolution = [3296, 2464]
         self.x_resolution, self.y_resolution = self.resolution
         self.experiment_running = False
+        self.experiment_iteration = 0
         self.flag = False
         self.motor_comport = '/dev/ttyACM0'
         # self.motor_comport = 'COM21'
@@ -81,6 +82,7 @@ class Experiment(object):
     def start_experiment(self):
         print("Starting experiment")
         self.experiment_running = True
+        self.experiment_iteration = 0
         # try:
         #     self.Camera().set_resolution(self.resolution)
         #     print(f"Resolution set to {self.resolution} for automated pictures")
@@ -106,6 +108,7 @@ class Experiment(object):
 
     def stop_experiment(self):
         print("Stopping experiment")
+        print(f"Stopped in iteration {self.experiment_iteration}")
         print(self.scheduler.get_jobs())
         print("Removing all scheduled jobs")
         # self.scheduler.remove_job(j0)
@@ -134,7 +137,8 @@ class Experiment(object):
         # use webcam?
         frame = self.Camera().get_frame()
         video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
-        filename = f'position{self.current_position}_{video_frame_timepoint}.jpg'
+        filename = f'position{self.current_position}_i{self.experiment_iteration}_{video_frame_timepoint}.jpg'
+        self.experiment_iteration = self.experiment_iteration + 1
         file_in_foldername = f'{self.image_path}/{self.name}/{self.raw_dir}/{filename}'
         # https://picamera.readthedocs.io/en/release-1.13/recipes1.html
         # https://picamera.readthedocs.io/en/release-1.13/recipes2.html
