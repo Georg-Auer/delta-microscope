@@ -204,6 +204,7 @@ def toggled_status():
 @app.route('/picture')
 def picture():
     current_experiment = select_flagged_experiment()
+    current_experiment.custom_img = True
     current_experiment.picture_task()
     print(f"Picture saved in Experiment: {current_experiment.name}")
     print(f"There are {len(current_experiment.saved_positions)} saved positions")
