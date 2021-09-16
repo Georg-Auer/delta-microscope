@@ -137,11 +137,16 @@ class Experiment(object):
         # use webcam?
         frame = self.Camera().get_frame()
         video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
-        if(self.experiment_running):
+        if(self.experiment_running and not self.custom_img):
             filename = f'position{self.current_position}_i{self.experiment_iteration:04}_{video_frame_timepoint}.jpg'
             self.experiment_iteration = self.experiment_iteration + 1
+            img_mode = "automatic"
         else:
             filename = f'position{self.current_position}_custom_image_{video_frame_timepoint}.jpg'
+            img_mode = "custom"
+            # now reset the custom image tag
+            self.custom_img = False
+
         file_in_foldername = f'{self.image_path}/{self.name}/{self.raw_dir}/{filename}'
         # https://picamera.readthedocs.io/en/release-1.13/recipes1.html
         # https://picamera.readthedocs.io/en/release-1.13/recipes2.html
@@ -205,7 +210,7 @@ class Experiment(object):
         # create new position with image
         self.saved_positions.append(Position(self.name, self.current_position,
         self.exp_foldername, self.raw_dir, self.skeleton_dir,
-        self.yolo_dir, filename, file_in_foldername))
+        self.yolo_dir, filename, img_mode, file_in_foldername))
 
     def create_directories(self):
         for variant in self.img_variant_folders:
@@ -282,11 +287,12 @@ class Position(object):
     # raw_image, skeletal_image,
     # feature_bifurcations, feature_endings, yolo_image, yolo_classes,
     # yolo_coordinates, yolo_poi_circles, features_bifurcations_poi, feature_endings_poi
-    def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, filename, fullpath_raw_image):
+    def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, filename, img_mode, fullpath_raw_image):
         self.name = name
         self.position = xyz_position
         self.timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         self.filename = filename
+        self.mode = img_mode
         # self.raw_image = RGB_img
         self.exp_foldername = exp_foldername
         # self.fullpath_raw_image = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
