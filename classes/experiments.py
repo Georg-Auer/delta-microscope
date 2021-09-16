@@ -108,7 +108,7 @@ class Experiment(object):
 
     def stop_experiment(self):
         print("Stopping experiment")
-        print(f"Stopped in iteration {self.experiment_iteration}")
+        print(f"Stopped in iteration {self.experiment_iteration:04}")
         print(self.scheduler.get_jobs())
         print("Removing all scheduled jobs")
         # self.scheduler.remove_job(j0)
