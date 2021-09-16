@@ -137,7 +137,7 @@ class Experiment(object):
         # use webcam?
         frame = self.Camera().get_frame()
         video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
-        filename = f'position{self.current_position}_i{self.experiment_iteration}_{video_frame_timepoint}.jpg'
+        filename = f'position{self.current_position}_i{self.experiment_iteration:04}_{video_frame_timepoint}.jpg'
         self.experiment_iteration = self.experiment_iteration + 1
         file_in_foldername = f'{self.image_path}/{self.name}/{self.raw_dir}/{filename}'
         # https://picamera.readthedocs.io/en/release-1.13/recipes1.html
