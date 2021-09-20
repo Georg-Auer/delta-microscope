@@ -110,8 +110,7 @@ class Experiment(object):
             task_seperation = task_seperation + task_seperation_increase
         # last scheduled picture time is stored
         self.minimal_interval_minutes = schedule_time_picture
-        print(self.minimal_interval_minutes-schedule_start)
-        idle_time = self.minimal_interval_minutes-schedule_start
+        idle_time = schedule_start-self.minimal_interval_minutes
         print(idle_time)
         if(idle_time >= timedelta(0)):
             print("Schedule is possible")
