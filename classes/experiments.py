@@ -16,6 +16,7 @@ class Experiment(object):
         self.name = name
         self.experiment_positions = experiment_positions
         self.interval_minutes = interval_minutes
+        # self.minimal_interval_minutes = 5
         self.current_position = self.planned_position = [0,0,0]
         # list of experiment positions
         # created during the experiment
@@ -107,6 +108,25 @@ class Experiment(object):
             self.scheduler.add_job(func=self.picture_task_creator, trigger='date', run_date=schedule_time_picture, args=[xyz_position], id='picture_start'+str(xyz_position))
             print(f"created picture job {xyz_position} running at {schedule_time_picture}")
             task_seperation = task_seperation + task_seperation_increase
+        # last scheduled picture time is stored
+        self.minimal_interval_minutes = schedule_time_picture
+        print(self.minimal_interval_minutes-schedule_start)
+        idle_time = self.minimal_interval_minutes-schedule_start
+        print(idle_time)
+        if(idle_time >= 0):
+            print("Schedule is possible")
+        else:
+            print("Schedule is impossible, stopping and rescheduling in progress")
+            self.stop_experiment()
+            # now add the time that was missing to the interval time and schedule again
+            self.interval_minutes = self.interval_minutes+abs(idle_time)+timedelta(seconds=1)
+
+            if self.interval_minutes.microsecond > 0:
+                self.interval_minutes = self.interval_minutes + timedelta(seconds=1)
+                self.interval_minutes =  self.interval_minutes.replace(microsecond=0)
+
+            print(f"Interval time was increased to {self.interval_minutes}")
+            self.start_experiment()
 
     def stop_experiment(self):
         print("Stopping experiment")
