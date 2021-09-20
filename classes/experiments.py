@@ -31,6 +31,7 @@ class Experiment(object):
         self.x_resolution, self.y_resolution = self.resolution
         self.experiment_running = False
         self.experiment_iteration = 0
+        self.moving_time = 3 # standardized time it takes to move from pos n to n+1 in seconds
         self.flag = False
         self.motor_comport = '/dev/ttyACM0'
         # self.motor_comport = 'COM21'
@@ -93,14 +94,14 @@ class Experiment(object):
         # for element in self.experiment_positions:
         #     self.saved_positions.append(Position(self.name, self.experiment_positions))
         schedule_start = datetime.today()
-        moving_time = 10 # in seconds
-        print(f"Moving time is assumed {moving_time} seconds") 
-        task_seperation_increase = moving_time*2
+        
+        print(f"Moving time is assumed {self.moving_time} seconds") 
+        task_seperation_increase = self.moving_time*2
         task_seperation = 1
         for xyz_position in self.experiment_positions: 
             print(xyz_position)
             schedule_time_movement = schedule_start + timedelta(seconds=task_seperation)
-            schedule_time_picture = schedule_start + timedelta(seconds=moving_time+task_seperation)
+            schedule_time_picture = schedule_start + timedelta(seconds=self.moving_time+task_seperation)
             self.scheduler.add_job(func=self.motor_task_creator, trigger='date', run_date=schedule_time_movement, args=[xyz_position], id='move_start'+str(xyz_position))
             print(f"created moving job {xyz_position} running at {schedule_time_movement}")
             self.scheduler.add_job(func=self.picture_task_creator, trigger='date', run_date=schedule_time_picture, args=[xyz_position], id='picture_start'+str(xyz_position))
@@ -333,18 +334,18 @@ class Position(object):
 
 if __name__ == '__main__':
 
-    het2 = Experiment("Nr. 1", [0, 90, 180, 270], 5)
-    print(het2.experiment_positions)
+    cells = Experiment("Nr. 1", [1000, 2000, 0], 5)
+    print(cells.experiment_positions)
 
-    het2.show_experiment_positions()
-    het2.add_experiment_positions(45)
-    het2.show_experiment_positions()
-    het2.remove_experiment_positions()
-    het2.show_experiment_positions()
+    cells.show_experiment_positions()
+    cells.add_experiment_positions(2000, 3000, 1000)
+    cells.show_experiment_positions()
+    cells.remove_experiment_positions()
+    cells.show_experiment_positions()
 
-    het2.start_experiment()
+    cells.start_experiment()
     print("was started")
-    het2.stop_experiment()
+    cells.stop_experiment()
     # test_position = Position("test", 270)
     # print(test_position.name)
     # print(test_position.timestamp)
