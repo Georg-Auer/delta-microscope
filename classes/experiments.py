@@ -32,7 +32,7 @@ class Experiment(object):
         self.x_resolution, self.y_resolution = self.resolution
         self.experiment_running = False
         self.experiment_iteration = 0
-        self.moving_time = 3 # standardized time it takes to move from pos n to n+1 in seconds
+        self.moving_time = 30 # standardized time it takes to move from pos n to n+1 in seconds
         self.flag = False
         self.motor_comport = '/dev/ttyACM0'
         # self.motor_comport = 'COM21'
