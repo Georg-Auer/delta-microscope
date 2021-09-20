@@ -126,11 +126,14 @@ class Experiment(object):
             print(f"{self.interval_minutes}")
             self.interval_minutes = timedelta(minutes=self.interval_minutes)+abs(idle_time)+timedelta(seconds=1)
             print(self.interval_minutes)
-            if(self.interval_minutes.microsecond > 0):
-                self.interval_minutes = self.interval_minutes + timedelta(seconds=1)
-                self.interval_minutes =  self.interval_minutes.replace(microsecond=0)
-            else:
-                print("no microseconds to round")
+            try:
+                if(self.interval_minutes.microsecond > 0):
+                    self.interval_minutes = self.interval_minutes + timedelta(seconds=1)
+                    self.interval_minutes =  self.interval_minutes.replace(microsecond=0)
+                else:
+                    print("no microseconds to round")
+            except:
+                print("No microseconds to round.")
 
             print(f"Interval time was increased to {self.interval_minutes}")
             self.start_experiment()
