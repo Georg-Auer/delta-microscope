@@ -110,15 +110,18 @@ class Experiment(object):
             task_seperation = task_seperation + task_seperation_increase
         # last scheduled picture time is stored
         self.minimal_interval_minutes = schedule_time_picture
-        idle_time = schedule_start-self.minimal_interval_minutes
-        print(idle_time)
-        if(idle_time >= timedelta(0)):
+        idle_time = self.minimal_interval_minutes-schedule_start
+        print(f"Time for one experiment: {idle_time}")
+        print(f"Set interval time: {self.interval_minutes}")
+        print(f"Set interval time in minute: {timedelta(minutes=self.interval_minutes)}")
+        if(idle_time <= timedelta(minutes=self.interval_minutes)):
             print("Schedule is possible")
         else:
             print("Schedule is impossible, stopping and rescheduling in progress")
             self.stop_experiment()
             # now add the time that was missing to the interval time and schedule again
-            self.interval_minutes = self.interval_minutes+abs(idle_time)+timedelta(seconds=1)
+
+            self.interval_minutes = timedelta(self.interval_minutes)+timedelta(abs(idle_time)+timedelta(seconds=1)
 
             if self.interval_minutes.microsecond > 0:
                 self.interval_minutes = self.interval_minutes + timedelta(seconds=1)
