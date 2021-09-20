@@ -123,7 +123,7 @@ class Experiment(object):
 
             print(f"{timedelta(self.interval_minutes)}{timedelta(abs(idle_time))}{timedelta(seconds=1)}")
             print(f"{self.interval_minutes}")
-            self.interval_minutes = timedelta(self.interval_minutes)+timedelta(abs(idle_time))+timedelta(seconds=1)
+            self.interval_minutes = timedelta(minutes=self.interval_minutes)+timedelta(minutes=abs(idle_time))+timedelta(seconds=1)
             print(self.interval_minutes)
             if(self.interval_minutes.microsecond > 0):
                 self.interval_minutes = self.interval_minutes + timedelta(seconds=1)
