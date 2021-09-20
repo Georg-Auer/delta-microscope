@@ -121,21 +121,29 @@ class Experiment(object):
             self.stop_experiment()
             # now add the time that was missing to the interval time and schedule again
 
-            print(f"self.interval_minutes {(self.interval_minutes)}idle_time {(abs(idle_time))}seconds {(1)}")
-            print(f"{timedelta(minutes=self.interval_minutes)}{abs(idle_time)}{timedelta(seconds=1)}")
-            print(f"{self.interval_minutes}")
-            self.interval_minutes = timedelta(minutes=self.interval_minutes)+abs(idle_time)+timedelta(seconds=1)
-            print(self.interval_minutes)
-            try:
-                if(self.interval_minutes.microsecond > 0):
-                    self.interval_minutes = self.interval_minutes + timedelta(seconds=1)
-                    self.interval_minutes =  self.interval_minutes.replace(microsecond=0)
-                else:
-                    print("no microseconds to round")
-            except:
-                print("No microseconds to round.")
-            print(f"Interval time was increased to {self.interval_minutes}")
-            self.interval_minutes = (self.interval_minutes.seconds % 3600) // 60
+            print(f"self.interval_minutes {(self.interval_minutes)} idle_time {(abs(idle_time))} seconds {(1)}")
+            idle_time = (abs(idle_time) % 3600) // 60
+            print(idle_time)
+            print(idle_time+1)
+            
+            self.interval_minutes = self.interval_minutes+idle_time
+
+            # print(f"{timedelta(minutes=self.interval_minutes)}{abs(idle_time)}{timedelta(seconds=1)}")
+            # print(f"{self.interval_minutes}")
+            # self.interval_minutes = timedelta(minutes=self.interval_minutes)+abs(idle_time)+timedelta(seconds=1)
+            # print(self.interval_minutes)
+            # try:
+            #     if(self.interval_minutes.microsecond > 0):
+            #         self.interval_minutes = self.interval_minutes + timedelta(seconds=1)
+            #         self.interval_minutes =  self.interval_minutes.replace(microsecond=0)
+            #     else:
+            #         print("no microseconds to round")
+            # except:
+            #     print("No microseconds to round.")
+            # print(f"Interval time was increased to {self.interval_minutes}")
+            # self.interval_minutes = (self.interval_minutes.seconds % 3600) // 60
+
+
             print(f"Interval time was increased to {self.interval_minutes} minutes")
             self.start_experiment()
 
