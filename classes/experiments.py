@@ -134,8 +134,9 @@ class Experiment(object):
                     print("no microseconds to round")
             except:
                 print("No microseconds to round.")
-
             print(f"Interval time was increased to {self.interval_minutes}")
+            self.interval_minutes = (self.interval_minutes.seconds % 3600) // 60
+            print(f"Interval time was increased to {self.interval_minutes} minutes")
             self.start_experiment()
 
     def stop_experiment(self):
