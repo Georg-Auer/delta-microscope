@@ -113,7 +113,7 @@ class Experiment(object):
         print(self.minimal_interval_minutes-schedule_start)
         idle_time = self.minimal_interval_minutes-schedule_start
         print(idle_time)
-        if(idle_time >= 0):
+        if(idle_time >= timedelta(0)):
             print("Schedule is possible")
         else:
             print("Schedule is impossible, stopping and rescheduling in progress")
