@@ -121,9 +121,9 @@ class Experiment(object):
             self.stop_experiment()
             # now add the time that was missing to the interval time and schedule again
 
-            self.interval_minutes = timedelta(self.interval_minutes)+timedelta(abs(idle_time)+timedelta(seconds=1)
-
-            if self.interval_minutes.microsecond > 0:
+            self.interval_minutes = timedelta(self.interval_minutes)+timedelta(abs(idle_time))+timedelta(seconds=1)
+            print(self.interval_minutes)
+            if(self.interval_minutes.microsecond > 0):
                 self.interval_minutes = self.interval_minutes + timedelta(seconds=1)
                 self.interval_minutes =  self.interval_minutes.replace(microsecond=0)
             else:
