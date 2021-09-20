@@ -121,7 +121,7 @@ class Experiment(object):
             self.stop_experiment()
             # now add the time that was missing to the interval time and schedule again
 
-            print(f"{(self.interval_minutes)}{(abs(idle_time))}{(1)}")
+            print(f"self.interval_minutes{(self.interval_minutes)}idle_time{(abs(idle_time))}seconds{(1)}")
             print(f"{timedelta(minutes=self.interval_minutes)}{timedelta(minutes=abs(idle_time))}{timedelta(seconds=1)}")
             print(f"{self.interval_minutes}")
             self.interval_minutes = timedelta(minutes=self.interval_minutes)+timedelta(minutes=abs(idle_time))+timedelta(seconds=1)
