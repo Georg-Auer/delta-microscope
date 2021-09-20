@@ -16,7 +16,7 @@ class Experiment(object):
         self.name = name
         self.experiment_positions = experiment_positions
         self.interval_minutes = interval_minutes
-        # self.minimal_interval_minutes = 5
+        self.minimal_interval_minutes = 5
         self.current_position = self.planned_position = [0,0,0]
         # list of experiment positions
         # created during the experiment
