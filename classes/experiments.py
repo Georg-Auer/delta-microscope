@@ -113,7 +113,7 @@ class Experiment(object):
         idle_time = self.minimal_interval_minutes-schedule_start
         print(f"Time for one experiment: {idle_time}")
         print(f"Set interval time: {self.interval_minutes}")
-        print(f"Set interval time in minute: {timedelta(minutes=self.interval_minutes)}")
+        print(f"Set interval time in minutes: {timedelta(minutes=self.interval_minutes)}")
         if(idle_time <= timedelta(minutes=self.interval_minutes)):
             print("Schedule is possible")
         else:
@@ -122,7 +122,7 @@ class Experiment(object):
             # now add the time that was missing to the interval time and schedule again
 
             print(f"self.interval_minutes {(self.interval_minutes)} idle_time {(abs(idle_time))} seconds {(1)}")
-            idle_time = (abs(idle_time) % 3600) // 60
+            idle_time = (abs(idle_time.seconds) % 3600) // 60
             print(idle_time)
             print(idle_time+1)
             
