@@ -195,14 +195,14 @@ class Experiment(object):
             filename = f'position{self.current_position}_i{self.experiment_iteration:04}_{video_frame_timepoint}.jpg'
             self.experiment_iteration = self.experiment_iteration + 1
             img_mode = "automatic"
+            # if auto mode is enabled, switch led off after image
+            self.led = False
         else:
             filename = f'position{self.current_position}_custom_image_{video_frame_timepoint}.jpg'
             img_mode = "custom"
             # now reset the custom image tag
             self.custom_img = False
-            # if auto mode is enabled, switch led off after image
-            self.led = False
-
+            
         file_in_foldername = f'{self.image_path}/{self.name}/{self.raw_dir}/{filename}'
         # https://picamera.readthedocs.io/en/release-1.13/recipes1.html
         # https://picamera.readthedocs.io/en/release-1.13/recipes2.html
