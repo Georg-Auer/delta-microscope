@@ -27,7 +27,7 @@ class Experiment(object):
         self.scheduler = scheduler
         self.image_path = image_path
         self.Camera = Camera
-        self.led = False
+        self.led = True
         self.custom_img = False
         # self.resolution = [1280, 720]
         # self.resolution = [4056, 3040]
