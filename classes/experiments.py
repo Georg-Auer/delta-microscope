@@ -27,7 +27,7 @@ class Experiment(object):
         self.scheduler = scheduler
         self.image_path = image_path
         self.Camera = Camera
-        self.led = False
+        self.led = True
         self.custom_img = False
         # self.resolution = [1280, 720]
         # self.resolution = [4056, 3040]
@@ -53,7 +53,7 @@ class Experiment(object):
     #     print(f"Time between imaging in experiment {self.name} set to {self.time_between} minutes")
 
     def switch_led(self):
-        if self.led:
+        if(self.led == True):
             #if True, switch on
             try:
                 GPIO.setwarnings(False)
@@ -72,7 +72,7 @@ class Experiment(object):
                 GPIO.setmode(GPIO.BCM)
                 GPIO.setup(18, GPIO.OUT)
                 # setting blue led to on
-                GPIO.output(18, GPIO.HIGH)
+                GPIO.output(18, GPIO.LOW)
             except:
                 print("GPIOs already set or unavailable")
 
