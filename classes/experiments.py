@@ -9,7 +9,10 @@ from classes.bifurcation_detection import prepare_and_analyze
 from yolov5_detect import detect
 
 from classes.scientific_camera import take_raspicampic
-
+try:
+    import RPi.GPIO as GPIO
+except:
+    print("No GPIOs found.")
 class Experiment(object):
     def __init__(self, name, scheduler, image_path,
     Camera, experiment_positions = [], interval_minutes = 5):
@@ -24,6 +27,7 @@ class Experiment(object):
         self.scheduler = scheduler
         self.image_path = image_path
         self.Camera = Camera
+        self.led = False
         self.custom_img = False
         # self.resolution = [1280, 720]
         # self.resolution = [4056, 3040]
@@ -43,9 +47,34 @@ class Experiment(object):
         self.yolo_dir = "microscope-yolo"
         self.img_variant_folders = [self.raw_dir,self.skeleton_dir,self.yolo_dir]
         self.create_directories()
+        self.switch_led()
 
     # def show_timeframe(self):
     #     print(f"Time between imaging in experiment {self.name} set to {self.time_between} minutes")
+
+    def switch_led(self):
+        if self.led:
+            #if True, switch on
+            try:
+                GPIO.setwarnings(False)
+                GPIO.setmode(GPIO.BCM)
+                GPIO.setup(18, GPIO.OUT)
+                # setting blue led to on
+                GPIO.output(18, GPIO.HIGH)
+            except:
+                print("GPIOs already set or unavailable")
+                self.led = False
+
+        else:
+            #if False, switch off
+            try:
+                GPIO.setwarnings(False)
+                GPIO.setmode(GPIO.BCM)
+                GPIO.setup(18, GPIO.OUT)
+                # setting blue led to on
+                GPIO.output(18, GPIO.HIGH)
+            except:
+                print("GPIOs already set or unavailable")
 
     def show_experiment_positions(self):
         n = 0
@@ -171,6 +200,8 @@ class Experiment(object):
             img_mode = "custom"
             # now reset the custom image tag
             self.custom_img = False
+            # if auto mode is enabled, switch led off after image
+            self.led = False
 
         file_in_foldername = f'{self.image_path}/{self.name}/{self.raw_dir}/{filename}'
         # https://picamera.readthedocs.io/en/release-1.13/recipes1.html
@@ -236,6 +267,7 @@ class Experiment(object):
         self.saved_positions.append(Position(self.name, self.current_position,
         self.exp_foldername, self.raw_dir, self.skeleton_dir,
         self.yolo_dir, filename, img_mode, file_in_foldername))
+        self.switch_led()
 
     def create_directories(self):
         for variant in self.img_variant_folders:
@@ -272,6 +304,9 @@ class Experiment(object):
         self.motor_position()
 
     def motor_position(self):
+        # never move in darkness
+        self.led = True
+        self.switch_led()
         # position_in_degree = self.planned_position
         print(f"planned_position {self.planned_position}")
         # xyz_position = self.planned_position
