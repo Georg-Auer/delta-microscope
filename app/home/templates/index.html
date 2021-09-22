@@ -84,6 +84,11 @@
                         <i class="fa-camera fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
                       </button>
                     </a>
+                    <a href=# id=led>
+                      <button>                  
+                        <i class="fa-lightbulb-o  fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
+                      </button>
+                    </a>
                     <!-- this makes round toggle buttons -->
                     <a href=# id=toggle-switch>
                       <button>   
@@ -199,7 +204,15 @@
       });
       return false;
     });
-    
+
+    // - led
+    $('a#led').bind('click', function() {
+      $.getJSON('/led',
+          function(data) {
+        //do nothing
+      });
+      return false;
+    });
 
   });    
   </script>

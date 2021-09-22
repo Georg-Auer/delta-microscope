@@ -209,6 +209,19 @@ def picture():
     print(f"Picture saved in Experiment: {current_experiment.name}")
     print(f"There are {len(current_experiment.saved_positions)} saved positions")
     print(f"Created at {current_experiment.saved_positions[-1].timestamp}")
+    # this should return all saved positions, would help the user immensely
+    return ("nothing")
+
+@app.route('/led')
+def led():
+    # toggle led on button press
+    current_experiment = select_flagged_experiment()
+    current_experiment.custom_img = True
+    if(current_experiment.led == True):
+        current_experiment.led = False
+    else:
+        current_experiment.led = True
+    current_experiment.switch_led()
     return ("nothing")
 
 # buttons, scheduler end
