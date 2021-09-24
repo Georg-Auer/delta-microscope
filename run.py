@@ -311,7 +311,8 @@ class ExperimentForm(FlaskForm):
     # positions = BooleanField('Position 0', false_values=None)
     # options:
     # string_of_files = ['0,0,0\r\n1000,0,0\r\n0,1000,0\r\n-1000,0,0\r\n0,-1000,0\r\n']
-    string_of_files = ['0,0,0\r\n100000,-50000,0\r\n20000,-170000,-40000\r\n-100000,-110000,-40000\r\n-160000,-220000,-110000\r\n-40000,-270000,-110000\r\n-120000,-360000,-150000\r\n-280000,-390000,-180000\r\n-170000,-430000,-180000\r\n-230000,-500000,-210000\r\n-330000,-450000,-210000\r\n-360000,-510000,-220000\r\n-410000,-560000,-240000\r\n-320000,-600000,-240000']
+    # 10 positions, starting at the right top (0,0,0), going down 5, 1 left and 5 up
+    string_of_files = ['0,0,0\r\n-125000,0,0\r\n-235000,0,-10000\r\n-345000,-15000,-30000\r\n-445000,-25000,-40000\r\n-435000,100000,-40000\r\n-330000,100000,-35000\r\n-220000,110000,-30000\r\n-105000,125000,-15000\r\n20000, 130000, 0']
     list_of_files = string_of_files[0].split()
     # print(list_of_files)
     # print(type(list_of_files))
