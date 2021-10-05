@@ -83,8 +83,8 @@ class Experiment(object):
         try:
             # record humidity and temperature
             print("Environmental data collection..")
-            import os
-            import time
+            # import os
+            # import time
             import Adafruit_DHT
             DHT_SENSOR = Adafruit_DHT.DHT22
             self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
