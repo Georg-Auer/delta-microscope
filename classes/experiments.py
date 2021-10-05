@@ -90,9 +90,10 @@ class Experiment(object):
             print("Environmental data collection..")
             # import os
             # import time
-            import Adafruit_DHT
-            DHT_SENSOR = Adafruit_DHT.DHT22
-            self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
+            import adafruit_dht
+            from board import self.dht_pin
+            dht_device = adafruit_dht.DHT22(self.dht_pin)
+            self.humidity, self.temperature = dht_device.temperature, dht_device.humidity
             # with open(f"{self.exp_foldername}/environment.csv", "a") as log:
             #     self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
             #     if self.humidity is not None and self.temperature is not None:                     
