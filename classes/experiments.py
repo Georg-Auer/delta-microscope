@@ -92,8 +92,8 @@ class Experiment(object):
             self.humidity, self.temperature = 2,2
             pin = 4
             self.humidity, self.temperature = 2,3
-            self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, pin)
-
+            humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, pin)
+            self.humidity, self.temperature = humidity, temperature
             # with open(f"{self.exp_foldername}/environment.csv", "a") as log:
             #     self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
             #     if self.humidity is not None and self.temperature is not None:                     
