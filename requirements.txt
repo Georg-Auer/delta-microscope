@@ -32,3 +32,4 @@ tqdm
 seaborn
 torch
 torchvision
+Adafruit_Python_DHT
