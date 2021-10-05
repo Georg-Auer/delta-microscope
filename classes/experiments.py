@@ -85,8 +85,11 @@ class Experiment(object):
             print("Environmental data collection..")
             # import os
             # import time
+            self.humidity, self.temperature = 0,0
             import Adafruit_DHT
+            self.humidity, self.temperature = 1,1
             DHT_SENSOR = Adafruit_DHT.DHT22
+            self.humidity, self.temperature = 2,2
             pin = self.dht_pin
             self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, pin)
             # with open(f"{self.exp_foldername}/environment.csv", "a") as log:
@@ -101,7 +104,7 @@ class Experiment(object):
             # log.close()
         except:
             print("GPIOs already set or unavailable")
-            self.humidity, self.temperature = "NaN", "NaN"
+            # self.humidity, self.temperature = "NaN", "NaN"
 
     def show_experiment_positions(self):
         n = 0
