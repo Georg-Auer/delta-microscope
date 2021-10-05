@@ -85,6 +85,7 @@ class Experiment(object):
             print("Environmental data collection..")
             # import os
             # import time
+            self.humidity, self.temperature = 0,0
             import adafruit_dht
             self.humidity, self.temperature = 1,1
             pin = self.dht_pin
