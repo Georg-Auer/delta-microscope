@@ -278,10 +278,7 @@ def show_yolo():
 def show_environment():
     current_experiment = select_flagged_experiment()
     print(f"Current experiment name(s): {current_experiment.name}")
-    # raw_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.raw_dir}/'
-    # raw_image_list = os.listdir(raw_image_foldername)
-    # print(raw_image_list)
-    # foldername_gallery = f'{current_experiment.name}/{current_experiment.raw_dir}/'
+    current_experiment.record_environment()
     return render_template("environment.html", segment="environment", experiment_name = current_experiment.name, 
     environment = [current_experiment.humidity, current_experiment.temperature])
 
