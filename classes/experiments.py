@@ -24,7 +24,9 @@ class Experiment(object):
         # list of experiment positions
         # created during the experiment
         self.saved_positions = []
-        self.environment = []
+        self.dht_pin = 4
+        self.humidity = []
+        self.temperature = []
         self.scheduler = scheduler
         self.image_path = image_path
         self.Camera = Camera
@@ -85,17 +87,17 @@ class Experiment(object):
             import time
             import Adafruit_DHT
             DHT_SENSOR = Adafruit_DHT.DHT22
-            self.dht_pin = 4
-            with open(f"{self.exp_foldername}/environment.csv", "a") as log:
-                self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
-                if self.humidity is not None and self.temperature is not None:                     
-                    log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), self.temperature, self.humidity))
-                    os.sync()
-                    return
-                else:
-                    print("Failed to retrieve data from environment sensor")
-                    self.humidity, self.temperature = "NaN", "NaN"
-            log.close()
+            self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
+            # with open(f"{self.exp_foldername}/environment.csv", "a") as log:
+            #     self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
+            #     if self.humidity is not None and self.temperature is not None:                     
+            #         log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), self.temperature, self.humidity))
+            #         os.sync()
+            #         return
+            #     else:
+            #         print("Failed to retrieve data from environment sensor")
+            #         self.humidity, self.temperature = "NaN", "NaN"
+            # log.close()
         except:
             print("GPIOs already set or unavailable")
             self.humidity, self.temperature = "NaN", "NaN"
