@@ -78,32 +78,27 @@ class Experiment(object):
                 print("GPIOs already set or unavailable")
 
     def record_environment(self):
-        if(self.experiment_running == True):
-            #if True, switch on
-            try:
-                # record humidity and temperature
-                print("Environmental data collection..")
-                import os
-                import time
-                import Adafruit_DHT
-                DHT_SENSOR = Adafruit_DHT.DHT22
-                self.dht_pin = 4
-                with open(f"{self.exp_foldername}/environment.csv", "a") as log:
-                    humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
-                    if humidity is not None and temperature is not None:
-                        self.environment = [humidity, temperature]
-                        log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), temperature, humidity))
-                        os.sync()
-                        return humidity, temperature
-                    else:
-                        print("Failed to retrieve data from environment sensor")
-                log.close()
-            except:
-                print("GPIOs already set or unavailable")
-
-        else:
-            #if False, switch off
-            print("Environmental data collection halted")
+        try:
+            # record humidity and temperature
+            print("Environmental data collection..")
+            import os
+            import time
+            import Adafruit_DHT
+            DHT_SENSOR = Adafruit_DHT.DHT22
+            self.dht_pin = 4
+            with open(f"{self.exp_foldername}/environment.csv", "a") as log:
+                self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
+                if self.humidity is not None and self.temperature is not None:                     
+                    log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), self.temperature, self.humidity))
+                    os.sync()
+                    return
+                else:
+                    print("Failed to retrieve data from environment sensor")
+                    self.humidity, self.temperature = "NaN", "NaN"
+            log.close()
+        except:
+            print("GPIOs already set or unavailable")
+            self.humidity, self.temperature = "NaN", "NaN"
 
     def show_experiment_positions(self):
         n = 0
@@ -221,7 +216,12 @@ class Experiment(object):
         frame = self.Camera().get_frame()
         video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
         # take environmental data and store to csv and experiment
-        humidity, temperature = self.record_environment()
+        try:
+            self.record_environment()
+        except:
+            print("No sensor data available")
+            self.humidity, self.temperature = "NaN", "NaN"
+        print(f"Environmental data: {self.humidity}, {self.temperature}")
         if(self.experiment_running and not self.custom_img):
             filename = f'position{self.current_position}_i{self.experiment_iteration:04}_{video_frame_timepoint}.jpg'
             self.experiment_iteration = self.experiment_iteration + 1
@@ -298,7 +298,7 @@ class Experiment(object):
         self.saved_positions.append(Position(self.name, self.current_position,
         self.exp_foldername, self.raw_dir, self.skeleton_dir,
         self.yolo_dir, filename, img_mode, file_in_foldername,
-        humidity, temperature))
+        self.humidity, self.temperature))
         self.switch_led()
 
     def create_directories(self):
