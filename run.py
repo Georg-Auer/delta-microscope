@@ -274,6 +274,17 @@ def show_yolo():
     return render_template("gallery.html", segment="gallery-yolo", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
     experiment_name = current_experiment.name, images = raw_image_list)
 
+@app.route("/environment")
+def show_environment():
+    current_experiment = select_flagged_experiment()
+    print(f"Current experiment name(s): {current_experiment.name}")
+    # raw_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.raw_dir}/'
+    # raw_image_list = os.listdir(raw_image_foldername)
+    # print(raw_image_list)
+    # foldername_gallery = f'{current_experiment.name}/{current_experiment.raw_dir}/'
+    return render_template("environment.html", segment="environment", experiment_name = current_experiment.name, 
+    environment = current_experiment.environment)
+
 @app.route("/add-position")
 def add_position():
     current_experiment = select_flagged_experiment()

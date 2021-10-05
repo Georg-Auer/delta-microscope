@@ -36,7 +36,13 @@
             <i class="now-ui-icons design_image"></i>
             <p>Yolov5 object detection</p>
           </a>
-        </li>        
+        </li>
+        <li class="{% if segment is defined %}{% if 'environment' in segment %} active {% endif %}{% endif %}">
+          <a href="/environment">
+            <i class="now-ui-icons education_atom"></i>
+            <p>Environment</p>
+          </a>
+        </li> 
         <li class="{% if segment is defined %}{% if 'experiments' in segment %} active {% endif %}{% endif %}">
           <a href="/experiments">
             <i class="now-ui-icons education_atom"></i>

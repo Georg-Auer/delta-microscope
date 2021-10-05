@@ -24,6 +24,7 @@ class Experiment(object):
         # list of experiment positions
         # created during the experiment
         self.saved_positions = []
+        self.environment = []
         self.scheduler = scheduler
         self.image_path = image_path
         self.Camera = Camera
@@ -75,6 +76,34 @@ class Experiment(object):
                 GPIO.output(18, GPIO.LOW)
             except:
                 print("GPIOs already set or unavailable")
+
+    def record_environment(self):
+        if(self.experiment_running == True):
+            #if True, switch on
+            try:
+                # record humidity and temperature
+                print("Environmental data collection..")
+                import os
+                import time
+                import Adafruit_DHT
+                DHT_SENSOR = Adafruit_DHT.DHT22
+                self.dht_pin = 4
+                with open(f"{self.exp_foldername}/environment.csv", "a") as log:
+                    humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
+                    if humidity is not None and temperature is not None:
+                        self.environment = [humidity, temperature]
+                        log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), temperature, humidity))
+                        os.sync()
+                        return humidity, temperature
+                    else:
+                        print("Failed to retrieve data from environment sensor")
+                log.close()
+            except:
+                print("GPIOs already set or unavailable")
+
+        else:
+            #if False, switch off
+            print("Environmental data collection halted")
 
     def show_experiment_positions(self):
         n = 0
@@ -191,6 +220,8 @@ class Experiment(object):
         # use webcam?
         frame = self.Camera().get_frame()
         video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
+        # take environmental data and store to csv and experiment
+        humidity, temperature = self.record_environment()
         if(self.experiment_running and not self.custom_img):
             filename = f'position{self.current_position}_i{self.experiment_iteration:04}_{video_frame_timepoint}.jpg'
             self.experiment_iteration = self.experiment_iteration + 1
@@ -266,7 +297,8 @@ class Experiment(object):
         # create new position with image
         self.saved_positions.append(Position(self.name, self.current_position,
         self.exp_foldername, self.raw_dir, self.skeleton_dir,
-        self.yolo_dir, filename, img_mode, file_in_foldername))
+        self.yolo_dir, filename, img_mode, file_in_foldername,
+        humidity, temperature))
         self.switch_led()
 
     def create_directories(self):
@@ -347,7 +379,7 @@ class Position(object):
     # raw_image, skeletal_image,
     # feature_bifurcations, feature_endings, yolo_image, yolo_classes,
     # yolo_coordinates, yolo_poi_circles, features_bifurcations_poi, feature_endings_poi
-    def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, filename, img_mode, fullpath_raw_image):
+    def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, filename, img_mode, fullpath_raw_image, humidity, temperature):
         self.name = name
         self.position = xyz_position
         self.timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -361,6 +393,8 @@ class Position(object):
         self.skeleton_dir = skeleton_dir
         self.yolo_dir = yolo_dir
         self.yolo_results = 0
+        self.humidity = humidity
+        self.temperature = temperature
         # should it take a starting image here?
         # video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
         # filename = f'{IMAGEPATH}/het-cam-raw/position{task_position}_{video_frame_timepoint}.jpg'
