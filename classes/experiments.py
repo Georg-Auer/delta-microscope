@@ -80,19 +80,18 @@ class Experiment(object):
                 print("GPIOs already set or unavailable")
 
     def record_environment(self):
-        import adafruit_dht
-        from board import self.dht_pin
-        dht_device = adafruit_dht.DHT22(self.dht_pin)
-        self.humidity, self.temperature = dht_device.temperature, dht_device.humidity
-
         try:
             # record humidity and temperature
             print("Environmental data collection..")
             # import os
             # import time
             import adafruit_dht
-            from board import self.dht_pin
+            self.humidity, self.temperature = 1,1
+            pin = self.dht_pin
+            from board import pin
+            self.humidity, self.temperature = 2,2
             dht_device = adafruit_dht.DHT22(self.dht_pin)
+            self.humidity, self.temperature = 3,3
             self.humidity, self.temperature = dht_device.temperature, dht_device.humidity
             # with open(f"{self.exp_foldername}/environment.csv", "a") as log:
             #     self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
@@ -106,7 +105,7 @@ class Experiment(object):
             # log.close()
         except:
             print("GPIOs already set or unavailable")
-            self.humidity, self.temperature = "NaN", "NaN"
+            # self.humidity, self.temperature = "NaN", "NaN"
 
     def show_experiment_positions(self):
         n = 0
