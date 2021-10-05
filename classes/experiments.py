@@ -80,6 +80,10 @@ class Experiment(object):
                 print("GPIOs already set or unavailable")
 
     def record_environment(self):
+        import Adafruit_DHT
+        DHT_SENSOR = Adafruit_DHT.DHT22
+        self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
+
         try:
             # record humidity and temperature
             print("Environmental data collection..")
