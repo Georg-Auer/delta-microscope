@@ -283,7 +283,7 @@ def show_environment():
     # print(raw_image_list)
     # foldername_gallery = f'{current_experiment.name}/{current_experiment.raw_dir}/'
     return render_template("environment.html", segment="environment", experiment_name = current_experiment.name, 
-    environment = current_experiment.environment)
+    environment = [current_experiment.humidity, current_experiment.temperature])
 
 @app.route("/add-position")
 def add_position():
