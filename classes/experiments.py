@@ -92,19 +92,19 @@ class Experiment(object):
             self.humidity, self.temperature = dhtDevice.humidity, dhtDevice.temperature
             
             if(self.experiment_running):
+                import time
                 with open(f"{self.exp_foldername}/environment.csv", "a") as log:
                     # self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
-                    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     if self.humidity is not None and self.temperature is not None:                     
-                        log.write(time, self.temperature, self.humidity)
-                        log.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", self.temperature, self.humidity)
+                        log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), self.temperature, self.humidity))
+                        # log.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", self.temperature, self.humidity)
                         os.sync()
                         log.close()
                         return
                     else:
                         print("Failed to retrieve data from environment sensor")
                         self.humidity, self.temperature = "NaN", "NaN"
-                        log.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", self.temperature, self.humidity)
+                        log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), self.temperature, self.humidity))
                         os.sync()
                         log.close()
                         return
