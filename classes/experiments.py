@@ -11,8 +11,10 @@ from yolov5_detect import detect
 from classes.scientific_camera import take_raspicampic
 try:
     import RPi.GPIO as GPIO
+    import board
+    import adafruit_dht
 except:
-    print("No GPIOs found.")
+    print("No GPIOs and/or sensor found.")
 class Experiment(object):
     def __init__(self, name, scheduler, image_path,
     Camera, experiment_positions = [], interval_minutes = 5):
@@ -24,7 +26,7 @@ class Experiment(object):
         # list of experiment positions
         # created during the experiment
         self.saved_positions = []
-        self.dht_pin = 4
+        self.dht_pin = board.D4
         self.humidity = []
         self.temperature = []
         self.scheduler = scheduler
@@ -83,16 +85,9 @@ class Experiment(object):
         try:
             # record humidity and temperature
             print("Environmental data collection..")
-            # pip3 install adafruit-circuitpython-dht
-            # sudo apt-get install libgpiod2
-            self.humidity, self.temperature = 0,0
-            import time
-            import board
-            import adafruit_dht
-            self.humidity, self.temperature = 1,1
-            dhtDevice = adafruit_dht.DHT22(board.D4, use_pulseio=False)
-            self.humidity, self.temperature = 2,2
-            self.humidity, self.temperature = 2,3
+            # sudo pip3 install adafruit-circuitpython-dht
+            # sudo apt install libgpiod2 # this may or may not be needed
+            dhtDevice = adafruit_dht.DHT22(self.dht_pin, use_pulseio=False)
             self.humidity, self.temperature = dhtDevice.humidity, dhtDevice.temperature
             # with open(f"{self.exp_foldername}/environment.csv", "a") as log:
             #     self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
@@ -106,7 +101,7 @@ class Experiment(object):
             # log.close()
         except:
             print("GPIOs already set or unavailable")
-            # self.humidity, self.temperature = "NaN", "NaN"
+            self.humidity, self.temperature = "NaN", "NaN"
 
     def show_experiment_positions(self):
         n = 0
