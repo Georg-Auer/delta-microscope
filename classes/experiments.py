@@ -80,29 +80,20 @@ class Experiment(object):
                 print("GPIOs already set or unavailable")
 
     def record_environment(self):
-        self.humidity, self.temperature = 0,0
-        import Adafruit_DHT
-        self.humidity, self.temperature = 1,1
-        DHT_SENSOR = Adafruit_DHT.DHT22
-        self.humidity, self.temperature = 2,2
-        pin = 4
-        self.humidity, self.temperature = 2,3
-        humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, pin)
-        self.humidity, self.temperature = humidity, temperature
         try:
             # record humidity and temperature
             print("Environmental data collection..")
-            # import os
-            # import time
+            # pip3 install adafruit-circuitpython-dht
+            # sudo apt-get install libgpiod2
             self.humidity, self.temperature = 0,0
-            import Adafruit_DHT
+            import time
+            import board
+            import adafruit_dht
             self.humidity, self.temperature = 1,1
-            DHT_SENSOR = Adafruit_DHT.DHT22
+            dhtDevice = adafruit_dht.DHT22(board.D4, use_pulseio=False)
             self.humidity, self.temperature = 2,2
-            pin = 4
             self.humidity, self.temperature = 2,3
-            humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, pin)
-            self.humidity, self.temperature = humidity, temperature
+            self.humidity, self.temperature = dhtDevice.humidity, dhtDevice.temperature
             # with open(f"{self.exp_foldername}/environment.csv", "a") as log:
             #     self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
             #     if self.humidity is not None and self.temperature is not None:                     
