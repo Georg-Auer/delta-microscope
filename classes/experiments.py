@@ -26,7 +26,10 @@ class Experiment(object):
         # list of experiment positions
         # created during the experiment
         self.saved_positions = []
-        self.dht_pin = board.D4
+        try:
+            self.dht_pin = board.D4
+        except:
+            self.dht_pin = "unavailable"
         self.humidity = []
         self.temperature = []
         self.scheduler = scheduler
@@ -152,7 +155,6 @@ class Experiment(object):
     # tasking
     def start_experiment(self):
         print("Starting experiment")
-        self.experiment_running = True
         self.experiment_iteration = 0
         # try:
         #     self.Camera().set_resolution(self.resolution)
@@ -177,25 +179,29 @@ class Experiment(object):
             print(f"created picture job {xyz_position} running at {schedule_time_picture}")
             task_seperation = task_seperation + task_seperation_increase
         # last scheduled picture time is stored
-        self.minimal_interval_minutes = schedule_time_picture
+        try:
+            # if no schedule_time_picture is set, there might be 0 positions
+            self.minimal_interval_minutes = schedule_time_picture
+        except:
+            print("No Positions to start")
+            self.stop_experiment()
+            return
         idle_time = self.minimal_interval_minutes-schedule_start
         print(f"Time for one experiment: {idle_time}")
         print(f"Set interval time: {self.interval_minutes}")
         print(f"Set interval time in minutes: {timedelta(minutes=self.interval_minutes)}")
         if(idle_time <= timedelta(minutes=self.interval_minutes)):
             print(f"Schedule is possible, there is time left in the schedule {self.minimal_interval_minutes}")
+            self.experiment_running = True
         else:
             print("Schedule is impossible, stopping and rescheduling in progress")
             self.stop_experiment()
             # now add the time that was missing to the interval time and schedule again
-
             print(f"self.minimal_interval_minutes {self.minimal_interval_minutes} self.interval_minutes {(self.interval_minutes)} idle_time {(abs(idle_time))}")
             idle_time = (abs(idle_time.seconds) % 3600) // 60
             print(idle_time)
             print(idle_time+1)
-            
             self.interval_minutes = idle_time+1
-
             print(f"Interval time was increased to {self.interval_minutes} minutes")
             self.start_experiment()
 

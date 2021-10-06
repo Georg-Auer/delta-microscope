@@ -278,9 +278,11 @@ def show_yolo():
 def show_environment():
     current_experiment = select_flagged_experiment()
     print(f"Current experiment name(s): {current_experiment.name}")
-    current_experiment.record_environment()
+    table_output = []
+    for position in current_experiment.saved_positions:
+        table_output.append(f"Environment data for {position.name} @{position.timestamp} {position.humidity} % humidity, {position.temperature} °C")
     return render_template("environment.html", segment="environment", experiment_name = current_experiment.name, 
-    environment = [current_experiment.humidity, current_experiment.temperature])
+    environment = table_output)
 
 @app.route("/add-position")
 def add_position():

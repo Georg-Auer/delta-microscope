@@ -20,8 +20,11 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12">
-                  <!-- <h1 class="pt-5 pb-2">Please create a new experiment!</h1> -->
-                  <p class="pt-5"><strong>{{ environment }}</strong></p> 
+
+                  {% for element in environment %}
+                  {{element}}<br>
+                  {% endfor %}
+
                 </div>
               </div>
             </div>
