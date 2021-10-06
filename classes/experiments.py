@@ -81,7 +81,7 @@ class Experiment(object):
             except:
                 print("GPIOs already set or unavailable")
 
-    def record_environment(self):
+    def record_environment(self, video_frame_timepoint):
         try:
             # record humidity and temperature
             # https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup
@@ -92,10 +92,10 @@ class Experiment(object):
             self.humidity, self.temperature = dhtDevice.humidity, dhtDevice.temperature
             
             if(self.experiment_running):
-                import time
                 with open(f"{self.exp_foldername}/environment.csv", "a") as log:
                     if self.humidity is not None and self.temperature is not None:                     
-                        log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m-%d-%y'), time.strftime('%H:%M:%S'), self.temperature, self.humidity))
+                        # log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m-%d-%y'), time.strftime('%H:%M:%S'), self.temperature, self.humidity))
+                        log.write(f"{video_frame_timepoint}, {self.temperature}, {self.humidity}\r\n")
                         # log.write(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), self.temperature, self.humidity)
                         # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                         os.sync()
@@ -104,7 +104,7 @@ class Experiment(object):
                     else:
                         print("Failed to retrieve data from environment sensor")
                         self.humidity, self.temperature = "NaN", "NaN"
-                        log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m-%d-%y'), time.strftime('%H:%M:%S'), self.temperature, self.humidity))
+                        log.write(f"{video_frame_timepoint}, {self.temperature}, {self.humidity}\r\n")
                         os.sync()
                         log.close()
                         return
@@ -229,15 +229,16 @@ class Experiment(object):
         print(f"task: start to take picture {self.current_position}")
         # use webcam?
         frame = self.Camera().get_frame()
-        video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
+        video_frame_timepoint = (datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         # take environmental data and store to csv and experiment
-        try:
-            self.record_environment()
-        except:
-            print("No sensor data available")
-            self.humidity, self.temperature = "NaN", "NaN"
+
         print(f"Environmental data: {self.humidity}, {self.temperature}")
         if(self.experiment_running and not self.custom_img):
+            try:
+                self.record_environment(video_frame_timepoint)
+            except:
+                print("No sensor data available")
+                self.humidity, self.temperature = "NaN", "NaN"
             filename = f'position{self.current_position}_i{self.experiment_iteration:04}_{video_frame_timepoint}.jpg'
             self.experiment_iteration = self.experiment_iteration + 1
             img_mode = "automatic"
@@ -397,7 +398,7 @@ class Position(object):
     def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, filename, img_mode, fullpath_raw_image, humidity, temperature):
         self.name = name
         self.position = xyz_position
-        self.timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        self.timestamp = (datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         self.filename = filename
         self.mode = img_mode
         # self.raw_image = RGB_img
