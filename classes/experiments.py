@@ -90,15 +90,25 @@ class Experiment(object):
             # sudo apt install libgpiod2 # this may or may not be needed
             dhtDevice = adafruit_dht.DHT22(self.dht_pin, use_pulseio=False)
             self.humidity, self.temperature = dhtDevice.humidity, dhtDevice.temperature
-            # with open(f"{self.exp_foldername}/environment.csv", "a") as log:
-            #     self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
-            #     if self.humidity is not None and self.temperature is not None:                     
-            #         log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), self.temperature, self.humidity))
-            #         os.sync()
-            #         return
-            #     else:
-            #         print("Failed to retrieve data from environment sensor")
-            #         self.humidity, self.temperature = "NaN", "NaN"
+            
+            if(self.experiment_running):
+                import time
+                with open(f"{self.exp_foldername}/environment.csv", "a") as log:
+                    # self.humidity, self.temperature = Adafruit_DHT.read_retry(DHT_SENSOR, self.dht_pin)
+                    if self.humidity is not None and self.temperature is not None:                     
+                        log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), self.temperature, self.humidity))
+                        os.sync()
+                        log.close()
+                        return
+                    else:
+                        print("Failed to retrieve data from environment sensor")
+                        self.humidity, self.temperature = "NaN", "NaN"
+                        log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), self.temperature, self.humidity))
+                        os.sync()
+                        log.close()
+                        return
+            else:
+                print("No recording of environment data outside of running experiment.")
             # log.close()
         except:
             print("GPIOs already set or unavailable")
