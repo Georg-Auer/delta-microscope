@@ -84,6 +84,7 @@ class Experiment(object):
     def record_environment(self):
         try:
             # record humidity and temperature
+            # https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup
             print("Environmental data collection..")
             # sudo pip3 install adafruit-circuitpython-dht
             # sudo apt install libgpiod2 # this may or may not be needed
