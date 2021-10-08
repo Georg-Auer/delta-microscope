@@ -319,9 +319,16 @@ def show_environment():
     ax.xaxis.set_major_formatter(revert_to_dates)
     # legible labels
     # ax.tick_params(labelrotation=45)
+    plt.savefig(f"{current_experiment.exp_foldername}/temperature.png")
 
-    # plt.savefig("temperature-reg-analysis.png")
-    plt.savefig(f"{current_experiment.exp_foldername}/environment.png")
+    fig, ax = plt.subplots()
+    # just use regplot if you don't need a FacetGrid
+    sns.regplot(x=room_quality["ordinal"], y=room_quality["humidity"], ax=ax)
+    # here's the magic:
+    ax.xaxis.set_major_formatter(revert_to_dates)
+    # legible labels
+    # ax.tick_params(labelrotation=45)
+    plt.savefig(f"{current_experiment.exp_foldername}/humidity.png")
 
     return render_template("environment.html", segment="environment",
     experiment_name = current_experiment.name, environment = table_output)

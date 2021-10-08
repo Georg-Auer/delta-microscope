@@ -23,10 +23,14 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12">
-
+                  temperature<br>
                   <div class="image">
-                    <img src="{{ 'static/upload/' + experiment_name + '/environment.png'}}">
-                  </div>
+                    <img src="{{ 'static/upload/' + experiment_name + '/temperature.png'}}" height="100%">
+                  </div><br>
+                  humidity<br>
+                  <div class="image">
+                    <img src="{{ 'static/upload/' + experiment_name + '/humidity.png'}}" height="100%">
+                  </div><br>
 
                   {% for element in environment %}
                   {{element}}<br>
