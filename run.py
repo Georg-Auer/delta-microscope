@@ -281,8 +281,50 @@ def show_environment():
     table_output = []
     for position in current_experiment.saved_positions:
         table_output.append(f"Environment data for {position.name} @{position.timestamp} {position.humidity} % humidity, {position.temperature} °C")
-    return render_template("environment.html", segment="environment", experiment_name = current_experiment.name, 
-    environment = table_output)
+    
+    import pandas as pd
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    from matplotlib import dates
+
+    data_output = []
+    for position in current_experiment.saved_positions:
+        data_line = position.name, position.timestamp, position.humidity, position.temperature
+        data_output.append(data_line)
+    print(data_output)
+    room_quality = pd.DataFrame(data=data_output,
+                            columns=["name","datetime","humidity","temperature"])
+    print(room_quality.dtypes)
+    room_quality['ordinal'] = dates.datestr2num(room_quality['datetime'])
+    room_quality["datetime"] = pd.to_datetime(room_quality["datetime"])
+    print(room_quality.dtypes)
+    # create a month column, useful for seasonal data analysis
+    room_quality['month'] = room_quality['datetime'].dt.strftime('%b')
+    # # create a weekday column, useful for seasonal data analysis
+    room_quality['weekday'] = room_quality['datetime'].dt.strftime('%a')
+    # set index to datetime:
+    room_quality = room_quality.set_index('datetime')
+    sns.set(rc={'figure.figsize':(11, 4)})
+
+    @plt.FuncFormatter
+    def revert_to_dates(x, pos):
+        """ Custom formater to turn floats into e.g., 2016-05-08"""
+        return dates.num2date(x).strftime('%Y-%m-%d')
+        # return dates.num2date(x).strftime('%m-%d')
+
+    fig, ax = plt.subplots()
+    # just use regplot if you don't need a FacetGrid
+    sns.regplot(x=room_quality["ordinal"], y=room_quality["temperature"], ax=ax)
+    # here's the magic:
+    ax.xaxis.set_major_formatter(revert_to_dates)
+    # legible labels
+    # ax.tick_params(labelrotation=45)
+
+    # plt.savefig("temperature-reg-analysis.png")
+    plt.savefig(f"{current_experiment.exp_foldername}/environment.png")
+
+    return render_template("environment.html", segment="environment",
+    experiment_name = current_experiment.name, environment = table_output)
 
 @app.route("/add-position")
 def add_position():
