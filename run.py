@@ -319,7 +319,10 @@ def show_environment():
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
-    sns.regplot(x=room_quality["ordinal"], y=room_quality["temperature"], ax=ax)
+    try:
+        sns.regplot(x=room_quality["ordinal"], y=room_quality["temperature"], ax=ax)
+    except:
+        print("No or erronous data")
     # here's the magic:
     ax.xaxis.set_major_formatter(revert_to_dates)
     # legible labels
