@@ -315,7 +315,7 @@ def show_environment():
     # remove NaNs and corrosponding row
     print(room_quality.isna)
     # Drop the rows where at least one element is missing.
-    room_quality.dropna(inplace=True)
+    room_quality = room_quality.dropna(inplace=True)
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
