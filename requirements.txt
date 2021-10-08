@@ -33,3 +33,6 @@ seaborn
 torch
 torchvision
 adafruit-circuitpython-dht
+scipy>=1.0
+pandas>=0.23
+seaborn
