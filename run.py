@@ -292,8 +292,7 @@ def show_environment():
         data_line = position.name, position.timestamp, position.humidity, position.temperature
         data_output.append(data_line)
     print(data_output)
-    room_quality = pd.DataFrame(data=data_output,
-                            columns=["name","datetime","humidity","temperature"])
+    room_quality = pd.DataFrame(data=data_output, columns=["name","datetime","humidity","temperature"])
     print(room_quality.dtypes)
     room_quality['ordinal'] = dates.datestr2num(room_quality['datetime'])
     room_quality["datetime"] = pd.to_datetime(room_quality["datetime"])
