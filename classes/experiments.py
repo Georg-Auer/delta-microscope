@@ -106,8 +106,8 @@ class Experiment(object):
                         return
                     else:
                         print("Failed to retrieve data from environment sensor")
-                        self.humidity, self.temperature = 0, 0
-                        # self.humidity, self.temperature = "NaN", "NaN"
+                        # self.humidity, self.temperature = 0, 0
+                        self.humidity, self.temperature = "NaN", "NaN"
                         log.write(f"{video_frame_timepoint}, {self.temperature}, {self.humidity}\r\n")
                         os.sync()
                         log.close()
@@ -117,8 +117,8 @@ class Experiment(object):
             # log.close()
         except:
             print("GPIOs already set or unavailable")
-            self.humidity, self.temperature = 0, 0
-            # self.humidity, self.temperature = "NaN", "NaN"
+            # self.humidity, self.temperature = 0, 0
+            self.humidity, self.temperature = "NaN", "NaN"
 
     def show_experiment_positions(self):
         n = 0
