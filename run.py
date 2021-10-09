@@ -299,7 +299,8 @@ def show_environment():
         room_quality = pd.DataFrame(data=data_output,
                                 columns=["name","datetime","humidity","temperature"])
     except:
-        room_quality = pd.DataFrame(data=[f"{current_experiment.name}: no data", f"{datetime.now()}" , 0, 0],
+        blank_data = f"{current_experiment.name}: no data", datetime.now(), 0, 0
+        room_quality = pd.DataFrame(data=blank_data,
                                 columns=["name","datetime","humidity","temperature"])
     print(room_quality.dtypes)
     room_quality['ordinal'] = dates.datestr2num(room_quality['datetime'])
