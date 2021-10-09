@@ -292,7 +292,8 @@ def show_environment():
         data_line = position.name, position.timestamp, position.humidity, position.temperature
         data_output.append(data_line)
     print(data_output)
-    room_quality = pd.DataFrame(data=data_output, columns=["name","datetime","humidity","temperature"])
+    room_quality = pd.DataFrame(data=data_output,
+                            columns=["name","datetime","humidity","temperature"])
     print(room_quality.dtypes)
     room_quality['ordinal'] = dates.datestr2num(room_quality['datetime'])
     room_quality["datetime"] = pd.to_datetime(room_quality["datetime"])
@@ -311,12 +312,12 @@ def show_environment():
         return dates.num2date(x).strftime('%Y-%m-%d')
         # return dates.num2date(x).strftime('%m-%d')
 
-    # remove NaNs and corrosponding row
-    print(room_quality.isna)
-    # Drop the rows where at least one element is missing.
-    room_quality = room_quality.dropna(inplace=True)
-    # try:
-    # fig, ax = plt.subplots() # do not plot, it would be impossible
+    # # remove NaNs and corrosponding row
+    # print(room_quality.isna)
+    # # Drop the rows where at least one element is missing.
+    # room_quality = room_quality.dropna(inplace=True)
+
+    fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
     sns.regplot(x=room_quality["ordinal"], y=room_quality["temperature"], ax=ax)
     # here's the magic:
@@ -333,8 +334,7 @@ def show_environment():
     # legible labels
     # ax.tick_params(labelrotation=45)
     plt.savefig(f"{current_experiment.exp_foldername}/humidity.png")
-    # except:
-    #     print("No or erronous data")
+
     return render_template("environment.html", segment="environment",
     experiment_name = current_experiment.name, environment = table_output)
 
