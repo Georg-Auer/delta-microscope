@@ -316,7 +316,7 @@ def show_environment():
     # Drop the rows where at least one element is missing.
     room_quality = room_quality.dropna(inplace=True)
     # try:
-    fig, ax = plt.subplots()
+    # fig, ax = plt.subplots() # do not plot, it would be impossible
     # just use regplot if you don't need a FacetGrid
     sns.regplot(x=room_quality["ordinal"], y=room_quality["temperature"], ax=ax)
     # here's the magic:
