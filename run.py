@@ -316,9 +316,11 @@ def show_environment():
         # return dates.num2date(x).strftime('%m-%d')
 
     # remove NaNs and corrosponding row
-    print(room_quality.isna)
+    room_quality.isna
+    print(room_quality)
     # Drop the rows where at least one element is missing.
     room_quality = room_quality.dropna(inplace=True)
+    print(room_quality)
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
