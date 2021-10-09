@@ -315,26 +315,26 @@ def show_environment():
     print(room_quality.isna)
     # Drop the rows where at least one element is missing.
     room_quality = room_quality.dropna(inplace=True)
-    try:
-        fig, ax = plt.subplots()
-        # just use regplot if you don't need a FacetGrid
-        sns.regplot(x=room_quality["ordinal"], y=room_quality["temperature"], ax=ax)
-        # here's the magic:
-        ax.xaxis.set_major_formatter(revert_to_dates)
-        # legible labels
-        # ax.tick_params(labelrotation=45)
-        plt.savefig(f"{current_experiment.exp_foldername}/temperature.png")
+    # try:
+    fig, ax = plt.subplots()
+    # just use regplot if you don't need a FacetGrid
+    sns.regplot(x=room_quality["ordinal"], y=room_quality["temperature"], ax=ax)
+    # here's the magic:
+    ax.xaxis.set_major_formatter(revert_to_dates)
+    # legible labels
+    # ax.tick_params(labelrotation=45)
+    plt.savefig(f"{current_experiment.exp_foldername}/temperature.png")
 
-        fig, ax = plt.subplots()
-        # just use regplot if you don't need a FacetGrid
-        sns.regplot(x=room_quality["ordinal"], y=room_quality["humidity"], ax=ax)
-        # here's the magic:
-        ax.xaxis.set_major_formatter(revert_to_dates)
-        # legible labels
-        # ax.tick_params(labelrotation=45)
-        plt.savefig(f"{current_experiment.exp_foldername}/humidity.png")
-    except:
-        print("No or erronous data")
+    fig, ax = plt.subplots()
+    # just use regplot if you don't need a FacetGrid
+    sns.regplot(x=room_quality["ordinal"], y=room_quality["humidity"], ax=ax)
+    # here's the magic:
+    ax.xaxis.set_major_formatter(revert_to_dates)
+    # legible labels
+    # ax.tick_params(labelrotation=45)
+    plt.savefig(f"{current_experiment.exp_foldername}/humidity.png")
+    # except:
+    #     print("No or erronous data")
     return render_template("environment.html", segment="environment",
     experiment_name = current_experiment.name, environment = table_output)
 
