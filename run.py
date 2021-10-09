@@ -295,8 +295,12 @@ def show_environment():
         data_line = position.name, position.timestamp, position.humidity, position.temperature
         data_output.append(data_line)
     print(data_output)
-    room_quality = pd.DataFrame(data=data_output,
-                            columns=["name","datetime","humidity","temperature"])
+    try:
+        room_quality = pd.DataFrame(data=data_output,
+                                columns=["name","datetime","humidity","temperature"])
+    except:
+        room_quality = pd.DataFrame(data=[f"{position.name}: no data", datetime.now() , 0, 0],
+                                columns=["name","datetime","humidity","temperature"])
     print(room_quality.dtypes)
     room_quality['ordinal'] = dates.datestr2num(room_quality['datetime'])
     room_quality["datetime"] = pd.to_datetime(room_quality["datetime"])
@@ -323,7 +327,8 @@ def show_environment():
     # https://www.geeksforgeeks.org/python-pandas-dataframe-dropna/
     # room_quality.dropna()
     # print(room_quality)
-    room_quality_nonan = room_quality.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
+    # room_quality_nonan = room_quality.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
+    room_quality_nonan = room_quality.dropna()
     print(room_quality_nonan)
 
     fig, ax = plt.subplots()
