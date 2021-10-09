@@ -30,8 +30,8 @@ class Experiment(object):
             self.dht_pin = board.D4
         except:
             self.dht_pin = "unavailable"
-        self.humidity = []
-        self.temperature = []
+        self.humidity = np.NaN
+        self.temperature = np.NaN
         self.scheduler = scheduler
         self.image_path = image_path
         self.Camera = Camera
