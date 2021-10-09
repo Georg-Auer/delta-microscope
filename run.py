@@ -319,7 +319,9 @@ def show_environment():
     room_quality.isna
     print(room_quality)
     # Drop the rows where at least one element is missing.
-    room_quality.dropna(inplace=True)
+    room_quality.dropna()
+    print(room_quality)
+    room_quality.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
     print(room_quality)
 
     fig, ax = plt.subplots()
