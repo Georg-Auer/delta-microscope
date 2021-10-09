@@ -321,7 +321,6 @@ def show_environment():
         # return dates.num2date(x).strftime('%m-%d')
 
     # remove NaNs and corrosponding row
-    room_quality.isna
     print(room_quality)
     # Drop the rows where at least one element is missing.
     # https://www.w3resource.com/pandas/dataframe/dataframe-dropna.php
@@ -334,18 +333,20 @@ def show_environment():
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
-    sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["temperature"], ax=ax)
+    g = sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["temperature"], ax=ax)
+    g = (g.set_axis_labels("Time","Temperature").set(xlim=(0,30)))
     # here's the magic:
-    ax.xaxis.set_major_formatter(revert_to_dates)
+    g.ax.xaxis.set_major_formatter(revert_to_dates)
     # legible labels
     # ax.tick_params(labelrotation=45)
     plt.savefig(f"{current_experiment.exp_foldername}/temperature.png")
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
-    sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["humidity"], ax=ax)
+    g = sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["humidity"], ax=ax)
+    g = (g.set_axis_labels("Time","Temperature").set(xlim=(0,100)))
     # here's the magic:
-    ax.xaxis.set_major_formatter(revert_to_dates)
+    g.ax.xaxis.set_major_formatter(revert_to_dates)
     # legible labels
     # ax.tick_params(labelrotation=45)
     plt.savefig(f"{current_experiment.exp_foldername}/humidity.png")
