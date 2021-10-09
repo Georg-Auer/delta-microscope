@@ -320,6 +320,7 @@ def show_environment():
     print(room_quality)
     # Drop the rows where at least one element is missing.
     # https://www.w3resource.com/pandas/dataframe/dataframe-dropna.php
+    # https://www.geeksforgeeks.org/python-pandas-dataframe-dropna/
     # room_quality.dropna()
     # print(room_quality)
     room_quality_nonan = room_quality.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
@@ -327,7 +328,7 @@ def show_environment():
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
-    sns.regplot(x=room_quality["ordinal"], y=room_quality_nonan["temperature"], ax=ax)
+    sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["temperature"], ax=ax)
     # here's the magic:
     ax.xaxis.set_major_formatter(revert_to_dates)
     # legible labels
@@ -336,7 +337,7 @@ def show_environment():
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
-    sns.regplot(x=room_quality["ordinal"], y=room_quality_nonan["humidity"], ax=ax)
+    sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["humidity"], ax=ax)
     # here's the magic:
     ax.xaxis.set_major_formatter(revert_to_dates)
     # legible labels
