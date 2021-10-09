@@ -299,7 +299,7 @@ def show_environment():
         room_quality = pd.DataFrame(data=data_output,
                                 columns=["name","datetime","humidity","temperature"])
     except:
-        room_quality = pd.DataFrame(data=[f"{current_experiment.name}: no data", datetime.now() , 0, 0],
+        room_quality = pd.DataFrame(data=[f"{current_experiment.name}: no data", f"{datetime.now()}" , 0, 0],
                                 columns=["name","datetime","humidity","temperature"])
     print(room_quality.dtypes)
     room_quality['ordinal'] = dates.datestr2num(room_quality['datetime'])
@@ -328,7 +328,7 @@ def show_environment():
     # room_quality.dropna()
     # print(room_quality)
     # room_quality_nonan = room_quality.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
-    room_quality_nonan = room_quality.dropna()
+    room_quality_nonan = room_quality.dropna(axis = 0, how ='any')
     print(room_quality_nonan)
 
     fig, ax = plt.subplots()
