@@ -284,6 +284,9 @@ def show_environment():
     
     import pandas as pd
     import seaborn as sns
+    import matplotlib
+    # to avoid X11 errors, use Agg rendering engine:
+    matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     from matplotlib import dates
 
