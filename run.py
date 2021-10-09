@@ -333,20 +333,18 @@ def show_environment():
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
-    g = sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["temperature"], ax=ax)
-    g = (g.set_axis_labels("Time","Temperature").set(xlim=(0,30)))
+    sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["temperature"], ax=ax)
     # here's the magic:
-    g.ax.xaxis.set_major_formatter(revert_to_dates)
+    ax.xaxis.set_major_formatter(revert_to_dates)
     # legible labels
     # ax.tick_params(labelrotation=45)
     plt.savefig(f"{current_experiment.exp_foldername}/temperature.png")
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
-    g = sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["humidity"], ax=ax)
-    g = (g.set_axis_labels("Time","Temperature").set(xlim=(0,100)))
+    sns.regplot(x=room_quality_nonan["ordinal"], y=room_quality_nonan["humidity"], ax=ax)
     # here's the magic:
-    g.ax.xaxis.set_major_formatter(revert_to_dates)
+    ax.xaxis.set_major_formatter(revert_to_dates)
     # legible labels
     # ax.tick_params(labelrotation=45)
     plt.savefig(f"{current_experiment.exp_foldername}/humidity.png")
