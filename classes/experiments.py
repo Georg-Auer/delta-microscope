@@ -167,8 +167,12 @@ class Experiment(object):
         schedule_start = datetime.today()
         
         print(f"Moving time is assumed {self.moving_time} seconds") 
-        task_seperation_increase = self.moving_time*2
-        task_seperation = 1
+
+        # task_seperation is the accumulated time of moving to the previous position + 1 s times the previous positions
+        task_seperation_increase = self.moving_time+1
+        task_seperation = 0
+        print(f"Task seperation increase time is assumed {task_seperation_increase} seconds") 
+        print(f"Task seperation time is assumed {task_seperation} seconds") 
         for xyz_position in self.experiment_positions: 
             print(xyz_position)
             schedule_time_movement = schedule_start + timedelta(seconds=task_seperation)
@@ -178,6 +182,8 @@ class Experiment(object):
             self.scheduler.add_job(func=self.picture_task_creator, trigger='date', run_date=schedule_time_picture, args=[xyz_position], id='picture_start'+str(xyz_position))
             print(f"created picture job {xyz_position} running at {schedule_time_picture}")
             task_seperation = task_seperation + task_seperation_increase
+            print(f"Task seperation increase time is {task_seperation} seconds") 
+
         # last scheduled picture time is stored
         try:
             # if no schedule_time_picture is set, there might be 0 positions
@@ -188,13 +194,13 @@ class Experiment(object):
             return
         idle_time = self.minimal_interval_minutes-schedule_start
         print(f"Time for one experiment: {idle_time}")
-        print(f"Set interval time: {self.interval_minutes}")
+        # print(f"Set interval time: {self.interval_minutes}")
         print(f"Set interval time in minutes: {timedelta(minutes=self.interval_minutes)}")
         if(idle_time <= timedelta(minutes=self.interval_minutes)):
-            print(f"Schedule is possible, there is time left in the schedule {self.minimal_interval_minutes}")
+            print(f"Schedule is possible, there is time left in the schedule ({timedelta(minutes=self.interval_minutes)-idle_time})")
             self.experiment_running = True
         else:
-            print("Schedule is impossible, stopping and rescheduling in progress")
+            print(f"Schedule is impossible: {idle_time-timedelta(minutes=self.interval_minutes)} missing; stopping and rescheduling in progress")
             self.stop_experiment()
             # now add the time that was missing to the interval time and schedule again
             print(f"self.minimal_interval_minutes {self.minimal_interval_minutes} self.interval_minutes {(self.interval_minutes)} idle_time {(abs(idle_time))}")
