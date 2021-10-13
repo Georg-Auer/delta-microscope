@@ -44,10 +44,11 @@ class Experiment(object):
         self.x_resolution, self.y_resolution = self.resolution
         self.experiment_running = False
         self.experiment_iteration = 0
-        self.moving_time = 6 # standardized time in seconds it takes to move from pos n to n+1 in seconds
+        self.motor_speed = 10000
+        self.moving_time = 14 # standardized time in seconds it takes to move from pos n to n+1 in seconds
         self.flag = False
         self.motor_comport = '/dev/ttyACM0'
-        # self.motor_comport = 'COM21'
+        # self.motor_comport = 'COM9'
         self.creation_time = datetime.today()
         self.exp_foldername = f'{self.image_path}/{self.name}'
         self.raw_dir = "microscope-raw"
@@ -389,7 +390,7 @@ class Experiment(object):
             #     motor1_enable,motor1_direction,motor1_position,motor2_enable,motor2_direction,motor2_position,motor3_enable,motor3_direction,motor3_position))
             # enabled = 0, disabled = 1; 0 = counterclockwise 1 = clockwise
             # results = np.array(connect_to_arduino(self.motor_comport, 0, 0, x_position, 0, 0, y_position, 0, 0, z_position))
-            results = np.array(connect_to_arduino(self.motor_comport, 0, 0, self.planned_position[0], 0, 0, self.planned_position[1], 0, 0, self.planned_position[2]))
+            results = np.array(connect_to_arduino(self.motor_comport, 0, 0, self.planned_position[0], self.motor_speed, 0, 0, self.planned_position[1], self.motor_speed, 0, 0, self.planned_position[2], self.motor_speed))
             print(f"Received values: {results}")
             # this could be parsed and converted to degree
             # or just assume motor has moved to destination

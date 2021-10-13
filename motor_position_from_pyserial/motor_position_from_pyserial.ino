@@ -29,15 +29,19 @@ struct STRUCT {
   int motor0_enable = 1;
   int motor0_direction;
   int motor0_position;
+  int motor0_speed = 5000;
   int motor1_enable = 1;
   int motor1_direction;
   int motor1_position;
+  int motor1_speed = 5000;
   int motor2_enable = 1;
   int motor2_direction;
   int motor2_position;
+  int motor2_speed = 5000;
   int motor3_enable = 1;
   int motor3_direction;
   int motor3_position;
+  int motor3_speed = 5000;
 } testStruct;
 
 #include "SerialTransfer.h"
@@ -148,10 +152,10 @@ void loop()
   motor2.moveTo(arduino_motorC);
   // motor3.moveTo(testStruct.motor3_position);
 
-  motor0.setSpeed(20000);
-  motor1.setSpeed(20000);
-  motor2.setSpeed(20000);
-  motor3.setSpeed(20000);
+  motor0.setSpeed(testStruct.motor0_speed);
+  motor1.setSpeed(testStruct.motor1_speed);
+  motor2.setSpeed(testStruct.motor2_speed);
+  motor3.setSpeed(testStruct.motor3_speed);
 
   motor0.runSpeedToPosition();  
   motor1.runSpeedToPosition();

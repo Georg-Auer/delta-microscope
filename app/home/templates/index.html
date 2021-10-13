@@ -44,26 +44,48 @@
               
                 <form method = "post">
                   <div class="camera-movement">
-                    <a href=# id=href_0>
+                    <a href=# id=5000left>
                       <button>                   
                         <i class="fa fa-arrow-left fa" style="color: rgb(0, 87, 63);" aria-hidden="true"></i>
                       </button>
                     </a>
-                    <a href=# id=href_90>
+                    <a href=# id=5000up>
                       <button>                   
                         <i class="fa fa-arrow-up fa" style="color: rgb(0, 87, 63);" aria-hidden="true"></i>
                       </button>
                     </a>
-                    <a href=# id=href_180>
+                    <a href=# id=5000right>
                       <button>                  
                         <i class="fa fa-arrow-right fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
                       </button>
                     </a>
-                    <a href=# id=href_270>
+                    <a href=# id=5000down>
                       <button>                  
                         <i class="fa fa-arrow-down fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
                       </button>
                     </a>
+
+                    <a href=# id=nextleft>
+                      <button>                   
+                        <i class="fa fa-long-arrow-left fa" style="color: rgb(0, 87, 63);" aria-hidden="true"></i>
+                      </button>
+                    </a>
+                    <a href=# id=nextup>
+                      <button>                   
+                        <i class="fa fa-long-arrow-up fa" style="color: rgb(0, 87, 63);" aria-hidden="true"></i>
+                      </button>
+                    </a>
+                    <a href=# id=nextright>
+                      <button>                  
+                        <i class="fa fa-long-arrow-right fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
+                      </button>
+                    </a>
+                    <a href=# id=nextdown>
+                      <button>                  
+                        <i class="fa fa-long-arrow-down fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
+                      </button>
+                    </a>
+
                     <a href=# id=href_zoom_in>
                       <button>                  
                         <i class="fa fa-search-plus fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
@@ -129,36 +151,66 @@
   $(function() {
     
     //json - parse to Python
-    // Motor - 90°
-    $('a#href_0').bind('click', function() {
+    // Motor - 0°
+    $('a#5000left').bind('click', function() {
       $.getJSON('/move_deg?xyz_position=0&xyz_position=5000&xyz_position=0',
           function(data) {
         //do nothing
       });
       return false;
     });
-    
     // - Motor - 90°
-    $('a#href_90').bind('click', function() {
+    $('a#5000up').bind('click', function() {
       $.getJSON('/move_deg?xyz_position=5000&xyz_position=0&xyz_position=0',
           function(data) {
         //do nothing
       });
       return false;
     });
-
     // - Motor - 180°
-    $('a#href_180').bind('click', function() {
+    $('a#5000right').bind('click', function() {
       $.getJSON('/move_deg?xyz_position=0&xyz_position=-5000&xyz_position=0',
           function(data) {
         //do nothing
       });
       return false;
     });
-
     // - Motor - 270°
-    $('a#href_270').bind('click', function() {
+    $('a#5000down').bind('click', function() {
       $.getJSON('/move_deg?xyz_position=-5000&xyz_position=0&xyz_position=0',
+          function(data) {
+        //do nothing
+      });
+      return false;
+    });
+
+   // xyz movement to next well ( 6 cm or 7 cm )
+   $('a#nextleft').bind('click', function() {
+      $.getJSON('/move_deg?xyz_position=0&xyz_position=140000&xyz_position=0',
+          function(data) {
+        //do nothing
+      });
+      return false;
+    });
+    // - Motor - 90°
+    $('a#nextup').bind('click', function() {
+      $.getJSON('/move_deg?xyz_position=140000&xyz_position=0&xyz_position=0',
+          function(data) {
+        //do nothing
+      });
+      return false;
+    });
+    // - Motor - 180°
+    $('a#nextright').bind('click', function() {
+      $.getJSON('/move_deg?xyz_position=0&xyz_position=-140000&xyz_position=0',
+          function(data) {
+        //do nothing
+      });
+      return false;
+    });
+    // - Motor - 270°
+    $('a#nextdown').bind('click', function() {
+      $.getJSON('/move_deg?xyz_position=-140000&xyz_position=0&xyz_position=0',
           function(data) {
         //do nothing
       });

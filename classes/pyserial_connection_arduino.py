@@ -9,10 +9,10 @@ from pySerialTransfer import pySerialTransfer as txfer
 
 # def connect_to_arduino(comport = '/dev/ttyACM0',
 def connect_to_arduino(comport = 'COM21',
-        motor0_enable = 1, motor0_direction = 0, motor0_position = 0,
-        motor1_enable = 1, motor1_direction = 0, motor1_position = 0,
-        motor2_enable = 1, motor2_direction = 0, motor2_position = 0,
-        motor3_enable = 1, motor3_direction = 0, motor3_position = 0):
+        motor0_enable = 1, motor0_direction = 0, motor0_position = 0, motor0_speed = 5000,
+        motor1_enable = 1, motor1_direction = 0, motor1_position = 0, motor1_speed = 5000,
+        motor2_enable = 1, motor2_direction = 0, motor2_position = 0, motor2_speed = 5000,
+        motor3_enable = 1, motor3_direction = 0, motor3_position = 0, motor3_speed = 5000):
     try:
         print(f"Connecting to {comport}")
         link = txfer.SerialTransfer(comport)
@@ -24,8 +24,8 @@ def connect_to_arduino(comport = 'COM21',
         send_size = 0
         
         # Send a list
-        list_ = [motor0_enable, motor0_direction, motor0_position, motor1_enable, motor1_direction,  motor1_position,
-            motor2_enable, motor2_direction, motor2_position, motor3_enable, motor3_direction, motor3_position]
+        list_ = [motor0_enable, motor0_direction, motor0_position, motor0_speed, motor1_enable, motor1_direction, motor1_position, motor1_speed, 
+            motor2_enable, motor2_direction, motor2_position, motor2_speed, motor3_enable, motor3_direction, motor3_position, motor3_speed]
         print(list_)
         list_size = link.tx_obj(list_)
         send_size += list_size
@@ -77,18 +77,22 @@ if __name__ == "__main__":
     motor0_enable = 0
     motor0_direction = 0
     motor0_position = 0
+    motor0_speed = 0
     motor1_enable = 0
     motor1_direction = 0
     motor1_position = 0
+    motor1_speed = 0
     motor2_enable = 0
     motor2_direction = 0
     motor2_position = 0
+    motor2_speed = 0
     motor3_enable = 0
     motor3_direction = 0
     motor3_position = 0
+    motor3_speed = 0
     try:
-        results = np.array(connect_to_arduino(comport,motor0_enable,motor0_direction,motor0_position,
-            motor1_enable,motor1_direction,motor1_position,motor2_enable,motor2_direction,motor2_position,motor3_enable,motor3_direction,motor3_position))
-        print(results)
+        list_ = [motor0_enable, motor0_direction, motor0_position, motor0_speed, motor1_enable, motor1_direction, motor1_position, motor1_speed, 
+            motor2_enable, motor2_direction, motor2_position, motor2_speed, motor3_enable, motor3_direction, motor3_position, motor3_speed]
+        print(list_)
     except:
         print("Sending did not work, please check comport")
