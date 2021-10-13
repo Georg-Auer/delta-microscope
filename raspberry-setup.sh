@@ -93,14 +93,14 @@ pip3 install torchvision -f https://torch.kmtea.eu/whl/stable.html
 # command line only install:
 # https://www.pjrc.com/teensy/td_download.html
 
-wget https://downloads.arduino.cc/arduino-1.8.15-linux64.tar.xz
+wget https://downloads.arduino.cc/arduino-1.8.16-linux64.tar.xz
 wget https://www.pjrc.com/teensy/td_154/TeensyduinoInstall.linux64
 wget https://www.pjrc.com/teensy/00-teensy.rules
 sudo cp 00-teensy.rules /etc/udev/rules.d/
-tar -xf arduino-1.8.15-linux64.tar.xz
+tar -xf arduino-1.8.16-linux64.tar.xz
 chmod 755 TeensyduinoInstall.linux64
-./TeensyduinoInstall.linux64 --dir=arduino-1.8.15
-cd arduino-1.8.15/hardware/teensy/avr/cores/teensy4
+./TeensyduinoInstall.linux64 --dir=arduino-1.8.16
+cd arduino-1.8.16/hardware/teensy/avr/cores/teensy4
 make
 wget https://www.pjrc.com/teensy/td_153/TeensyduinoInstall.linuxaarch64 # compatible with arduino 1.8.13
 sudo chmod 755 TeensyduinoInstall.linuxaarch64
@@ -108,14 +108,14 @@ sudo chmod 755 TeensyduinoInstall.linuxaarch64
 #choose where you put the installation files in the GUI(!) with X11
 sudo rm -rf TeensyduinoInstall.linuxaarch64
 cd ~
-wget https://downloads.arduino.cc/arduino-1.8.15-linuxaarch64.tar.xz
+wget https://downloads.arduino.cc/arduino-1.8.16-linuxaarch64.tar.xz
 wget https://www.pjrc.com/teensy/td_154/TeensyduinoInstall.linuxaarch64
 wget https://www.pjrc.com/teensy/00-teensy.rules
 sudo cp 00-teensy.rules /etc/udev/rules.d/
-tar -xf arduino-1.8.15-linuxaarch64.tar.xz
+tar -xf arduino-1.8.16-linuxaarch64.tar.xz
 chmod 755 TeensyduinoInstall.linuxaarch64
-./TeensyduinoInstall.linuxaarch64 --dir=arduino-1.8.15
-cd arduino-1.8.15/hardware/teensy/avr/cores/teensy4
+./TeensyduinoInstall.linuxaarch64 --dir=arduino-1.8.16
+cd arduino-1.8.16/hardware/teensy/avr/cores/teensy4
 make
 
 
