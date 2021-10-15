@@ -251,7 +251,7 @@ class Experiment(object):
                 self.record_environment(video_frame_timepoint)
             except:
                 print("No sensor data available")
-                self.humidity, self.temperature = "NaN", "NaN"
+                self.humidity, self.temperature = np.NaN, np.NaN
             filename = f'position{self.current_position}_i{self.experiment_iteration:04}_{video_frame_timepoint}.jpg'
             self.experiment_iteration = self.experiment_iteration + 1
             img_mode = "automatic"
