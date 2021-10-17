@@ -3,19 +3,31 @@ import torch
 # import pandas as pd
 
 # def detect(raw_image_foldername, exp_foldername, yolo_dir):
-def detect(file_in_foldername):
+def detect(file_in_foldername, detection_class = False, confidence_threshold = 0.6):
     # model = torch.hub.load('yolov5', 'custom', path='weights/hetcam.pt', source='local')  # local repo
     model = torch.hub.load('yolov5', 'custom', path='yolov5weights/spheroids.pt', source='local')  # local repo
-    image = cv2.imread(file_in_foldername)  # OpenCV image (BGR to RGB)
+    
+    model.conf = confidence_threshold  # confidence threshold (0-1)
+    # model.iou = 0.45  # NMS IoU threshold (0-1)
+    # class 0 is for spheroid detection only:
+    if detection_class:
+        print(f"Detection specified to class {detection_class}")
+        model.classes = detection_class
+    else:
+        print("Detection no specified, all classes considered..")
+    # model.classes = None  # (optional list) filter by class, i.e. = [0, 15, 16] for persons, cats and dogs
+    
+    image = cv2.imread(file_in_foldername)[..., ::-1]  # OpenCV image (BGR to RGB)
     results = model(image, size=416)  # includes NMS
     results.print()
-    print(results.xyxy)
+    # print(results.xyxy)
     # result2 = pd.DataFrame()
     # https://github.com/ultralytics/yolov5/issues/2703
     # pandaresult = results.pandas().xyxy[0]  # image predictions (pandas)
     # print(f"xyxy\n{pandaresult}")
-    pandaresult = results.pandas().xyxyn[0]
-    print(f"xyxy\n{pandaresult}")
+    # pandaresult = results.pandas().xyxyn[0]
+    
+    print(f"xyxy\n{results.pandas().xyxyn[0]}")
     # pandaresult = results.pandas().xywhn[0]
     # print(f"xywhn\n{pandaresult}")
     # print(result2)
@@ -24,63 +36,50 @@ def detect(file_in_foldername):
     # print(result2.head(1))
     # result2 = pd.DataFrame(results.pandas().xyxy[0])  # image predictions (pandas)
     # print(result2)
-    return pandaresult
+    return results
 
 if __name__ == '__main__':
-
+    detection_class = 0
     image = cv2.imread("spheroids2.jpg")
-    yolo_results = detect("spheroids2.jpg")
+    yolo_results = detect("spheroids2.jpg", detection_class)
     # image = cv2.imread("het-cam-ha-small.jpg")
     # yolo_results = detect("het-cam-ha-small.jpg")
-    print(yolo_results)
-    print(type(yolo_results))
-    yolo_results_json = yolo_results.to_json(orient='records')
+    yolo_results_xyxyn = yolo_results.pandas().xyxyn[0]
+    print(yolo_results_xyxyn)
+    print(type(yolo_results_xyxyn))
+    yolo_results_xyxyn_json = yolo_results_xyxyn.to_json(orient='records')
 
-    if len(yolo_results) == 0:
+    if len(yolo_results_xyxyn) == 0:
         print ("No objects found")
     
     else:
-        print (yolo_results)
-        print (yolo_results.shape)
-        print ("Number of objects detected: " + str(yolo_results.shape[0]))
+        print (yolo_results_xyxyn)
+        print (yolo_results_xyxyn.shape)
+        print ("Number of objects detected: " + str(yolo_results_xyxyn.shape[0]))
     
-        arr = yolo_results.to_numpy()
+        arr = yolo_results_xyxyn.to_numpy()
+        print("results in array")
         print(arr)
-        print(image)
+        # print(image)
         print(image.shape)
         i = 0
-        for (h,w,y,x,n,m,o) in arr:
-            x = int(x*640)
-            y = int(y*480)
+        for (y1,x1,y,x,n,m,o) in arr:
+            x = int(x*480)
+            y = int(y*640)
             print(x)
             print(y)
-            w = int(w*640)
-            print(w)
-            h = int(h*480)
-            print(h)
-            print(n)
-            print(m)
-            print(o)
-            # resize image
-            # dim = (416, 416)
-            # image = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
+            y1 = int(y1*640)
+            x1 = int(x1*480)
+            print(f"width {x1}")
+            print(f"height {y1}")
+            print(f"probability {n}")
+            print(f"class {m}")
+            print(f"class name {o}")
 
-            cv2.rectangle(image, (int(x), int(y)), (int(w), int(h)), ((i*40), (i*40), 255), 1)
-            
-            # cv2.rectangle(image, (int(w), int(h)), (int(x), int(y)), (0, (i*40), 255-(i*40)), 1)
-            # cv2.rectangle(image, (int(w), int(h)), (int(x+(h*0.5)), int(y+(w*0.5))), (0, (i*40), 255-(i*40)), 1)
-
+            cv2.rectangle(image, (int(y1), int(x1)), (int(y), int(x)), ((i*40), (i*40), 255), 1)
             i = i+1
-            # cv2.rectangle(image,x,y,(x+w,y+h),(0,255,0),1)
 
-        # resize image
-        # dim = (416, 416)
-        # resized = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
-
-        # cv2.rectangle(image, (50, 100), (10, 10), (255, 255, 255), 1)
-        # cv2.rectangle(resized, (50, 100), (10, 10), (255, 255, 255), 1)
         cv2.imshow("resulting image",image)
-        # cv2.imshow("resized image",resized)
         cv2.waitKey(0)
 
 # if __name__ == '__main__':
