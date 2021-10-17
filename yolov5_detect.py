@@ -45,7 +45,9 @@ if __name__ == '__main__':
     # image = cv2.imread("het-cam-ha-small.jpg")
     # yolo_results = detect("het-cam-ha-small.jpg")
     yolo_results_xyxyn = yolo_results.pandas().xyxyn[0]
-    print(yolo_results_xyxyn)
+    yolo_results_xywhn = yolo_results.pandas().xywhn[0]
+    print(f"xyxyn result:{yolo_results_xyxyn}")
+    print(f"xywhn result:{yolo_results_xywhn}")
     print(type(yolo_results_xyxyn))
     yolo_results_xyxyn_json = yolo_results_xyxyn.to_json(orient='records')
 
