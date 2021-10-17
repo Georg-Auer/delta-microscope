@@ -4,12 +4,12 @@ import torch
 
 # def detect(raw_image_foldername, exp_foldername, yolo_dir):
 def detect(file_in_foldername):
-    # model = torch.hub.load('yolov5/', 'custom', path='weights/hetcam.pt', source='local')  # local repo
-    model = torch.hub.load('yolov5/', 'custom', path='weights/spheroids.pt', source='local')  # local repo
+    # model = torch.hub.load('yolov5', 'custom', path='weights/hetcam.pt', source='local')  # local repo
+    model = torch.hub.load('yolov5', 'custom', path='yolov5weights/spheroids.pt', source='local')  # local repo
     image = cv2.imread(file_in_foldername)  # OpenCV image (BGR to RGB)
     results = model(image, size=416)  # includes NMS
     results.print()
-    # print(results.xyxy)
+    print(results.xyxy)
     # result2 = pd.DataFrame()
     # https://github.com/ultralytics/yolov5/issues/2703
     # pandaresult = results.pandas().xyxy[0]  # image predictions (pandas)
