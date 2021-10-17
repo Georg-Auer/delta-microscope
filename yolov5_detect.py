@@ -4,7 +4,8 @@ import torch
 
 # def detect(raw_image_foldername, exp_foldername, yolo_dir):
 def detect(file_in_foldername):
-    model = torch.hub.load('yolov5/', 'custom', path='weights/hetcam.pt', source='local')  # local repo
+    # model = torch.hub.load('yolov5/', 'custom', path='weights/hetcam.pt', source='local')  # local repo
+    model = torch.hub.load('yolov5/', 'custom', path='weights/spheroids.pt', source='local')  # local repo
     image = cv2.imread(file_in_foldername)  # OpenCV image (BGR to RGB)
     results = model(image, size=416)  # includes NMS
     results.print()
@@ -27,10 +28,10 @@ def detect(file_in_foldername):
 
 if __name__ == '__main__':
 
-    # image = cv2.imread("spheroids2.jpg")
-    # yolo_results = detect("spheroids2.jpg")
-    image = cv2.imread("het-cam-ha-small.jpg")
-    yolo_results = detect("het-cam-ha-small.jpg")
+    image = cv2.imread("spheroids2.jpg")
+    yolo_results = detect("spheroids2.jpg")
+    # image = cv2.imread("het-cam-ha-small.jpg")
+    # yolo_results = detect("het-cam-ha-small.jpg")
     print(yolo_results)
     print(type(yolo_results))
     yolo_results_json = yolo_results.to_json(orient='records')

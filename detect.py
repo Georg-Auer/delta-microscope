@@ -152,6 +152,9 @@ def detect2(opt):
     print(f'Done. ({time.time() - t0:.3f}s)')
 
 # py -3.7 detect.py --weights weights/best.pt --img 416 --conf 0.4 --project app/base/static/upload --exist-ok --name het-cam-yolo --source app/base/static/upload/het-cam-raw
+# py -3.9 detect.py --weights weights/best.pt --img 416 --conf 0.4 --project examples --exist-ok --name microscope-yolo --source examples
+# py -3.9 detect.py --weights weights/spheroids.pt --img 416 --conf 0.4 --project examples --exist-ok --name microscope-yolo --source examples
+# py -3.7 detect.py --weights weights/spheroids.pt --img 416 --conf 0.4 --project app/base/static/upload/default --exist-ok --name microscope-yolo --source app/base/static/upload/microscope-raw
 
 def detect(raw_image_foldername, exp_foldername, yolo_dir):
     # ignore parser for now and add_argument default value as workaround
@@ -198,4 +201,8 @@ def detect(raw_image_foldername, exp_foldername, yolo_dir):
     #         detect(opt=opt)
 
 if __name__ == '__main__':
+    # raw_image_foldername = ""
+    # exp_foldername = ""
+    # yolo_dir = ""
+    # detect(raw_image_foldername, exp_foldername, yolo_dir)
     detect()
