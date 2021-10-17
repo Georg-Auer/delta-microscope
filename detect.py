@@ -161,7 +161,7 @@ def detect(raw_image_foldername, exp_foldername, yolo_dir):
     # yolo_image_foldername unused!
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default='weights/spheroids.pt', help='model.pt path(s)')
+    parser.add_argument('--weights', nargs='+', type=str, default='yolov5weights/spheroids.pt', help='model.pt path(s)')
     # parser.add_argument('--source', type=str, default='app/base/static/upload/het-cam-raw', help='source')  # file/folder, 0 for webcam
     # parser.add_argument('--source', type=str, default=f'{raw_image_foldername}', help='source')  # file/folder, 0 for webcam
     parser.add_argument('--source', type=str, default='spheroids1.jpg', help='source')  # file/folder, 0 for webcam
