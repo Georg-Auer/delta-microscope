@@ -52,7 +52,7 @@ class Experiment(object):
         self.creation_time = datetime.today()
         self.exp_foldername = f'{self.image_path}/{self.name}'
         self.detection_class = 0
-        self.confidence_threshold = 0.6
+        self.confidence_threshold = 0.1
         self.raw_dir = "microscope-raw"
         self.skeleton_dir = "microscope-skeleton"
         self.yolo_dir = "microscope-yolo"
@@ -327,8 +327,9 @@ class Experiment(object):
         # self.Camera().set_resolution(new_resolution)
         # create new position with image
         self.saved_positions.append(Position(self.name, self.current_position,
-        self.exp_foldername, self.raw_dir, self.skeleton_dir,
-        self.yolo_dir, filename, img_mode, file_in_foldername,
+        self.exp_foldername, self.raw_dir, self.skeleton_dir, self.yolo_dir, 
+        self.detection_class, self.confidence_threshold,
+        filename, img_mode, file_in_foldername,
         self.humidity, self.temperature))
         self.switch_led()
 
@@ -341,6 +342,11 @@ class Experiment(object):
                 print("Directory " , foldername ,  " Created ")
             else:    
                 print("Directory " , foldername ,  " already exists")
+
+    def calculate_yolos(self):
+        for position in self.saved_positions:
+            position.calculate_yolo()
+
     # def motor_task(task_id):
     #     # send to motor position
     #     print(f"task: moving to position {task_id}")
@@ -410,7 +416,7 @@ class Position(object):
     # raw_image, skeletal_image,
     # feature_bifurcations, feature_endings, yolo_image, yolo_classes,
     # yolo_coordinates, yolo_poi_circles, features_bifurcations_poi, feature_endings_poi
-    def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, filename, img_mode, fullpath_raw_image, humidity, temperature):
+    def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, detection_class, confidence_threshold, filename, img_mode, fullpath_raw_image, humidity, temperature):
         self.name = name
         self.position = xyz_position
         self.timestamp = (datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -423,7 +429,9 @@ class Position(object):
         self.raw_dir = raw_dir
         self.skeleton_dir = skeleton_dir
         self.yolo_dir = yolo_dir
-        self.yolo_results = 0
+        # self.yolo_results = 0 # better: no variable at start
+        self.detection_class = detection_class
+        self.confidence_threshold = confidence_threshold
         self.humidity = humidity
         self.temperature = temperature
         # should it take a starting image here?
@@ -445,12 +453,19 @@ class Position(object):
         # file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         # print(file_in_foldername)
 
-        self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
-        image, self.yolo_results, yolo_results_xyxyn_json = bounding_boxes(self.yolo_results)
-        import pandas
+        self.yolo_results = detect(self.raw_dir, self.detection_class, self.confidence_threshold)
+        yolo_image, self.yolo_results, yolo_results_xyxyn_json = bounding_boxes(self.yolo_results)
         self.yolo_results_json = self.yolo_results.to_json(orient='records')
 
-        print(f"Detection results {self.yolo_results} stored to position")
+        cv2.imwrite((f"{self.yolo_dir}/{self.name}.jpg"), yolo_image)
+
+        print(f"Detection results {self.yolo_results} stored to position {self.name}")
+
+        # self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
+        # image, self.yolo_results, yolo_results_xyxyn_json = bounding_boxes(self.yolo_results)
+        # self.yolo_results_json = self.yolo_results.to_json(orient='records')
+
+        # print(f"Detection results {self.yolo_results} stored to position")
 
         # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = 
         # this should also get bounding boxes and found classes
