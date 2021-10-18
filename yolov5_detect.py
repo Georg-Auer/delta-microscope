@@ -65,11 +65,11 @@ if __name__ == '__main__':
         # print(image)
         print(image.shape)
         i = 0
-        for (y1,x1,y,x,n,m,o) in arr:
-            x = int(x*480)
-            y = int(y*640)
-            print(x)
-            print(y)
+        for (y1,x1,y2,x2,n,m,o) in arr:
+            x2 = int(x2*480)
+            y2 = int(y2*640)
+            print(x2)
+            print(y2)
             y1 = int(y1*640)
             x1 = int(x1*480)
             print(f"width {x1}")
@@ -78,7 +78,16 @@ if __name__ == '__main__':
             print(f"class {m}")
             print(f"class name {o}")
 
-            cv2.rectangle(image, (int(y1), int(x1)), (int(y), int(x)), ((i*40), (i*40), 255), 1)
+            thickness = 2
+
+            cv2.rectangle(image, (int(y1), int(x1)), (int(y2), int(x2)), ((n*255), (n*255), 255), thickness)
+            # https://www.geeksforgeeks.org/python-opencv-cv2-circle-method/
+            w = int((y2-y1)/2)
+            w2 = int((x2-x1)/2)
+            center_coordinates = (int(y1+w),int(x1+w2))
+            print(center_coordinates)
+            color = (0, 191, 0)
+            cv2.circle(image, center_coordinates, int((w+w2)/2), color, thickness)
             i = i+1
 
         cv2.imshow("resulting image",image)
