@@ -38,7 +38,8 @@ def detect(file_in_foldername, detection_class = False, confidence_threshold = 0
     # print(result2)
     return results
 
-def bounding_boxes(yolo_results):
+def bounding_boxes(yolo_results, fullpath_raw_image):
+    image = cv2.imread(fullpath_raw_image)
     yolo_results_xyxyn = yolo_results.pandas().xyxyn[0]
     yolo_results_xywhn = yolo_results.pandas().xywhn[0]
     print(f"xyxyn result:{yolo_results_xyxyn}")
