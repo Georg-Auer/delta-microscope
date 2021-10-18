@@ -448,12 +448,14 @@ class Position(object):
         
     def calculate_yolo(self):
         print(f"raw image is sent to detection")
-        print(f"Calculating for position {self.name}")
+        print(f"Calculating for position {self.filename}")
+        print(f"Calculating for position {self.raw_dir}")
+        print(f"Calculating for position {self.fullpath_raw_image}")
         # print(type(self.raw_image))
         # file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         # print(file_in_foldername)
 
-        self.yolo_results = detect(self.raw_dir, self.detection_class, self.confidence_threshold)
+        self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
         yolo_image, self.yolo_results, yolo_results_xyxyn_json = bounding_boxes(self.yolo_results)
         self.yolo_results_json = self.yolo_results.to_json(orient='records')
 
