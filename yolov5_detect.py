@@ -38,12 +38,7 @@ def detect(file_in_foldername, detection_class = False, confidence_threshold = 0
     # print(result2)
     return results
 
-if __name__ == '__main__':
-    detection_class = 0
-    image = cv2.imread("spheroids2.jpg")
-    yolo_results = detect("spheroids2.jpg", detection_class)
-    # image = cv2.imread("het-cam-ha-small.jpg")
-    # yolo_results = detect("het-cam-ha-small.jpg")
+def bounding_boxes(yolo_results):
     yolo_results_xyxyn = yolo_results.pandas().xyxyn[0]
     yolo_results_xywhn = yolo_results.pandas().xywhn[0]
     print(f"xyxyn result:{yolo_results_xyxyn}")
@@ -89,9 +84,23 @@ if __name__ == '__main__':
             color = (0, 191, 0)
             cv2.circle(image, center_coordinates, int((w+w2)/2), color, thickness)
             i = i+1
+        return image, yolo_results, yolo_results_xyxyn_json
 
-        cv2.imshow("resulting image",image)
-        cv2.waitKey(0)
+
+
+if __name__ == '__main__':
+    detection_class = 0
+    confidence_threshold = 0.5
+    image = cv2.imread("spheroids2.jpg")
+    # yolo_results = detect("spheroids2.jpg", detection_class, confidence_threshold)
+    yolo_results = detect("spheroids2.jpg")
+    # image = cv2.imread("het-cam-ha-small.jpg")
+    # yolo_results = detect("het-cam-ha-small.jpg")
+    image, yolo_results, yolo_results_xyxyn_json = bounding_boxes(yolo_results)
+    print(yolo_results.pandas().xywhn[0])
+    print(yolo_results.pandas().xywhn)
+    # cv2.imshow("resulting image",image)
+    # cv2.waitKey(0)
 
 # if __name__ == '__main__':
         

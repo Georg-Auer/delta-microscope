@@ -6,7 +6,7 @@ import numpy as np
 import os
 from classes.pyserial_connection_arduino import connect_to_arduino, list_available_ports
 from classes.bifurcation_detection import prepare_and_analyze
-from yolov5_detect import detect
+from yolov5_detect import detect, bounding_boxes
 
 from classes.scientific_camera import take_raspicampic
 try:
@@ -51,6 +51,8 @@ class Experiment(object):
         # self.motor_comport = 'COM9'
         self.creation_time = datetime.today()
         self.exp_foldername = f'{self.image_path}/{self.name}'
+        self.detection_class = 0
+        self.confidence_threshold = 0.6
         self.raw_dir = "microscope-raw"
         self.skeleton_dir = "microscope-skeleton"
         self.yolo_dir = "microscope-yolo"
@@ -442,7 +444,9 @@ class Position(object):
         # print(type(self.raw_image))
         # file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         # print(file_in_foldername)
-        self.yolo_results = detect(self.fullpath_raw_image)
+
+        self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
+        image, self.yolo_results, yolo_results_xyxyn_json = bounding_boxes(self.yolo_results)
         import pandas
         self.yolo_results_json = self.yolo_results.to_json(orient='records')
 
@@ -451,6 +455,7 @@ class Position(object):
         # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = 
         # this should also get bounding boxes and found classes
         print(self.yolo_results)
+        print(self.yolo_results.pandas().xywhn)
         # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = results
 
 if __name__ == '__main__':
