@@ -265,7 +265,7 @@ class Experiment(object):
             # now reset the custom image tag
             self.custom_img = False
             
-        file_in_foldername = f'{self.image_path}/{self.name}/{self.raw_dir}/{filename}'
+        raw_file_in_foldername = f'{self.image_path}/{self.name}/{self.raw_dir}/{filename}'
         # https://picamera.readthedocs.io/en/release-1.13/recipes1.html
         # https://picamera.readthedocs.io/en/release-1.13/recipes2.html
         # https://picamera.readthedocs.io/en/release-1.13/fov.html#sensor-modes
@@ -322,14 +322,14 @@ class Experiment(object):
         # # for testing only
         # # cv2.imshow('image',RGB_img)
         # # cv2.waitKey(0)
-        cv2.imwrite(file_in_foldername, RGB_img)
-        print(f"image written {file_in_foldername}")
+        cv2.imwrite(raw_file_in_foldername, RGB_img)
+        print(f"image written {raw_file_in_foldername}")
         # self.Camera().set_resolution(new_resolution)
         # create new position with image
         self.saved_positions.append(Position(self.name, self.current_position,
         self.exp_foldername, self.raw_dir, self.skeleton_dir, self.yolo_dir, 
         self.detection_class, self.confidence_threshold,
-        filename, img_mode, file_in_foldername,
+        filename, img_mode, raw_file_in_foldername,
         self.humidity, self.temperature))
         self.switch_led()
 
@@ -442,24 +442,26 @@ class Position(object):
     #     print(f"raw image should be sent to analyze objects")
     #     print(f"Calculating for position {self.name}")
     #     print(type(self.raw_image))
-    #     file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
-    #     print(file_in_foldername)
-    #     detect(file_in_foldername, self.exp_foldername, self.yolo_dir)
+    #     raw_file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
+    #     print(raw_file_in_foldername)
+    #     detect(raw_file_in_foldername, self.exp_foldername, self.yolo_dir)
         
     def calculate_yolo(self):
         print(f"raw image is sent to detection")
         print(f"Calculating for position {self.filename}")
-        print(f"Calculating for position {self.raw_dir}")
         print(f"Calculating for position {self.fullpath_raw_image}")
         # print(type(self.raw_image))
-        # file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
-        # print(file_in_foldername)
+        # raw_file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
+        # print(raw_file_in_foldername)
 
         self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
         yolo_image, self.yolo_results, yolo_results_xyxyn_json = bounding_boxes(self.yolo_results, self.fullpath_raw_image)
         self.yolo_results_json = yolo_results_xyxyn_json
 
-        cv2.imwrite((f"{self.yolo_dir}/{self.name}.jpg"), yolo_image)
+        # raw_file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
+        yolo_file_in_foldername = f'{self.exp_foldername}/{self.yolo_dir}/{self.filename}'
+        print(yolo_file_in_foldername)
+        cv2.imwrite(yolo_file_in_foldername, yolo_image)
 
         print(f"Detection results {self.yolo_results} stored to position {self.name}")
 

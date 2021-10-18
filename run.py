@@ -246,31 +246,6 @@ def show_yolo():
     current_experiment = select_flagged_experiment()
     print(f"Current experiment name(s): {current_experiment.name}")
     current_experiment.calculate_yolos()
-    # this should be done via button or algorithm
-    # in times where cpu load is low or after experiment
-    # current_experiment.saved_positions.calculate_yolo()
-    # for position in current_experiment.saved_positions:
-    #     print("Looking for positions..")
-    #     if (position):
-    #         print(f"Calculating yolo for {position}")
-    #         position.calculate_yolo()
-    # fallback to yolofying all images in "raw" folder
-    # raw_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.raw_dir}/'
-    # raw_image_list = os.listdir(raw_image_foldername)
-    # for element in raw_image_list:
-    #     element.calculate_yolo()
-
-        # current_experiment.saved_positions[-1].timestamp
-
-    #show stored results
-    # for position in current_experiment.saved_positions:
-    #     print(f"Detection results for {position.name}{position.yolo_results}")
-
-    # yolo_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.yolo_dir}/'
-    # print(f"yolo img foldername: {yolo_image_foldername}")
-    # yolo_image_list = os.listdir(yolo_image_foldername)
-    # print(yolo_image_list)
-    # foldername_gallery = f'{current_experiment.name}/{current_experiment.yolo_dir}/'
 
     yolo_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.yolo_dir}/'
     yolo_image_list = os.listdir(yolo_image_foldername)
