@@ -343,6 +343,56 @@ def add_position():
     # return experiment_positions=f"{current_experiment.experiment_positions}"
     return render_template("index.html", experiment_name = current_experiment.name, experiment_positions=current_experiment.show_experiment_positions())
 
+@app.route("/search-go")
+def search_go():
+    current_experiment = select_flagged_experiment()
+    current_experiment.custom_img = True
+    current_experiment.picture_task()
+    print(f"Picture saved in Experiment: {current_experiment.name}")
+    print(f"There are {len(current_experiment.saved_positions)} saved positions")
+    print(f"Created at {current_experiment.saved_positions[-1].timestamp}")
+    current_experiment.saved_positions[-1].calculate_yolo()
+    x1, y1 = current_experiment.saved_positions[-1].center_yolo_object
+    if x1 < 0.5 and y1 < 0.5:
+        current_experiment.planned_position = current_experiment.current_position + [1000, 1000, 0]
+    elif x1 < 0.5 and y1 > 0.5:
+        current_experiment.planned_position = current_experiment.current_position + [1000, -1000, 0]
+    elif x1 > 0.5 and y1 < 0.5:
+        current_experiment.planned_position = current_experiment.current_position + [-1000, 1000, 0]
+    elif x1 > 0.5 and y1 > 0.5:
+        current_experiment.planned_position = current_experiment.current_position + [-1000, -1000, 0]
+    else:
+        print("Bullseye, nothing to move")
+    # move
+    current_experiment.motor_position()
+    # now wait 1s! :/
+    time.sleep(1)
+    # take new image, find out how much closer we are:
+    current_experiment.custom_img = True
+    current_experiment.picture_task()
+    current_experiment.saved_positions[-1].calculate_yolo()
+    x2, y2 = current_experiment.saved_positions[-1].center_yolo_object
+    x_difference, y_difference = x2 - x1, y2 - y1
+    print(x_difference, y_difference)
+
+    # how much ticks are 
+    x_rate = 1000/x_difference
+    y_rate = 1000/y_difference
+    print(x_rate, y_rate)
+    print(x_rate*(0.5-x2), y_rate*(0.5-y2))
+    # now calculate movement from remainding error
+    x_ticks = x_rate*(0.5-x2)
+    y_ticks = y_rate*(0.5-y2)
+
+    # move the rest of the distance
+    current_experiment.planned_position = current_experiment.current_position + [-x_ticks, -y_ticks, 0]
+    current_experiment.motor_position()
+
+    # or use some fancy PID
+    # https://929687.smushcdn.com/2407837/wp-content/latex/4d6/4d620c4182821e707f2c3ec704cf2039-ffffff-000000-0.png?lossy=1&strip=1&webp=0
+
+    return ("nothing")
+
 # flask form for experiment selection
 # https://python-adv-web-apps.readthedocs.io/en/latest/flask_forms.html
 # https://www.codecademy.com/learn/learn-flask/modules/flask-templates-and-forms/cheatsheet
