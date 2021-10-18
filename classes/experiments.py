@@ -457,7 +457,7 @@ class Position(object):
 
         self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
         yolo_image, self.yolo_results, yolo_results_xyxyn_json = bounding_boxes(self.yolo_results, self.fullpath_raw_image)
-        self.yolo_results_json = self.yolo_results.to_json(orient='records')
+        self.yolo_results_json = yolo_results_xyxyn_json
 
         cv2.imwrite((f"{self.yolo_dir}/{self.name}.jpg"), yolo_image)
 
