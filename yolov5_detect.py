@@ -1,6 +1,6 @@
 import cv2
 import torch
-# import pandas as pd
+import pandas as pd
 
 # def detect(raw_image_foldername, exp_foldername, yolo_dir):
 def detect(file_in_foldername, detection_class = False, confidence_threshold = 0.6):
@@ -97,9 +97,19 @@ if __name__ == '__main__':
     yolo_results = detect("spheroids2.jpg")
     # image = cv2.imread("het-cam-ha-small.jpg")
     # yolo_results = detect("het-cam-ha-small.jpg")
-    image, yolo_results, yolo_results_xyxyn_json = bounding_boxes(yolo_results)
-    print(yolo_results.pandas().xywhn[0])
-    print(yolo_results.pandas().xywhn)
+    image, yolo_results, yolo_results_xyxyn_json = bounding_boxes(yolo_results, "spheroids2.jpg")
+    print(f"all results{yolo_results.pandas().xywhn[0]}")
+    # print(type(yolo_results.pandas().xywhn)) # list
+    # print(type(yolo_results.pandas().xywhn[0])) # pandas.core.frame.DataFrame
+    results = pd.DataFrame(yolo_results.pandas().xywhn[0])
+    print(results['confidence'].argmax())
+    element = results['confidence'].argmax()
+    print(results.iloc[element])
+    print(results.iloc[element]["xcenter"])
+    print(results.iloc[element]["ycenter"])
+    print(results.at[element, "ycenter"])
+    print(type(results.iloc[element]["ycenter"]))
+    print(type(results.at[element, "ycenter"]))    
     # cv2.imshow("resulting image",image)
     # cv2.waitKey(0)
 

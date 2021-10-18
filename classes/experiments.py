@@ -3,6 +3,7 @@ from io import BytesIO
 from PIL import Image
 import cv2
 import numpy as np
+import pandas as pd
 import os
 from classes.pyserial_connection_arduino import connect_to_arduino, list_available_ports
 from classes.bifurcation_detection import prepare_and_analyze
@@ -22,7 +23,7 @@ class Experiment(object):
         self.experiment_positions = experiment_positions
         self.interval_minutes = interval_minutes
         self.minimal_interval_minutes = 5
-        self.current_position = self.planned_position = [0,0,0]
+        self.current_position = self.planned_position = [0,0,0] # does this create a bug?
         # list of experiment positions
         # created during the experiment
         self.saved_positions = []
@@ -45,6 +46,9 @@ class Experiment(object):
         self.experiment_running = False
         self.experiment_iteration = 0
         self.motor_speed = 10000
+        # for tracking:
+        # self.real_world_ratio_x = #how many x-ticks are one screen width
+        # self.real_world_ratio_y = #how many x-ticks are one screen height
         self.moving_time = 14 # standardized time in seconds it takes to move from pos n to n+1 in seconds
         self.flag = False
         self.motor_comport = '/dev/ttyACM0'
@@ -432,20 +436,13 @@ class Position(object):
         # self.yolo_results = 0 # better: no variable at start
         self.detection_class = detection_class
         self.confidence_threshold = confidence_threshold
+        # self.center_yolo_object
         self.humidity = humidity
         self.temperature = temperature
         # should it take a starting image here?
         # video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
         # filename = f'{IMAGEPATH}/het-cam-raw/position{task_position}_{video_frame_timepoint}.jpg'
-
-    # def calculate_yolo(self):
-    #     print(f"raw image should be sent to analyze objects")
-    #     print(f"Calculating for position {self.name}")
-    #     print(type(self.raw_image))
-    #     raw_file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
-    #     print(raw_file_in_foldername)
-    #     detect(raw_file_in_foldername, self.exp_foldername, self.yolo_dir)
-        
+ 
     def calculate_yolo(self):
         print(f"raw image is sent to detection")
         print(f"Calculating for position {self.filename}")
@@ -465,17 +462,15 @@ class Position(object):
 
         print(f"Detection results {self.yolo_results} stored to position {self.name}")
 
-        # self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
-        # image, self.yolo_results, yolo_results_xyxyn_json = bounding_boxes(self.yolo_results)
-        # self.yolo_results_json = self.yolo_results.to_json(orient='records')
+        self.yolo_results = pd.DataFrame(self.yolo_results.pandas().xywhn[0])
+        print(self.yolo_results['confidence'].argmax())
+        element = self.yolo_results['confidence'].argmax()
+        print(self.yolo_results.iloc[element])
+        print(self.yolo_results.at[element, "xcenter"])
+        print(self.yolo_results.at[element, "ycenter"])
 
-        # print(f"Detection results {self.yolo_results} stored to position")
-
-        # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = 
-        # this should also get bounding boxes and found classes
-        print(self.yolo_results)
-        print(self.yolo_results.pandas().xywhn)
-        # self.xmin, self.ymin, self.xmax, self.ymax, self.confidence, self.class, self.name = results
+        # gets the relative xy center of the object with the highest confidence
+        self.center_yolo_object = [self.yolo_results.at[element, "xcenter"], self.yolo_results.at[element, "ycenter"]]
 
 if __name__ == '__main__':
 
