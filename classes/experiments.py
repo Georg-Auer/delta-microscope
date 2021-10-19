@@ -105,7 +105,7 @@ class Experiment(object):
                 self.dht_pin = dht_pin
                 # record humidity and temperature
                 # https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup
-                print("Environmental data collection..")
+                print(f"Environmental data collection on pin {self.dht_pin}..")
                 # sudo pip3 install adafruit-circuitpython-dht
                 # sudo apt install libgpiod2 # this may or may not be needed
                 dhtDevice = adafruit_dht.DHT22(self.dht_pin, use_pulseio=False)

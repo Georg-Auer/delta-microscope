@@ -27,7 +27,7 @@
                 {% endfor %}</p> 
                 <strong>test:</strong></p>
                 {% for name, position_list, interval, sensors in names|zip(positions, intervals, sensors) %}
-                  <a class="dropdown-item" href="/experiment/{{name}}">Experiment:  <b>{{name}}</b>  with x/y/z position(s):<br> <b>{% for item in position_list %}{{item}}<br>{% endfor %}</b> and an interval of <b>{{interval}}</b> minutes. Environmental sensors found on pin(s): <b>{{sensors}}</b></a>
+                  <a class="dropdown-item" href="/experiment/{{name}}">Experiment:  <b>{{name}}</b>  with x/y/z position(s):<br> <b>{% for item in position_list %}{{item}}<br>{% endfor %}</b> and an interval of <b>{{interval}}</b> minutes. Environmental data collection on pin(s): <b>{{sensors}}</b></a>
                 {% endfor %}
               </p>
             </div>
