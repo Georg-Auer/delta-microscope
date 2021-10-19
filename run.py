@@ -275,26 +275,36 @@ def show_environment():
     from matplotlib import dates
 
     data_output = []
-    for position in current_experiment.saved_positions:
-        for sensordata in position.humidity:
-            print(f"sensordata: {sensordata}")
-            print(f"position.humidity: {position.humidity[0][0]}")
-            print(f"position.temperature: {position.temperature}")
-            print(f"position.humidity: {position.humidity[0][0]}")
-            print(f"position.temperature: {position.temperature}")
-            data_line = position.name, position.timestamp, position.humidity[0], position.humidity[1], position.temperature[0], position.temperature[1]
-            data_output.append(data_line)
     # for position in current_experiment.saved_positions:
-    #     data_line = position.name, position.timestamp, position.humidity, position.temperature
-    #     data_output.append(data_line)
+    #     for sensordata in position.humidity:
+    #         print(f"sensordata: {sensordata}")
+    #         print(f"position.humidity: {position.humidity[0][0]}")
+    #         print(f"position.temperature: {position.temperature}")
+    #         print(f"position.humidity: {position.humidity[0][0]}")
+    #         print(f"position.temperature: {position.temperature}")
+    #         data_line = position.name, position.timestamp, position.humidity[0], position.humidity[1], position.temperature[0], position.temperature[1]
+    #         data_output.append(data_line)
+# table_output: ['Environment data for sens2 @2021-10-19 20:30:38 [[71.6, 4], [70.1, 17]] % humidity, [[13.5, 4], [13.6, 17]] °C', 'Environment data for sens2 @2021-10-19 20:31:38 [[71.5, 4], [70.1, 17]] % humidity, [[13.5, 4], [13.6, 17]] °C']
+# sensordata: [71.6, 4]
+# position.humidity: 71.6
+# position.temperature: [[13.5, 4], [13.6, 17]]
+# position.humidity: 71.6
+# position.temperature: [[13.5, 4], [13.6, 17]]
+
+
+    for position in current_experiment.saved_positions:
+        data_line = position.name, position.timestamp, position.humidity[0][0], position.humidity[0][1], position.temperature[0][0], position.temperature[0][1]
+        data_output.append(data_line)
+        data_line2 = position.name, position.timestamp, position.humidity[1][0], position.humidity[1][1], position.temperature[1][0], position.temperature[1][1]
+        data_output.append(data_line2)
     print(data_output)
     try:
         room_quality = pd.DataFrame(data=data_output,
-                                columns=["name","datetime","humidity", "humidity_sensorname", "temperature", "temperature_sensorname"])
+                                columns=["name","datetime","humidity", "humidity_sensorpin", "temperature", "temperature_sensorpin"])
     except:
         blank_data = f"{current_experiment.name}: no data", datetime.now(), 0, 0
         room_quality = pd.DataFrame(data=blank_data,
-                                columns=["name","datetime","humidity", "humidity_sensorname", "temperature", "temperature_sensorname"])
+                                columns=["name","datetime","humidity", "humidity_sensorpin", "temperature", "temperature_sensorpin"])
     print(room_quality.dtypes)
     room_quality['ordinal'] = dates.datestr2num(room_quality['datetime'])
     room_quality["datetime"] = pd.to_datetime(room_quality["datetime"])
