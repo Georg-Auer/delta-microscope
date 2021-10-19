@@ -277,6 +277,8 @@ def show_environment():
     for position in current_experiment.saved_positions:
         for sensordata in position.humidity:
             print(sensordata)
+            print(position.humidity)
+            print(position.temperature)
             data_line = position.name, position.timestamp, position.humidity[0], position.humidity[1], position.temperature[0], position.temperature[1]
             data_output.append(data_line)
     # for position in current_experiment.saved_positions:
