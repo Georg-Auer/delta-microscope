@@ -262,9 +262,10 @@ def show_environment():
     current_experiment = select_flagged_experiment()
     print(f"Current experiment name(s): {current_experiment.name}")
     table_output = []
+    # this needs to be changed for two sensors
     for position in current_experiment.saved_positions:
         table_output.append(f"Environment data for {position.name} @{position.timestamp} {position.humidity} % humidity, {position.temperature} °C")
-    
+    print(f"table_output: {table_output}")
     import pandas as pd
     import seaborn as sns
     import matplotlib
@@ -276,9 +277,9 @@ def show_environment():
     data_output = []
     for position in current_experiment.saved_positions:
         for sensordata in position.humidity:
-            print(sensordata)
-            print(position.humidity)
-            print(position.temperature)
+            print(f"sensordata: {sensordata}")
+            print(f"position.humidity: {position.humidity}")
+            print(f"position.temperature: {position.temperature}")
             data_line = position.name, position.timestamp, position.humidity[0], position.humidity[1], position.temperature[0], position.temperature[1]
             data_output.append(data_line)
     # for position in current_experiment.saved_positions:
