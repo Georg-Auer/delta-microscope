@@ -275,8 +275,13 @@ def show_environment():
 
     data_output = []
     for position in current_experiment.saved_positions:
-        data_line = position.name, position.timestamp, position.humidity, position.temperature
-        data_output.append(data_line)
+        for sensordata in position.humidity:
+            print(sensordata)
+            data_line = position.name, position.timestamp, position.humidity[0], position.humidity[1], position.temperature[0], position.temperature[1]
+            data_output.append(data_line)
+    # for position in current_experiment.saved_positions:
+    #     data_line = position.name, position.timestamp, position.humidity, position.temperature
+    #     data_output.append(data_line)
     print(data_output)
     try:
         room_quality = pd.DataFrame(data=data_output,
@@ -439,10 +444,13 @@ def experiments():
     names = []
     positions = []
     intervals = []
+    sensors = []
     for experiment in DATABASE:
         names.append(experiment.name)
         positions.append(experiment.experiment_positions)
         intervals.append(experiment.interval_minutes)
+        sensors.append(experiment.sensors)
+        
     print(f"Current experiment name(s): {names}")
     # you must tell the variable 'form' what you named the class, above
     # 'form' is the variable name used in this template: index.html
@@ -476,6 +484,8 @@ def experiments():
             experiment_positions = [[int(num) for num in map(int, sub.split(','))] for sub in form.positions.data]
             print(experiment_positions)
 
+            # insert sensors
+
             experiment_name = name.lower() # experiments are forced into lowercase
             new_experiment = Experiment(experiment_name, scheduler,
                 IMAGEPATH, Camera, experiment_positions, interval)
@@ -484,7 +494,7 @@ def experiments():
             DATABASE.append(new_experiment)
             message = (f"The experiment {new_experiment.name} was created. Positions set to {new_experiment.experiment_positions}. Interval time set to {new_experiment.interval_minutes} minutes")
 
-    return render_template('experiments.html', names=names, segment="experiments" ,positions=positions, intervals=intervals, form=form, message=message)
+    return render_template('experiments.html', names=names, segment="experiments" ,positions=positions, intervals=intervals, sensors=sensors, form=form, message=message)
 
 @app.route('/get_experiment_status') 
 # @app.route('/experiments')

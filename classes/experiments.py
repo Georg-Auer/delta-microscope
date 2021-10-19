@@ -28,11 +28,15 @@ class Experiment(object):
         # created during the experiment
         self.saved_positions = []
         try:
-            self.dht_pin = board.D4
+            self.sensors = [board.D4, board.D17]
         except:
-            self.dht_pin = "unavailable"
-        self.humidity = np.NaN
-        self.temperature = np.NaN
+            self.sensors = []
+        try:
+            self.dht_pin = self.sensors[0] # board.D4 or: board.D17
+        except:
+            self.dht_pin = False
+        self.humidity = [np.NaN, "none"]
+        self.temperature = [np.NaN, "none"]
         self.scheduler = scheduler
         self.image_path = image_path
         self.Camera = Camera
@@ -92,38 +96,52 @@ class Experiment(object):
                 print("GPIOs already set or unavailable")
 
     def record_environment(self, video_frame_timepoint):
-        try:
-            # record humidity and temperature
-            # https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup
-            print("Environmental data collection..")
-            # sudo pip3 install adafruit-circuitpython-dht
-            # sudo apt install libgpiod2 # this may or may not be needed
-            dhtDevice = adafruit_dht.DHT22(self.dht_pin, use_pulseio=False)
-            self.humidity, self.temperature = dhtDevice.humidity, dhtDevice.temperature
-            
-            if(self.experiment_running):
-                with open(f"{self.exp_foldername}/environment.csv", "a") as log:
-                    if self.humidity is not None and self.temperature is not None:                     
-                        # log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m-%d-%y'), time.strftime('%H:%M:%S'), self.temperature, self.humidity))
-                        log.write(f"{video_frame_timepoint}, {self.temperature}, {self.humidity}\r\n")
-                        # log.write(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), self.temperature, self.humidity)
-                        # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                        os.sync()
-                        log.close()
-                        return
-                    else:
-                        print("Failed to retrieve data from environment sensor")
-                        self.humidity, self.temperature = np.NaN, np.NaN
-                        log.write(f"{video_frame_timepoint}, {self.temperature}, {self.humidity}\r\n")
-                        os.sync()
-                        log.close()
-                        return
-            else:
-                print("No recording of environment data outside of running experiment.")
-            # log.close()
-        except:
-            print("GPIOs already set or unavailable")
-            self.humidity, self.temperature = np.NaN, np.NaN
+        # emtpy list for new record, important because each sensor appends the list by a list
+        self.humidity = []
+        self.temperature = []
+        # if self.sensors = [], do nothing
+        for dht_pin in self.sensors:
+            try:
+                self.dht_pin = dht_pin
+                # record humidity and temperature
+                # https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup
+                print("Environmental data collection..")
+                # sudo pip3 install adafruit-circuitpython-dht
+                # sudo apt install libgpiod2 # this may or may not be needed
+                dhtDevice = adafruit_dht.DHT22(self.dht_pin, use_pulseio=False)
+                # self.humidity, self.temperature = [dhtDevice.humidity, self.dht_pin], [dhtDevice.temperature, self.dht_pin]
+        
+                self.humidity.append([dhtDevice.humidity, self.dht_pin])
+                self.temperature.append([dhtDevice.temperature, self.dht_pin])
+
+                if(self.experiment_running):
+                    with open(f"{self.exp_foldername}/environment.csv", "a") as log:
+                        if self.humidity is not None and self.temperature is not None:                     
+                            # log.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m-%d-%y'), time.strftime('%H:%M:%S'), self.temperature, self.humidity))
+                            log.write(f"{video_frame_timepoint}, {self.dht_pin}, {self.temperature[0]}, {self.humidity[0]}\r\n")
+                            # log.write(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), self.temperature, self.humidity)
+                            # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                            os.sync()
+                            log.close()
+                            return
+                        else:
+                            print("Failed to retrieve data from environment sensor")
+                            self.humidity, self.temperature = np.NaN, np.NaN
+                            log.write(f"{video_frame_timepoint}, {self.temperature}, {self.humidity}\r\n")
+                            os.sync()
+                            log.close()
+                            return
+                else:
+                    print("No recording of environment data outside of running experiment.")
+                # log.close()
+
+            except:
+                print(f"No sensor data for sensor {dht_pin} available")
+                # append for each sensor value
+                self.humidity.append([np.NaN, dht_pin])
+                self.temperature.append([np.NaN, dht_pin])
+        else:
+            print("No active sensors to record data")
 
     def show_experiment_positions(self):
         n = 0
@@ -253,11 +271,9 @@ class Experiment(object):
 
         print(f"Environmental data: {self.humidity}, {self.temperature}")
         if(self.experiment_running and not self.custom_img):
-            try:
-                self.record_environment(video_frame_timepoint)
-            except:
-                print("No sensor data available")
-                self.humidity, self.temperature = np.NaN, np.NaN
+            print(self.dht_pin)
+            print(self.sensors)
+            self.record_environment(video_frame_timepoint)
             filename = f'position{self.current_position}_i{self.experiment_iteration:04}_{video_frame_timepoint}.jpg'
             self.experiment_iteration = self.experiment_iteration + 1
             img_mode = "automatic"
