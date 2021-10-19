@@ -102,7 +102,7 @@ class Experiment(object):
         # if self.sensors = [], do nothing
         print(self.sensors)
         for dht_pin in self.sensors:
-            print(f"Environmental data collection on pin {dht_pin}..")
+            print(f"Selecting pin: {dht_pin}")
             try:
                 self.dht_pin = dht_pin
                 # record humidity and temperature
@@ -125,14 +125,12 @@ class Experiment(object):
                             # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                             os.sync()
                             log.close()
-                            return
                         else:
                             print("Failed to retrieve data from environment sensor")
                             self.humidity, self.temperature = np.NaN, np.NaN
                             log.write(f"{video_frame_timepoint}, {self.temperature}, {self.humidity}\r\n")
                             os.sync()
                             log.close()
-                            return
                 else:
                     print("No recording of environment data outside of running experiment.")
                 # log.close()
