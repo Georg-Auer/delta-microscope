@@ -100,7 +100,9 @@ class Experiment(object):
         self.humidity = []
         self.temperature = []
         # if self.sensors = [], do nothing
+        print(self.sensors)
         for dht_pin in self.sensors:
+            print(f"Environmental data collection on pin {dht_pin}..")
             try:
                 self.dht_pin = dht_pin
                 # record humidity and temperature
