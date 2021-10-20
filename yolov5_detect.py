@@ -100,8 +100,8 @@ if __name__ == '__main__':
     image, yolo_results, yolo_results_xyxyn_json = bounding_boxes(yolo_results, "spheroids2.jpg")
     print(yolo_results.pandas().xywhn[0])
     print(yolo_results.pandas().xywhn)
-    # cv2.imshow("resulting image",image)
-    # cv2.waitKey(0)
+    cv2.imshow("resulting image",image)
+    cv2.waitKey(0)
 
 # if __name__ == '__main__':
         
