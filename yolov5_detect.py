@@ -97,7 +97,7 @@ if __name__ == '__main__':
     yolo_results = detect("spheroids2.jpg")
     # image = cv2.imread("het-cam-ha-small.jpg")
     # yolo_results = detect("het-cam-ha-small.jpg")
-    image, yolo_results, yolo_results_xyxyn_json = bounding_boxes(yolo_results)
+    image, yolo_results, yolo_results_xyxyn_json = bounding_boxes(yolo_results, "spheroids2.jpg")
     print(yolo_results.pandas().xywhn[0])
     print(yolo_results.pandas().xywhn)
     # cv2.imshow("resulting image",image)
