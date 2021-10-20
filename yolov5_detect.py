@@ -98,7 +98,7 @@ def bounding_boxes(yolo_results, fullpath_raw_image):
 
 if __name__ == '__main__':
     detection_class = 0
-    confidence_threshold = 0.8
+    confidence_threshold = 0.6
     image = cv2.imread("spheroids2.jpg")
     yolo_results = detect("spheroids2.jpg", detection_class, confidence_threshold)
     # yolo_results = detect("spheroids2.jpg")
