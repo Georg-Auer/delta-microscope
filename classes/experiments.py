@@ -452,9 +452,9 @@ class Position(object):
         self.raw_dir = raw_dir
         self.skeleton_dir = skeleton_dir
         self.yolo_dir = yolo_dir
-        # self.yolo_results = 0 # better: no variable at start
         self.detection_class = detection_class
         self.confidence_threshold = confidence_threshold
+        self.yolo_results = False # should be False before results are calculated
         # self.center_yolo_object
         self.humidity = humidity
         self.temperature = temperature
