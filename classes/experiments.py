@@ -484,9 +484,10 @@ class Position(object):
         print(self.yolo_results.iloc[element])
         print(self.yolo_results.at[element, "xcenter"])
         print(self.yolo_results.at[element, "ycenter"])
+        print(self.yolo_results.at[element, "confidence"])
 
         # gets the relative xy center of the object with the highest confidence
-        self.center_yolo_object = [self.yolo_results.at[element, "xcenter"], self.yolo_results.at[element, "ycenter"]]
+        self.center_yolo_object = [self.yolo_results.at[element, "xcenter"], self.yolo_results.at[element, "ycenter"], self.yolo_results.at[element, "confidence"]]
 
 if __name__ == '__main__':
 
