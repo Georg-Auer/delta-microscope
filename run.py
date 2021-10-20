@@ -363,16 +363,22 @@ def add_position():
     # return experiment_positions=f"{current_experiment.experiment_positions}"
     return render_template("index.html", experiment_name = current_experiment.name, experiment_positions=current_experiment.show_experiment_positions())
 
-@app.route("/search-go")
+@app.route("/yolo-search-go")
 def search_go():
     current_experiment = select_flagged_experiment()
     current_experiment.custom_img = True
+    # take a picture at position, for yolo analysis
     current_experiment.picture_task()
     print(f"Picture saved in Experiment: {current_experiment.name}")
     print(f"There are {len(current_experiment.saved_positions)} saved positions")
     print(f"Created at {current_experiment.saved_positions[-1].timestamp}")
     current_experiment.saved_positions[-1].calculate_yolo()
-    x1, y1 = current_experiment.saved_positions[-1].center_yolo_object
+    x1, y1, confidence1 = current_experiment.saved_positions[-1].center_yolo_object
+
+    # print the xy coordinates of the yolo object with the highest confidence
+    print(f"Yolo object at {x1, y1}, with confidence: {confidence1}")
+
+    print(f" {(x1, y1)}")
     if x1 < 0.5 and y1 < 0.5:
         current_experiment.planned_position = current_experiment.current_position + [1000, 1000, 0]
     elif x1 < 0.5 and y1 > 0.5:
