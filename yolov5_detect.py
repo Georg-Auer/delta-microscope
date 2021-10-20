@@ -10,11 +10,11 @@ def detect(file_in_foldername, detection_class = False, confidence_threshold = 0
     model.conf = confidence_threshold  # confidence threshold (0-1)
     # model.iou = 0.45  # NMS IoU threshold (0-1)
     # class 0 is for spheroid detection only:
-    if detection_class:
+    if detection_class is not False:
         print(f"Detection specified to class {detection_class}")
         model.classes = detection_class
     else:
-        print("Detection no specified, all classes considered..")
+        print("Detection not specified, all classes considered..")
     # model.classes = None  # (optional list) filter by class, i.e. = [0, 15, 16] for persons, cats and dogs
     
     image = cv2.imread(file_in_foldername)[..., ::-1]  # OpenCV image (BGR to RGB)
@@ -98,7 +98,7 @@ def bounding_boxes(yolo_results, fullpath_raw_image):
 
 if __name__ == '__main__':
     detection_class = 0
-    confidence_threshold = 0.6
+    confidence_threshold = 0.8
     image = cv2.imread("spheroids2.jpg")
     yolo_results = detect("spheroids2.jpg", detection_class, confidence_threshold)
     # yolo_results = detect("spheroids2.jpg")
