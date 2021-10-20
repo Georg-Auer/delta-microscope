@@ -41,7 +41,9 @@ def detect(file_in_foldername, detection_class = False, confidence_threshold = 0
 def bounding_boxes(yolo_results, fullpath_raw_image):
     image = cv2.imread(fullpath_raw_image)
     # df.shape[0] == 0 # this is faster than checking if empty
-    if yolo_results.empty:
+    # print(f"yolo_results: {type(yolo_results.pandas().xyxyn[0])}")
+    print(f"yolo_results: {yolo_results.pandas().xyxyn[0]}")
+    if yolo_results.pandas().xyxyn[0].empty:
         return image, "No objects found", False
     else:
         print("Dataframe not empty, continuing..")
@@ -103,8 +105,11 @@ if __name__ == '__main__':
     # image = cv2.imread("het-cam-ha-small.jpg")
     # yolo_results = detect("het-cam-ha-small.jpg")
     image, yolo_results, yolo_results_xyxyn_json = bounding_boxes(yolo_results, "spheroids2.jpg")
-    print(yolo_results.pandas().xywhn[0])
-    print(yolo_results.pandas().xywhn)
+    try:
+        print(yolo_results.pandas().xywhn[0])
+        print(yolo_results.pandas().xywhn)
+    except:
+        print(yolo_results)
     cv2.imshow("resulting image",image)
     cv2.waitKey(0)
 
