@@ -471,11 +471,13 @@ class Position(object):
         # print(raw_file_in_foldername)
 
         self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
-        try:
-            yolo_image, self.yolo_results, self.yolo_results_json = bounding_boxes(self.yolo_results, self.fullpath_raw_image)
-        except Exception as e:
-            print(f"{e} \n No objects could be detected, returning None..")
-            return
+        # try:
+        print(self.yolo_results)
+        yolo_image, self.yolo_results, self.yolo_results_json = bounding_boxes(self.yolo_results, self.fullpath_raw_image)
+        # except Exception as e:
+        #     print(f"{e} \n No objects could be detected, returning None..")
+        #     print(self.yolo_results)
+        #     return
 
         # raw_file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         yolo_file_in_foldername = f'{self.exp_foldername}/{self.yolo_dir}/{self.filename}'
