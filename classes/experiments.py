@@ -365,7 +365,10 @@ class Experiment(object):
 
     def calculate_yolos(self):
         for position in self.saved_positions:
-            position.calculate_yolo()
+            if not position.yolo_results:
+                position.calculate_yolo()
+            else:
+                print("yolo_results were already calculated, skipping position..")
 
     # def motor_task(task_id):
     #     # send to motor position
