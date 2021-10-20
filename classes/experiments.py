@@ -60,7 +60,7 @@ class Experiment(object):
         self.creation_time = datetime.today()
         self.exp_foldername = f'{self.image_path}/{self.name}'
         self.detection_class = 0
-        self.confidence_threshold = 0.5
+        self.confidence_threshold = 0.2
         self.raw_dir = "microscope-raw"
         self.skeleton_dir = "microscope-skeleton"
         self.yolo_dir = "microscope-yolo"
