@@ -491,16 +491,20 @@ class Position(object):
 
         print(f"Detection results {self.yolo_results} stored to position {self.name}")
 
-        self.yolo_results = pd.DataFrame(self.yolo_results.pandas().xywhn[0])
-        print(self.yolo_results['confidence'].argmax())
-        element = self.yolo_results['confidence'].argmax()
-        print(self.yolo_results.iloc[element])
-        print(self.yolo_results.at[element, "xcenter"])
-        print(self.yolo_results.at[element, "ycenter"])
-        print(self.yolo_results.at[element, "confidence"])
+        if self.yolo_results is not False:
+            self.yolo_results = pd.DataFrame(self.yolo_results.pandas().xywhn[0])
+            print(self.yolo_results['confidence'].argmax())
+            element = self.yolo_results['confidence'].argmax()
+            print(self.yolo_results.iloc[element])
+            print(self.yolo_results.at[element, "xcenter"])
+            print(self.yolo_results.at[element, "ycenter"])
+            print(self.yolo_results.at[element, "confidence"])
 
-        # gets the relative xy center of the object with the highest confidence
-        self.center_yolo_object = [self.yolo_results.at[element, "xcenter"], self.yolo_results.at[element, "ycenter"], self.yolo_results.at[element, "confidence"]]
+            # gets the relative xy center of the object with the highest confidence
+            self.center_yolo_object = [self.yolo_results.at[element, "xcenter"], self.yolo_results.at[element, "ycenter"], self.yolo_results.at[element, "confidence"]]
+        else:
+            print("No Object detected")
+            self.center_yolo_object = False
 
 if __name__ == '__main__':
 
