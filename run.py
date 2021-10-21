@@ -257,6 +257,22 @@ def show_yolo():
     return render_template("gallery.html", segment="gallery-yolo", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
     experiment_name = current_experiment.name, images = yolo_image_list)
 
+@app.route("/gallery-yolo-cropped")
+def show_cropped_yolo():
+    current_experiment = select_flagged_experiment()
+    print(f"Current experiment name(s): {current_experiment.name}")
+    current_experiment.calculate_yolos()
+
+    yolo_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.yolo_dir}/'
+    yolo_image_list = os.listdir(yolo_image_foldername)
+    print(yolo_image_list)
+    foldername_gallery = f'{current_experiment.name}/{current_experiment.yolo_cropped_dir}/'
+
+    # return render_template("gallery.html", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
+    # experiment_name = current_experiment.name, images = yolo_image_list)
+    return render_template("gallery.html", segment="gallery-yolo-cropped", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
+    experiment_name = current_experiment.name, images = yolo_image_list)
+
 @app.route("/environment")
 def show_environment():
     current_experiment = select_flagged_experiment()

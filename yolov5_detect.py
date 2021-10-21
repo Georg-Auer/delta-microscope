@@ -49,8 +49,9 @@ def bounding_boxes(yolo_results, fullpath_raw_image):
         print("Dataframe not empty, continuing..")
     yolo_results_xyxyn = yolo_results.pandas().xyxyn[0]
     yolo_results_xywhn = yolo_results.pandas().xywhn[0]
-    print(f"xyxyn result:{yolo_results_xyxyn}")
-    print(f"xywhn result:{yolo_results_xywhn}")
+    yolo_results_xyxy = yolo_results.pandas().xyxy[0]
+    # print(f"xyxyn result:{yolo_results_xyxyn}")
+    # print(f"xywhn result:{yolo_results_xywhn}")
     print(type(yolo_results_xyxyn))
     yolo_results_xyxyn_json = yolo_results_xyxyn.to_json(orient='records')
 
@@ -67,6 +68,20 @@ def bounding_boxes(yolo_results, fullpath_raw_image):
         print(arr)
         # print(image)
         print(image.shape)
+
+        print("Sorting by confidence, creating a cropped image")
+        print(yolo_results_xyxy)
+        element = yolo_results_xyxy['confidence'].argmax()
+        print(yolo_results_xyxy.iloc[element])
+        xmin = yolo_results_xyxy.at[element, "xmin"]
+        xmax = yolo_results_xyxy.at[element, "xmax"]
+        ymin = yolo_results_xyxy.at[element, "ymin"]
+        ymax = yolo_results_xyxy.at[element, "ymax"]
+        print(ymin,ymax, xmin,xmax)
+        crop_img = image[round(ymin):round(ymax), round(xmin):round(xmax)]
+        # cv2.imshow("cropped", crop_img)
+        # cv2.waitKey(0)
+
         i = 0
         for (y1,x1,y2,x2,n,m,o) in arr:
             x2 = int(x2*480)
@@ -80,9 +95,7 @@ def bounding_boxes(yolo_results, fullpath_raw_image):
             print(f"probability {n}")
             print(f"class {m}")
             print(f"class name {o}")
-
             thickness = 2
-
             cv2.rectangle(image, (int(y1), int(x1)), (int(y2), int(x2)), ((n*255), (n*255), 255), thickness)
             # https://www.geeksforgeeks.org/python-opencv-cv2-circle-method/
             w = int((y2-y1)/2)
@@ -92,13 +105,21 @@ def bounding_boxes(yolo_results, fullpath_raw_image):
             color = (0, 191, 0)
             cv2.circle(image, center_coordinates, int((w+w2)/2), color, thickness)
             i = i+1
-        return image, yolo_results, yolo_results_xyxyn_json
+        return image, crop_img, yolo_results, yolo_results_xyxyn_json
 
+# https://stackoverflow.com/questions/15589517/how-to-crop-an-image-in-opencv-using-python
+# def bounding_box_crop(image, yolo_results_xywhn):
+#     # import cv2
+#     print(yolo_results_xywhn)
 
+#     crop_img = image[y:y+h, x:x+w]
+#     cv2.imshow("cropped", crop_img)
+#     cv2.waitKey(0)
+#     return crop_img
 
 if __name__ == '__main__':
     detection_class = 0
-    confidence_threshold = 0.8
+    confidence_threshold = 0.7
     image = cv2.imread("spheroids2.jpg")
     yolo_results = detect("spheroids2.jpg", detection_class, confidence_threshold)
     # yolo_results = detect("spheroids2.jpg")

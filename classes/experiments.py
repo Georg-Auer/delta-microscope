@@ -62,9 +62,9 @@ class Experiment(object):
         self.detection_class = 0
         self.confidence_threshold = 0.2
         self.raw_dir = "microscope-raw"
-        self.skeleton_dir = "microscope-skeleton"
+        self.yolo_cropped_dir = "microscope-yolo-cropped"
         self.yolo_dir = "microscope-yolo"
-        self.img_variant_folders = [self.raw_dir,self.skeleton_dir,self.yolo_dir]
+        self.img_variant_folders = [self.raw_dir,self.yolo_cropped_dir,self.yolo_dir]
         self.create_directories()
         self.switch_led()
 
@@ -347,7 +347,7 @@ class Experiment(object):
         # self.Camera().set_resolution(new_resolution)
         # create new position with image
         self.saved_positions.append(Position(self.name, self.current_position,
-        self.exp_foldername, self.raw_dir, self.skeleton_dir, self.yolo_dir, 
+        self.exp_foldername, self.raw_dir, self.yolo_cropped_dir, self.yolo_dir, 
         self.detection_class, self.confidence_threshold,
         filename, img_mode, raw_file_in_foldername,
         self.humidity, self.temperature))
@@ -439,7 +439,7 @@ class Position(object):
     # raw_image, skeletal_image,
     # feature_bifurcations, feature_endings, yolo_image, yolo_classes,
     # yolo_coordinates, yolo_poi_circles, features_bifurcations_poi, feature_endings_poi
-    def __init__(self, name, xyz_position, exp_foldername, raw_dir, skeleton_dir, yolo_dir, detection_class, confidence_threshold, filename, img_mode, fullpath_raw_image, humidity, temperature):
+    def __init__(self, name, xyz_position, exp_foldername, raw_dir, yolo_cropped_dir, yolo_dir, detection_class, confidence_threshold, filename, img_mode, fullpath_raw_image, humidity, temperature):
         self.name = name
         self.position = xyz_position
         self.timestamp = (datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -450,7 +450,7 @@ class Position(object):
         # self.fullpath_raw_image = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         self.fullpath_raw_image = fullpath_raw_image
         self.raw_dir = raw_dir
-        self.skeleton_dir = skeleton_dir
+        self.yolo_cropped_dir = yolo_cropped_dir
         self.yolo_dir = yolo_dir
         self.detection_class = detection_class
         self.confidence_threshold = confidence_threshold
@@ -473,13 +473,18 @@ class Position(object):
         self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
         # try:
         print(self.yolo_results)
-        yolo_image, self.yolo_results, self.yolo_results_json = bounding_boxes(self.yolo_results, self.fullpath_raw_image)
+        yolo_image, yolo_cropped, self.yolo_results, self.yolo_results_json = bounding_boxes(self.yolo_results, self.fullpath_raw_image)
         # except Exception as e:
         #     print(f"{e} \n No objects could be detected, returning None..")
         #     print(self.yolo_results)
         #     return
 
-        # raw_file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
+        # storing cropped image
+        yolo_file_in_foldername_c = f'{self.exp_foldername}/{self.yolo_cropped_dir}/{self.filename}'
+        print(yolo_file_in_foldername_c)
+        cv2.imwrite(yolo_file_in_foldername_c, yolo_cropped)
+
+        # storing image with bounding boxes
         yolo_file_in_foldername = f'{self.exp_foldername}/{self.yolo_dir}/{self.filename}'
         print(yolo_file_in_foldername)
         cv2.imwrite(yolo_file_in_foldername, yolo_image)

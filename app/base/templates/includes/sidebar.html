@@ -37,9 +37,15 @@
             <p>Yolov5 object detection</p>
           </a>
         </li>
+        <li class="{% if segment is defined %}{% if 'yolo-' in segment %} active {% endif %}{% endif %}">
+          <a href="/gallery-yolo-cropped">
+            <i class="now-ui-icons design_scissors"></i>
+            <p>Cropped Yolov5 images</p>
+          </a>
+        </li>
         <li class="{% if segment is defined %}{% if 'environment' in segment %} active {% endif %}{% endif %}">
           <a href="/environment">
-            <i class="now-ui-icons education_atom"></i>
+            <i class="now-ui-icons media-2_sound-wave"></i>
             <p>Environment</p>
           </a>
         </li> 
