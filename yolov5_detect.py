@@ -44,7 +44,7 @@ def bounding_boxes(yolo_results, fullpath_raw_image):
     # print(f"yolo_results: {type(yolo_results.pandas().xyxyn[0])}")
     print(f"yolo_results: {yolo_results.pandas().xyxyn[0]}")
     if yolo_results.pandas().xyxyn[0].empty:
-        return image, "No objects found", False
+        return image, image, "No objects found", False
     else:
         print("Dataframe not empty, continuing..")
     yolo_results_xyxyn = yolo_results.pandas().xyxyn[0]
