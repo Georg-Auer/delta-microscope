@@ -365,7 +365,11 @@ class Experiment(object):
 
     def calculate_yolos(self):
         for position in self.saved_positions:
-            if not position.yolo_results:
+            # if position.yolo_results.empty or not False:
+            # len(df.index) == 0
+            # yolo_results.pandas().xyxyn[0].empty
+            print(position.yolo_results)
+            if position.yolo_results == False:
                 position.calculate_yolo()
             else:
                 print("yolo_results were already calculated, skipping position..")
