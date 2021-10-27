@@ -191,7 +191,7 @@
 
    // xyz movement to next well ( 6 cm or 7 cm )
    $('a#nextleft').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=0&xyz_position=140000&xyz_position=0',
+      $.getJSON('/move_deg?xyz_position=0&xyz_position=130000&xyz_position=0',
           function(data) {
         //do nothing
       });
@@ -199,7 +199,7 @@
     });
     // - Motor - 90°
     $('a#nextup').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=140000&xyz_position=0&xyz_position=0',
+      $.getJSON('/move_deg?xyz_position=130000&xyz_position=0&xyz_position=0',
           function(data) {
         //do nothing
       });
@@ -207,7 +207,7 @@
     });
     // - Motor - 180°
     $('a#nextright').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=0&xyz_position=-140000&xyz_position=0',
+      $.getJSON('/move_deg?xyz_position=0&xyz_position=-130000&xyz_position=0',
           function(data) {
         //do nothing
       });
@@ -215,7 +215,7 @@
     });
     // - Motor - 270°
     $('a#nextdown').bind('click', function() {
-      $.getJSON('/move_deg?xyz_position=-140000&xyz_position=0&xyz_position=0',
+      $.getJSON('/move_deg?xyz_position=-130000&xyz_position=0&xyz_position=0',
           function(data) {
         //do nothing
       });
