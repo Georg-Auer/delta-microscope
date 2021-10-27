@@ -14,6 +14,10 @@ try:
     import RPi.GPIO as GPIO
     import board
     import adafruit_dht
+    # GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(18, GPIO.OUT)
+
 except:
     print("No GPIOs and/or sensor found.")
 class Experiment(object):
@@ -74,10 +78,11 @@ class Experiment(object):
     def switch_led(self):
         if(self.led == True):
             #if True, switch on
+            print("Switching LED on")
             try:
-                GPIO.setwarnings(False)
-                GPIO.setmode(GPIO.BCM)
-                GPIO.setup(18, GPIO.OUT)
+                # GPIO.setwarnings(False)
+                # GPIO.setmode(GPIO.BCM)
+                # GPIO.setup(18, GPIO.OUT)
                 # setting blue led to on
                 GPIO.output(18, GPIO.HIGH)
             except:
@@ -87,10 +92,11 @@ class Experiment(object):
 
         else:
             #if False, switch off
+            print("Switching LED off")
             try:
-                GPIO.setwarnings(False)
-                GPIO.setmode(GPIO.BCM)
-                GPIO.setup(18, GPIO.OUT)
+                # GPIO.setwarnings(False)
+                # GPIO.setmode(GPIO.BCM)
+                # GPIO.setup(18, GPIO.OUT)
                 # setting blue led to on
                 GPIO.output(18, GPIO.LOW)
             except:
