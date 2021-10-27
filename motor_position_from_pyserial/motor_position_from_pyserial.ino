@@ -130,7 +130,7 @@ void loop()
     digitalWrite (motor2_en, testStruct.motor2_enable); //motor2
     digitalWrite (motor3_en, testStruct.motor3_enable); //motor3
 
-    //from microcope.ino
+    //delta mechanics calculation
     arduino_motorA = calculate_motorA(testStruct.motor0_position,testStruct.motor1_position,testStruct.motor2_position);
     arduino_motorB = calculate_motorB(testStruct.motor0_position,testStruct.motor1_position,testStruct.motor2_position);
     arduino_motorC = calculate_motorC(testStruct.motor0_position,testStruct.motor1_position,testStruct.motor2_position);
@@ -162,20 +162,36 @@ void loop()
   motor2.runSpeedToPosition();
   motor3.runSpeedToPosition();
 
-  if (motor0.distanceToGo()== 0){
+// since the mechanics from each motor has a slight influence to all others
+// the motors are only switched off if all movement is completed
+// and every momentum (forward or backlash) is expected to be 0
+  if (motor0.distanceToGo()== 0 && motor1.distanceToGo()== 0 && motor2.distanceToGo()== 0 && motor3.distanceToGo()== 0){
+    delay(300);
     digitalWrite (motor0_en, HIGH); //motor0
-    testStruct.motor0_enable = 1; // turn motor off after distanceToGo is 0
-  }
-  if (motor1.distanceToGo()== 0){
+    testStruct.motor0_enable = 1; // turn motors off after distanceToGo is 0 for all motors
     digitalWrite (motor1_en, HIGH); //motor1
     testStruct.motor1_enable = 1;
-  }
-  if (motor2.distanceToGo()== 0){
     digitalWrite (motor2_en, HIGH); //motor2
     testStruct.motor2_enable = 1;
-  }
-  if (motor3.distanceToGo()== 0){
     digitalWrite (motor3_en, HIGH); //motor3
     testStruct.motor3_enable = 1;
-  } 
+  }
+
+  // if (motor0.distanceToGo()== 0){
+  //   delay(500);
+  //   digitalWrite (motor0_en, HIGH); //motor0
+  //   testStruct.motor0_enable = 1; // turn motor off after distanceToGo is 0
+  // }
+  // if (motor1.distanceToGo()== 0){
+    // digitalWrite (motor1_en, HIGH); //motor1
+    // testStruct.motor1_enable = 1;
+  // }
+  // if (motor2.distanceToGo()== 0){
+    // digitalWrite (motor2_en, HIGH); //motor2
+    // testStruct.motor2_enable = 1;
+  // }
+  // if (motor3.distanceToGo()== 0){
+    // digitalWrite (motor3_en, HIGH); //motor3
+    // testStruct.motor3_enable = 1;
+  // } 
 }  
