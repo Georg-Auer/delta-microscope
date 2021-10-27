@@ -165,33 +165,35 @@ void loop()
 // since the mechanics from each motor has a slight influence to all others
 // the motors are only switched off if all movement is completed
 // and every momentum (forward or backlash) is expected to be 0
-  if (motor0.distanceToGo()== 0 && motor1.distanceToGo()== 0 && motor2.distanceToGo()== 0 && motor3.distanceToGo()== 0){
-    delay(300);
+  // if (motor0.distanceToGo()== 0 && motor1.distanceToGo()== 0 && motor2.distanceToGo()== 0 && motor3.distanceToGo()== 0){
+  //   delay(300);
+  //   digitalWrite (motor0_en, HIGH); //motor0
+  //   testStruct.motor0_enable = 1; // turn motors off after distanceToGo is 0 for all motors
+  //   digitalWrite (motor1_en, HIGH); //motor1
+  //   testStruct.motor1_enable = 1;
+  //   digitalWrite (motor2_en, HIGH); //motor2
+  //   testStruct.motor2_enable = 1;
+  //   digitalWrite (motor3_en, HIGH); //motor3
+  //   testStruct.motor3_enable = 1;
+  // }
+
+  if (motor0.distanceToGo()== 0){
+    delay(500);
     digitalWrite (motor0_en, HIGH); //motor0
-    testStruct.motor0_enable = 1; // turn motors off after distanceToGo is 0 for all motors
+    testStruct.motor0_enable = 1; // turn motor off after distanceToGo is 0
+  }
+  if (motor1.distanceToGo()== 0){
+    delay(500);
     digitalWrite (motor1_en, HIGH); //motor1
     testStruct.motor1_enable = 1;
+  }
+  if (motor2.distanceToGo()== 0){
+    delay(500);
     digitalWrite (motor2_en, HIGH); //motor2
     testStruct.motor2_enable = 1;
+  }
+  if (motor3.distanceToGo()== 0){
     digitalWrite (motor3_en, HIGH); //motor3
     testStruct.motor3_enable = 1;
-  }
-
-  // if (motor0.distanceToGo()== 0){
-  //   delay(500);
-  //   digitalWrite (motor0_en, HIGH); //motor0
-  //   testStruct.motor0_enable = 1; // turn motor off after distanceToGo is 0
-  // }
-  // if (motor1.distanceToGo()== 0){
-    // digitalWrite (motor1_en, HIGH); //motor1
-    // testStruct.motor1_enable = 1;
-  // }
-  // if (motor2.distanceToGo()== 0){
-    // digitalWrite (motor2_en, HIGH); //motor2
-    // testStruct.motor2_enable = 1;
-  // }
-  // if (motor3.distanceToGo()== 0){
-    // digitalWrite (motor3_en, HIGH); //motor3
-    // testStruct.motor3_enable = 1;
-  // } 
+  } 
 }  
