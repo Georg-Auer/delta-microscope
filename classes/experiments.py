@@ -200,8 +200,8 @@ class Experiment(object):
         
         print(f"Moving time is assumed {self.moving_time} seconds") 
 
-        # task_seperation is the accumulated time of moving to the previous position + 1 s times the previous positions
-        task_seperation_increase = self.moving_time+1
+        # task_seperation is the accumulated time of moving to the previous position + 2 s times the previous positions
+        task_seperation_increase = self.moving_time+2
         task_seperation = 0
         print(f"Task seperation increase time is assumed {task_seperation_increase} seconds") 
         print(f"Task seperation time is assumed {task_seperation} seconds") 
