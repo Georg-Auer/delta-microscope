@@ -82,7 +82,8 @@ class Experiment(object):
                 GPIO.output(18, GPIO.HIGH)
             except:
                 print("GPIOs already set or unavailable")
-                self.led = False
+                # do not set to False, otherwise there will be a flicker
+                # self.led = False
 
         else:
             #if False, switch off
