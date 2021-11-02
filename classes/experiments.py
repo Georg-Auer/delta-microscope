@@ -382,10 +382,11 @@ class Experiment(object):
             # len(position.yolo_results.index) == 0
             if position.yolo_results == False:
                 # position.yolo_results = False
-                print("Yolo detection did not identify objects..")
-            else:
-                # print("yolo_results were already calculated, skipping position..")
                 position.calculate_yolo()
+                # print("Yolo detection did not identify objects..")
+            else:
+                print("yolo_results were already calculated, skipping position..")
+                # position.calculate_yolo()
 
     # def motor_task(task_id):
     #     # send to motor position
@@ -487,10 +488,12 @@ class Position(object):
         # raw_file_in_foldername = f"{self.exp_foldername}/{self.raw_dir}/{self.filename}"
         # print(raw_file_in_foldername)
 
+        # if nothing is detected, self.yolo_results is empty, but not false
         self.yolo_results = detect(self.fullpath_raw_image, self.detection_class, self.confidence_threshold)
         # try:
-        print(self.yolo_results)
-        yolo_image, yolo_cropped, self.yolo_results, self.yolo_results_json = bounding_boxes(self.yolo_results, self.fullpath_raw_image)
+        print(f"Yolo results: \n{self.yolo_results}")
+        yolo_image, yolo_cropped, self.yolo_results_json = bounding_boxes(self.yolo_results, self.fullpath_raw_image)
+        
         # except Exception as e:
         #     print(f"{e} \n No objects could be detected, returning None..")
         #     print(self.yolo_results)

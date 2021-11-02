@@ -44,8 +44,8 @@ def bounding_boxes(yolo_results, fullpath_raw_image):
     # print(f"yolo_results: {type(yolo_results.pandas().xyxyn[0])}")
     print(f"yolo_results: {yolo_results.pandas().xyxyn[0]}")
     if yolo_results.pandas().xyxyn[0].empty:
-        return image, image, False, False
-        # return image, crop_img, yolo_results, yolo_results_xyxyn_json
+        return image, image, False
+        # return image, crop_img, yolo_results_xyxyn_json
     else:
         print("Dataframe not empty, continuing..")
     yolo_results_xyxyn = yolo_results.pandas().xyxyn[0]
@@ -106,7 +106,7 @@ def bounding_boxes(yolo_results, fullpath_raw_image):
             color = (0, 191, 0)
             cv2.circle(image, center_coordinates, int((w+w2)/2), color, thickness)
             i = i+1
-        return image, crop_img, yolo_results, yolo_results_xyxyn_json
+        return image, crop_img, yolo_results_xyxyn_json
 
 # https://stackoverflow.com/questions/15589517/how-to-crop-an-image-in-opencv-using-python
 # def bounding_box_crop(image, yolo_results_xywhn):
