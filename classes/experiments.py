@@ -379,7 +379,7 @@ class Experiment(object):
             # f"The truth value of a {type(self).__name__} is ambiguous. "
 
             print(position.yolo_results)
-            if len(position.yolo_results.index) == 0:
+            if len(position.yolo_results.index) == 0 or position.yolo_results == False:
                 position.yolo_results = False
             else:
                 # print("yolo_results were already calculated, skipping position..")
