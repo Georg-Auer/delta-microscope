@@ -375,11 +375,15 @@ class Experiment(object):
             # if position.yolo_results.empty or not False:
             # len(df.index) == 0
             # yolo_results.pandas().xyxyn[0].empty
+            # this does not work: if position.yolo_results == False:
+            # f"The truth value of a {type(self).__name__} is ambiguous. "
+
             print(position.yolo_results)
-            if position.yolo_results == False:
-                position.calculate_yolo()
+            if len(position.yolo_results.index) == 0:
+                position.yolo_results = False
             else:
-                print("yolo_results were already calculated, skipping position..")
+                # print("yolo_results were already calculated, skipping position..")
+                position.calculate_yolo()
 
     # def motor_task(task_id):
     #     # send to motor position

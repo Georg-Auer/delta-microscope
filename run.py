@@ -307,12 +307,16 @@ def show_environment():
 # position.humidity: 71.6
 # position.temperature: [[13.5, 4], [13.6, 17]]
 
-
     for position in current_experiment.saved_positions:
-        data_line = position.name, position.timestamp, position.humidity[0][0], position.humidity[0][1], position.temperature[0][0], position.temperature[0][1]
-        data_output.append(data_line)
-        data_line2 = position.name, position.timestamp, position.humidity[1][0], position.humidity[1][1], position.temperature[1][0], position.temperature[1][1]
-        data_output.append(data_line2)
+        try:
+            data_line = position.name, position.timestamp, position.humidity[0][0], position.humidity[0][1], position.temperature[0][0], position.temperature[0][1]
+            data_output.append(data_line)
+            data_line2 = position.name, position.timestamp, position.humidity[1][0], position.humidity[1][1], position.temperature[1][0], position.temperature[1][1]
+            data_output.append(data_line2)
+        except:
+            # if there are less dimensions, add only one value
+            data_line = position.name, position.timestamp, position.humidity[0], position.humidity[1], position.temperature[0], position.temperature[1]
+            data_output.append(data_line)
     print(data_output)
     try:
         room_quality = pd.DataFrame(data=data_output,
