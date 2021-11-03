@@ -514,7 +514,7 @@ class Position(object):
 
         print(f"Detection results {self.yolo_results} stored to position {self.name}")
 
-        if not self.yolo_results.empty:
+        if not self.yolo_results.xywhn[0].empty:
             self.yolo_results = pd.DataFrame(self.yolo_results.xywhn[0])
             print(self.yolo_results['confidence'].argmax())
             element = self.yolo_results['confidence'].argmax()
