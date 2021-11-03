@@ -380,7 +380,8 @@ class Experiment(object):
 
             print(position.yolo_results)
             # len(position.yolo_results.index) == 0
-            if position.yolo_results == False:
+            # if position.yolo_results == False:
+            if not position.yolo_results.empty:
                 # position.yolo_results = False
                 position.calculate_yolo()
                 # print("Yolo detection did not identify objects..")
