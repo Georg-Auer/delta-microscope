@@ -28,29 +28,22 @@ def detect(file_in_foldername, detection_class = False, confidence_threshold = 0
     # pandaresult = results.pandas().xyxyn[0]
     
     print(f"xyxy\n{results.pandas().xyxyn[0]}")
-    # pandaresult = results.pandas().xywhn[0]
-    # print(f"xywhn\n{pandaresult}")
-    # print(result2)
-    # print(type(result2))
-    # print(result2.sort_values("confidence",ascending=True))
-    # print(result2.head(1))
-    # result2 = pd.DataFrame(results.pandas().xyxy[0])  # image predictions (pandas)
-    # print(result2)
-    return results
+
+    return results.pandas()
 
 def bounding_boxes(yolo_results, fullpath_raw_image):
     image = cv2.imread(fullpath_raw_image)
     # df.shape[0] == 0 # this is faster than checking if empty
     # print(f"yolo_results: {type(yolo_results.pandas().xyxyn[0])}")
-    print(f"yolo_results: {yolo_results.pandas().xyxyn[0]}")
-    if yolo_results.pandas().xyxyn[0].empty:
+    print(f"yolo_results: {yolo_results.xyxyn[0]}")
+    if yolo_results.xyxyn[0].empty:
         return image, image, False
         # return image, crop_img, yolo_results_xyxyn_json
     else:
         print("Dataframe not empty, continuing..")
-    yolo_results_xyxyn = yolo_results.pandas().xyxyn[0]
-    yolo_results_xywhn = yolo_results.pandas().xywhn[0]
-    yolo_results_xyxy = yolo_results.pandas().xyxy[0]
+    yolo_results_xyxyn = yolo_results.xyxyn[0]
+    yolo_results_xywhn = yolo_results.xywhn[0]
+    yolo_results_xyxy = yolo_results.xyxy[0]
     # print(f"xyxyn result:{yolo_results_xyxyn}")
     # print(f"xywhn result:{yolo_results_xywhn}")
     print(type(yolo_results_xyxyn))

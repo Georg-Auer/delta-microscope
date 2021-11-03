@@ -514,8 +514,8 @@ class Position(object):
 
         print(f"Detection results {self.yolo_results} stored to position {self.name}")
 
-        if self.yolo_results is not None:
-            self.yolo_results = pd.DataFrame(self.yolo_results.pandas().xywhn[0])
+        if not self.yolo_results.empty:
+            self.yolo_results = pd.DataFrame(self.yolo_results.xywhn[0])
             print(self.yolo_results['confidence'].argmax())
             element = self.yolo_results['confidence'].argmax()
             print(self.yolo_results.iloc[element])
