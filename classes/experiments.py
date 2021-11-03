@@ -379,11 +379,11 @@ class Experiment(object):
             # f"The truth value of a {type(self).__name__} is ambiguous. "
 
             print(position.yolo_results)
-            print(type(position.yolo_results)
+            print(type(position.yolo_results))
             # len(position.yolo_results.index) == 0
             # if position.yolo_results == False:
             # if not position.yolo_results.empty:
-            if position.yolo_results is None:
+            if position.yolo_results is not None:
                 # position.yolo_results = False
                 position.calculate_yolo()
                 # print("Yolo detection did not identify objects..")
