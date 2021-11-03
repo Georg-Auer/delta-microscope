@@ -514,7 +514,7 @@ class Position(object):
 
         print(f"Detection results {self.yolo_results} stored to position {self.name}")
 
-        if self.yolo_results is not False:
+        if self.yolo_results is not None:
             self.yolo_results = pd.DataFrame(self.yolo_results.pandas().xywhn[0])
             print(self.yolo_results['confidence'].argmax())
             element = self.yolo_results['confidence'].argmax()
@@ -527,7 +527,7 @@ class Position(object):
             self.center_yolo_object = [self.yolo_results.at[element, "xcenter"], self.yolo_results.at[element, "ycenter"], self.yolo_results.at[element, "confidence"]]
         else:
             print("No Object detected")
-            self.center_yolo_object = False
+            # self.center_yolo_object = False
 
 if __name__ == '__main__':
 
