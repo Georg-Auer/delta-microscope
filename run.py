@@ -372,8 +372,9 @@ def show_environment():
     # ax.tick_params(labelrotation=45)
     plt.savefig(f"{current_experiment.exp_foldername}/humidity.png")
 
+    table_output_r = list(reversed(table_output))
     return render_template("environment.html", segment="environment",
-    experiment_name = current_experiment.name, environment = table_output)
+    experiment_name = current_experiment.name, environment = table_output_r)
 
 @app.route("/add-position")
 def add_position():
