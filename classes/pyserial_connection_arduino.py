@@ -64,14 +64,15 @@ def connect_to_arduino(comport = 'COM21',
         traceback.print_exc()
         link.close()
 
-def list_available_ports():
+def list_available_ports() -> list:
     ports = txfer.open_ports()
     print("Available ports:")
     print(ports)
     return ports
 
 if __name__ == "__main__":
-    list_available_ports()
+    ports = list_available_ports()
+    print(ports)
     comport = '/dev/ttyACM0'
     # enable = 0, disable = 1
     motor0_enable = 0
