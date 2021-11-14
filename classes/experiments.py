@@ -16,7 +16,7 @@ try:
 except ModuleNotFoundError as err:
     print("Not all neccessary modules are installed and could be loaded.")
     print(f"{err}")
-from classes.scientific_camera import take_raspicampic
+# from classes.scientific_camera import take_raspicampic
 try:
     import RPi.GPIO as GPIO
     import board
