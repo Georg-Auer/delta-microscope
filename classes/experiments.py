@@ -3,15 +3,19 @@ from io import BytesIO
 from PIL import Image
 try:
     import cv2
-except:
-    print("OpenCV not installed, taking pictures not possible")
+except ModuleNotFoundError as err:
+    print("Not all neccessary modules are installed and could be loaded.")
+    print(f"{err}")
 import numpy as np
 import pandas as pd
 import os
 from classes.pyserial_connection_arduino import connect_to_arduino, list_available_ports
 # from classes.bifurcation_detection import prepare_and_analyze
-from yolov5_detect import detect, bounding_boxes
-
+try:
+    from yolov5_detect import detect, bounding_boxes
+except ModuleNotFoundError as err:
+    print("Not all neccessary modules are installed and could be loaded.")
+    print(f"{err}")
 from classes.scientific_camera import take_raspicampic
 try:
     import RPi.GPIO as GPIO
