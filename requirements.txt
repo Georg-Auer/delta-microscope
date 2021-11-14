@@ -25,14 +25,13 @@ python-decouple>=3.4
 gunicorn>=20.0.4
 jinja2>=2.11.3
 scikit-image
-opencv-python
-pandas
+pandas>=0.23
 requests
 tqdm
 seaborn
 adafruit-circuitpython-dht
 scipy>=1.0
-pandas>=0.23
 seaborn
+# opencv-python
 # torch
 # torchvision
