@@ -47,7 +47,11 @@ import time
 import os
 import numpy as np
 from flask_apscheduler import APScheduler
-import cv2
+# try:
+#     import cv2
+# except ModuleNotFoundError as err:
+#     print("Not all neccessary modules are installed and could be loaded.")
+#     print(f"{err}")
 from datetime import datetime, timedelta
 # import old end
 # https://stackoverflow.com/questions/6871016/adding-days-to-a-date-in-python
