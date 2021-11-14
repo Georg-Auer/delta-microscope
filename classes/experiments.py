@@ -1,7 +1,10 @@
 from datetime import datetime, timedelta
 from io import BytesIO
 from PIL import Image
-import cv2
+try:
+    import cv2
+except:
+    print("OpenCV not installed, taking pictures not possible")
 import numpy as np
 import pandas as pd
 import os
