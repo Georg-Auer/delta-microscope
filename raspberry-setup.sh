@@ -77,14 +77,14 @@ sudo pip3 install -r requirements.txt
 # sudo apt install -y python3-opencv python3-pandas python3-dev
 # installation of torch and torchvision for raspberry os 32bit:
 # if 64 bit, this will be invalid anyways
-cd ~
-mkdir Downloads
-cd ~/Downloads
-git clone https://github.com/Kashu7100/pytorch-armv7l.git
-cd pytorch-armv7l
-sudo pip3 install torch-1.7.0a0-cp37-cp37m-linux_armv7l.whl
-sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
-cd ~
+# cd ~
+# mkdir Downloads
+# cd ~/Downloads
+# git clone https://github.com/Kashu7100/pytorch-armv7l.git
+# cd pytorch-armv7l
+# sudo pip3 install torch-1.7.0a0-cp37-cp37m-linux_armv7l.whl
+# sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
+# cd ~
 #installing on 64bit, if it did not work earlier:
 pip3 install torch -f https://torch.kmtea.eu/whl/stable.html
 pip3 install torchvision -f https://torch.kmtea.eu/whl/stable.html

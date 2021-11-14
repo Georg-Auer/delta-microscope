@@ -3,7 +3,7 @@ pySerial
 pySerialTransfer
 imutils
 PyYAML>=5.3.1
-numpy>=1.16.5
+numpy>=1.21.4
 flask_apscheduler
 flask_bootstrap
 flask>=1.1.4
@@ -30,9 +30,9 @@ pandas
 requests
 tqdm
 seaborn
-torch
-torchvision
 adafruit-circuitpython-dht
 scipy>=1.0
 pandas>=0.23
 seaborn
+# torch
+# torchvision
