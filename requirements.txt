@@ -32,6 +32,6 @@ seaborn
 adafruit-circuitpython-dht
 scipy>=1.0
 seaborn
-# opencv-python
+opencv-python==4.5.3.56
 # torch
 # torchvision
