@@ -147,7 +147,7 @@ cd ~/Downloads
 # now choose a picture folder, and install
 # now just go to the ip of the raspberry in any browser, it should open the web interface
 
-# how tu run on boot:
+# how to run on boot:
 # sudo nano /etc/rc.local
 # insert:
 # cd home/pi/delta-microscope
@@ -182,7 +182,7 @@ cd ~/Downloads
 # or:
 # kill -9 <PID found previously>
 
-# install with gui:
+# install arduino with gui:
 # #arduino:
 # # to avoid a bug that stops creating the Arduino IDE icon:
 # mkdir -p $HOME/.local/share/icons/hicolor
