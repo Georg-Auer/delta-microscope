@@ -301,6 +301,7 @@ class Experiment(object):
         else:
             filename = f'position{self.current_position}_custom_image_{video_frame_timepoint}.jpg'
             img_mode = "custom"
+            print("No recording of environment data outside of running experiment.")
             # now reset the custom image tag
             self.custom_img = False
             
