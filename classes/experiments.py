@@ -43,7 +43,7 @@ class Experiment(object):
             self.sensors = []
         try:
             self.dht_pin = self.sensors[0] # board.D4 or: board.D17
-            print(f"Sensors set at {self.dht_pin}")
+            print(f"Sensors set at pin(s): {self.dht_pin}")
         except:
             self.dht_pin = False
             print("No sensors set")
