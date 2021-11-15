@@ -6,7 +6,7 @@ import torch
 def detect(file_in_foldername, detection_class = False, confidence_threshold = 0.6):
     print(f"Parameters for detection: \n detection_class: {detection_class}, confidence_threshold: {confidence_threshold}")
     # model = torch.hub.load('yolov5', 'custom', path='weights/hetcam.pt', source='local')  # local repo
-    model = torch.hub.load('yolov5', 'custom', path='yolov5weights/spheroids.pt', source='local')  # local repo
+    model = torch.hub.load('yolov5', 'custom', path='yolov5weights/wells.pt', source='local')  # local repo
     
     model.conf = confidence_threshold  # confidence threshold (0-1)
     # model.iou = 0.45  # NMS IoU threshold (0-1)
