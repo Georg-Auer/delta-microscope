@@ -1,3 +1,7 @@
+# python detect.py --weights yolov5s.pt --img-size 416 --conf 0.4 --source inference/images/bus.jpg
+# python yolov5/detect.py --weights yolov5weights/wells.pt --img-size 416 --conf 0.5 --save-crop --source ./yolov5/well-detection.v1-wells-only.yolov5pytorch/train/images
+# python yolov5/detect.py --weights yolov5weights/wells.pt --img-size 416 --conf 0.5 --save-crop --source F:\spoc-images\hfob-saos0411\microscope-raw
+# F:\spoc-images\hfob-saos0411\microscope-raw
 import cv2
 import torch
 # import pandas as pd
