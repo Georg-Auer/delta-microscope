@@ -24,7 +24,6 @@ try:
     # GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(18, GPIO.OUT)
-
 except:
     print("No GPIOs and/or sensor found.")
 class Experiment(object):
@@ -44,8 +43,10 @@ class Experiment(object):
             self.sensors = []
         try:
             self.dht_pin = self.sensors[0] # board.D4 or: board.D17
+            print(f"Sensors set at {self.dht_pin}")
         except:
             self.dht_pin = False
+            print("No sensors set")
         self.humidity = [np.NaN, "none"]
         self.temperature = [np.NaN, "none"]
         self.scheduler = scheduler
@@ -125,6 +126,10 @@ class Experiment(object):
                 # sudo pip3 install adafruit-circuitpython-dht
                 # sudo apt install libgpiod2 # this may or may not be needed
                 dhtDevice = adafruit_dht.DHT22(self.dht_pin, use_pulseio=False)
+                # import board
+                # import adafruit_dht
+                # dhtDevice = adafruit_dht.DHT22(board.D4, use_pulseio=False)
+                # print(dhtDevice.humidity, dhtDevice.temperature)
                 # self.humidity, self.temperature = [dhtDevice.humidity, self.dht_pin], [dhtDevice.temperature, self.dht_pin]
         
                 self.humidity.append([dhtDevice.humidity, self.dht_pin])
