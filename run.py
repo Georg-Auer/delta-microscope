@@ -50,8 +50,8 @@ from flask_apscheduler import APScheduler
 # try:
 #     import cv2
 # except ModuleNotFoundError as err:
-#     print("Not all neccessary modules are installed and could be loaded.")
-#     print(f"{err}")
+#     logging.debug("Not all neccessary modules are installed and could be loaded.")
+#     logging.debug(f"{err}")
 from datetime import datetime, timedelta
 # import old end
 # https://stackoverflow.com/questions/6871016/adding-days-to-a-date-in-python
@@ -114,7 +114,7 @@ def index():
 
 def gen(camera):
     current_experiment = select_flagged_experiment()
-    print(f"Current experiment name(s): {current_experiment.name}")
+    logging.debug(f"Current experiment name(s): {current_experiment.name}")
     """Video streaming generator function."""
     # global global_video_frame
     # global global_video_frame_timepoint
@@ -123,11 +123,11 @@ def gen(camera):
 
         # global_video_frame = frame_enc
         # global_video_frame_timepoint = (datetime.now().strftime("%Y%m%d-%H%M%S"))
-        # print(f"frame{global_video_frame_timepoint}")
+        # logging.debug(f"frame{global_video_frame_timepoint}")
 
         # object_methods = [method_name for method_name in dir(camera)
         #     if callable(getattr(camera, method_name))]
-        # print(object_methods)
+        # logging.debug(object_methods)
 
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_enc + b'\r\n')
@@ -152,9 +152,9 @@ def move_deg():
     # if(xyz_position <= -90):
     #     xyz_position = -90
 
-    print(f"Moving to {xyz_position}")
+    logging.debug(f"Moving to {xyz_position}")
     current_experiment = select_flagged_experiment()
-    print(f"Current experiment name(s): {current_experiment.name}")
+    logging.debug(f"Current experiment name(s): {current_experiment.name}")
     # it should be possible to add to the planned position, not the current
     # otherwise, movement has to be finished to send another
     current_experiment.planned_position = [x + y for x, y in zip(current_experiment.planned_position, xyz_position)]
@@ -169,39 +169,39 @@ def move_deg():
 def toggled_status():
     current_status = request.args.get('status')
     if(scheduler.get_jobs()):
-        print(bool(scheduler.get_jobs()))
-        print("jobs scheduled")
+        logging.debug(bool(scheduler.get_jobs()))
+        logging.debug("jobs scheduled")
         # current_status = 'Automatic On'
     else:
-        print(bool(scheduler.get_jobs()))
-        print("no jobs scheduled")
+        logging.debug(bool(scheduler.get_jobs()))
+        logging.debug("no jobs scheduled")
     #     current_status = 'Automatic On'
 
     # create dummy experiment for now
     # new_experiment = Experiment(EXPERIMENT_NAME, scheduler, IMAGEPATH, Camera, [0, 90, 180, 270], INTERVAL)
     current_experiment = select_flagged_experiment()
-    print(f"Current experiment name(s): {current_experiment.name}")
+    logging.debug(f"Current experiment name(s): {current_experiment.name}")
     # if Automatic On was sent and no jobs are scheduled
     if(current_status == 'Automatic Off') and not(scheduler.get_jobs()):
-        print("Switching On")
-        print(current_experiment.experiment_positions)
+        logging.debug("Switching On")
+        logging.debug(current_experiment.experiment_positions)
         current_experiment.show_experiment_positions()
         # start dummy experiment for now
         current_experiment.start_experiment()
         if(current_experiment.experiment_running):
-            print("Experiment was started")
+            logging.debug("Experiment was started")
         else:
-            print("Experiment could not be started")
+            logging.debug("Experiment could not be started")
 
     else:
-        print("Switching Off")
-        print(scheduler.get_jobs())
-        print("Removing all scheduled jobs")
+        logging.debug("Switching Off")
+        logging.debug(scheduler.get_jobs())
+        logging.debug("Removing all scheduled jobs")
         current_experiment.stop_experiment()
         if(current_experiment.experiment_running == False):
-            print("Experiment was stopped")
+            logging.debug("Experiment was stopped")
         else:
-            print("Experiment could not be stopped")
+            logging.debug("Experiment could not be stopped")
 
     return 'Automatic On' if current_status == 'Automatic Off' else 'Automatic Off'
 
@@ -210,9 +210,9 @@ def picture():
     current_experiment = select_flagged_experiment()
     current_experiment.custom_img = True
     current_experiment.picture_task()
-    print(f"Picture saved in Experiment: {current_experiment.name}")
-    print(f"There are {len(current_experiment.saved_positions)} saved positions")
-    print(f"Created at {current_experiment.saved_positions[-1].timestamp}")
+    logging.debug(f"Picture saved in Experiment: {current_experiment.name}")
+    logging.debug(f"There are {len(current_experiment.saved_positions)} saved positions")
+    logging.debug(f"Created at {current_experiment.saved_positions[-1].timestamp}")
     # this should return all saved positions, would help the user immensely
     return ("nothing")
 
@@ -237,10 +237,10 @@ def led():
 @app.route("/gallery")
 def show_gallery():
     current_experiment = select_flagged_experiment()
-    print(f"Current experiment name(s): {current_experiment.name}")
+    logging.debug(f"Current experiment name(s): {current_experiment.name}")
     raw_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.raw_dir}/'
     raw_image_list = os.listdir(raw_image_foldername)
-    print(raw_image_list)
+    logging.debug(raw_image_list)
     foldername_gallery = f'{current_experiment.name}/{current_experiment.raw_dir}/'
     return render_template("gallery.html", segment="gallery", experiment_name = current_experiment.name, 
     image_foldername = foldername_gallery, images = raw_image_list)
@@ -248,12 +248,12 @@ def show_gallery():
 @app.route("/gallery-yolo")
 def show_yolo():
     current_experiment = select_flagged_experiment()
-    print(f"Current experiment name(s): {current_experiment.name}")
+    logging.debug(f"Current experiment name(s): {current_experiment.name}")
     current_experiment.calculate_yolos()
 
     yolo_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.yolo_dir}/'
     yolo_image_list = os.listdir(yolo_image_foldername)
-    print(yolo_image_list)
+    logging.debug(yolo_image_list)
     foldername_gallery = f'{current_experiment.name}/{current_experiment.yolo_dir}/'
 
     # return render_template("gallery.html", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
@@ -264,12 +264,12 @@ def show_yolo():
 @app.route("/gallery-yolo-cropped")
 def show_cropped_yolo():
     current_experiment = select_flagged_experiment()
-    print(f"Current experiment name(s): {current_experiment.name}")
+    logging.debug(f"Current experiment name(s): {current_experiment.name}")
     current_experiment.calculate_yolos()
 
     yolo_image_foldername = f'{current_experiment.image_path}/{current_experiment.name}/{current_experiment.yolo_dir}/'
     yolo_image_list = os.listdir(yolo_image_foldername)
-    print(yolo_image_list)
+    logging.debug(yolo_image_list)
     foldername_gallery = f'{current_experiment.name}/{current_experiment.yolo_cropped_dir}/'
 
     # return render_template("gallery.html", saved_positions = current_experiment.saved_positions, image_foldername = foldername_gallery,
@@ -280,12 +280,12 @@ def show_cropped_yolo():
 @app.route("/environment")
 def show_environment():
     current_experiment = select_flagged_experiment()
-    print(f"Current experiment name(s): {current_experiment.name}")
+    logging.debug(f"Current experiment name(s): {current_experiment.name}")
     table_output = []
     # this needs to be changed for two sensors
     for position in current_experiment.saved_positions:
         table_output.append(f"Environment data for {position.name} @{position.timestamp} {position.humidity} % humidity, {position.temperature} °C")
-    print(f"table_output: {table_output}")
+    logging.debug(f"table_output: {table_output}")
     import pandas as pd
     import seaborn as sns
     import matplotlib
@@ -297,11 +297,11 @@ def show_environment():
     data_output = []
     # for position in current_experiment.saved_positions:
     #     for sensordata in position.humidity:
-    #         print(f"sensordata: {sensordata}")
-    #         print(f"position.humidity: {position.humidity[0][0]}")
-    #         print(f"position.temperature: {position.temperature}")
-    #         print(f"position.humidity: {position.humidity[0][0]}")
-    #         print(f"position.temperature: {position.temperature}")
+    #         logging.debug(f"sensordata: {sensordata}")
+    #         logging.debug(f"position.humidity: {position.humidity[0][0]}")
+    #         logging.debug(f"position.temperature: {position.temperature}")
+    #         logging.debug(f"position.humidity: {position.humidity[0][0]}")
+    #         logging.debug(f"position.temperature: {position.temperature}")
     #         data_line = position.name, position.timestamp, position.humidity[0], position.humidity[1], position.temperature[0], position.temperature[1]
     #         data_output.append(data_line)
 # table_output: ['Environment data for sens2 @2021-10-19 20:30:38 [[71.6, 4], [70.1, 17]] % humidity, [[13.5, 4], [13.6, 17]] °C', 'Environment data for sens2 @2021-10-19 20:31:38 [[71.5, 4], [70.1, 17]] % humidity, [[13.5, 4], [13.6, 17]] °C']
@@ -321,7 +321,7 @@ def show_environment():
             # if there are less dimensions, add only one value
             data_line = position.name, position.timestamp, position.humidity[0], position.humidity[1], position.temperature[0], position.temperature[1]
             data_output.append(data_line)
-    print(data_output)
+    logging.debug(data_output)
     try:
         room_quality = pd.DataFrame(data=data_output,
                                 columns=["name","datetime","humidity", "humidity_sensorpin", "temperature", "temperature_sensorpin"])
@@ -329,10 +329,10 @@ def show_environment():
         blank_data = f"{current_experiment.name}: no data", datetime.now(), 0, 0
         room_quality = pd.DataFrame(data=blank_data,
                                 columns=["name","datetime","humidity", "humidity_sensorpin", "temperature", "temperature_sensorpin"])
-    print(room_quality.dtypes)
+    logging.debug(room_quality.dtypes)
     room_quality['ordinal'] = dates.datestr2num(room_quality['datetime'])
     room_quality["datetime"] = pd.to_datetime(room_quality["datetime"])
-    print(room_quality.dtypes)
+    logging.debug(room_quality.dtypes)
     # create a month column, useful for seasonal data analysis
     room_quality['month'] = room_quality['datetime'].dt.strftime('%b')
     # # create a weekday column, useful for seasonal data analysis
@@ -348,15 +348,15 @@ def show_environment():
         # return dates.num2date(x).strftime('%m-%d')
 
     # remove NaNs and corrosponding row
-    print(room_quality)
+    logging.debug(room_quality)
     # Drop the rows where at least one element is missing.
     # https://www.w3resource.com/pandas/dataframe/dataframe-dropna.php
     # https://www.geeksforgeeks.org/python-pandas-dataframe-dropna/
     # room_quality.dropna()
-    # print(room_quality)
+    # logging.debug(room_quality)
     # room_quality_nonan = room_quality.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
     room_quality_nonan = room_quality.dropna(axis = 0, how ='any')
-    print(room_quality_nonan)
+    logging.debug(room_quality_nonan)
 
     fig, ax = plt.subplots()
     # just use regplot if you don't need a FacetGrid
@@ -383,7 +383,7 @@ def show_environment():
 @app.route("/add-position")
 def add_position():
     current_experiment = select_flagged_experiment()
-    print(f"Current experiment name(s): {current_experiment.name}")
+    logging.debug(f"Current experiment name(s): {current_experiment.name}")
     current_experiment.add_current_experiment_position()
     # return experiment_positions=f"{current_experiment.experiment_positions}"
     return render_template("index.html", experiment_name = current_experiment.name, experiment_positions=current_experiment.show_experiment_positions())
@@ -394,16 +394,16 @@ def search_go():
     current_experiment.custom_img = True
     # take a picture at position, for yolo analysis
     current_experiment.picture_task()
-    print(f"Picture saved in Experiment: {current_experiment.name}")
-    print(f"There are {len(current_experiment.saved_positions)} saved positions")
-    print(f"Created at {current_experiment.saved_positions[-1].timestamp}")
+    logging.debug(f"Picture saved in Experiment: {current_experiment.name}")
+    logging.debug(f"There are {len(current_experiment.saved_positions)} saved positions")
+    logging.debug(f"Created at {current_experiment.saved_positions[-1].timestamp}")
     current_experiment.saved_positions[-1].calculate_yolo()
     x1, y1, confidence1 = current_experiment.saved_positions[-1].center_yolo_object
 
-    # print the xy coordinates of the yolo object with the highest confidence
-    print(f"Yolo object at {x1, y1}, with confidence: {confidence1}")
+    # logging.debug the xy coordinates of the yolo object with the highest confidence
+    logging.debug(f"Yolo object at {x1, y1}, with confidence: {confidence1}")
 
-    print(f" {(x1, y1)}")
+    logging.debug(f" {(x1, y1)}")
     if x1 < 0.5 and y1 < 0.5:
         current_experiment.planned_position = current_experiment.current_position + [1000, 1000, 0]
     elif x1 < 0.5 and y1 > 0.5:
@@ -413,7 +413,7 @@ def search_go():
     elif x1 > 0.5 and y1 > 0.5:
         current_experiment.planned_position = current_experiment.current_position + [-1000, -1000, 0]
     else:
-        print("Bullseye, nothing to move")
+        logging.debug("Bullseye, nothing to move")
     # move
     current_experiment.motor_position()
     # now wait 1s! :/
@@ -424,13 +424,13 @@ def search_go():
     current_experiment.saved_positions[-1].calculate_yolo()
     x2, y2 = current_experiment.saved_positions[-1].center_yolo_object
     x_difference, y_difference = x2 - x1, y2 - y1
-    print(x_difference, y_difference)
+    logging.debug(x_difference, y_difference)
 
     # how much ticks are 
     x_rate = 1000/x_difference
     y_rate = 1000/y_difference
-    print(x_rate, y_rate)
-    print(x_rate*(0.5-x2), y_rate*(0.5-y2))
+    logging.debug(x_rate, y_rate)
+    logging.debug(x_rate*(0.5-x2), y_rate*(0.5-y2))
     # now calculate movement from remainding error
     x_ticks = x_rate*(0.5-x2)
     y_ticks = y_rate*(0.5-y2)
@@ -476,9 +476,9 @@ class ExperimentForm(FlaskForm):
     # 10 positions, starting at the right top (0,0,0), going down 5, 1 left and 5 up
     string_of_files = ['0,0,0\r\n-125000,0,0\r\n-235000,0,-10000\r\n-345000,-15000,-30000\r\n-445000,-25000,-40000\r\n-435000,100000,-40000\r\n-330000,100000,-35000\r\n-220000,110000,-30000\r\n-105000,125000,-15000\r\n20000,130000,0']
     list_of_files = string_of_files[0].split()
-    # print(list_of_files)
-    # print(type(list_of_files))
-    # print(type(list_of_files[0]))
+    # logging.debug(list_of_files)
+    # logging.debug(type(list_of_files))
+    # logging.debug(type(list_of_files[0]))
     # create a list of value/description tuples
     files = [(x, x) for x in list_of_files]
     positions = MultiCheckboxField('Positions', choices=files)
@@ -497,7 +497,7 @@ def experiments():
         intervals.append(experiment.interval_minutes)
         sensors.append(experiment.sensors)
         
-    print(f"Current experiment name(s): {names}")
+    logging.debug(f"Current experiment name(s): {names}")
     # you must tell the variable 'form' what you named the class, above
     # 'form' is the variable name used in this template: index.html
     form = ExperimentForm()
@@ -514,21 +514,21 @@ def experiments():
             # return redirect( url_for('actor', id=id) )
             message = "The experiment name is already taken."
         else:
-            print(DATABASE)
+            logging.debug(DATABASE)
             # unflag all previous experiments
             for experiment in DATABASE:
                 if(experiment.flag):
                     experiment.flag = False
-                    print(f"Experiment {experiment.name} unflagged")
+                    logging.debug(f"Experiment {experiment.name} unflagged")
             interval = int(form.interval.data)
             # experiment_positions = list(map(list, form.positions.data))
             # experiment_positions = list(map(int, form.positions.data))
-            print(type(form.positions.data))
-            print(form.positions.data)
+            logging.debug(type(form.positions.data))
+            logging.debug(form.positions.data)
             # this is unreadable, sorry
             # it converts the strings in the list of list to int
             experiment_positions = [[int(num) for num in map(int, sub.split(','))] for sub in form.positions.data]
-            print(experiment_positions)
+            logging.debug(experiment_positions)
 
             # insert sensors
 
@@ -546,7 +546,7 @@ def experiments():
 # @app.route('/experiments')
 def experiment_status():
     experiment_name = request.args.get('status')
-    print(f"Experiment name: {experiment_name}")
+    logging.debug(f"Experiment name: {experiment_name}")
 
     # this cannto work for now !!!!!!!!!!!!!!!!!!!!!!
     # experiment_positions = request.args.get('experiment_positions')
@@ -567,7 +567,7 @@ def experiment_status():
 
     # this creates the default experiment and flags it - works!
     # new_experiment = select_flagged_experiment()
-    # print(new_experiment.name)
+    # logging.debug(new_experiment.name)
     # new_experiment.name = "GeorgsExperiment"
 
     return f"{new_experiment.name}"
@@ -576,7 +576,7 @@ def experiment_status():
 @app.route('/experiment/<experiment_name>')
 def profile(experiment_name):
     experiment_name = experiment_name.lower()
-    print(f"Selected experiment: {experiment_name}")
+    logging.debug(f"Selected experiment: {experiment_name}")
     # unflag all experiments for preparation
     for experiment in DATABASE:
         if(experiment.flag):
@@ -589,9 +589,9 @@ def profile(experiment_name):
             # return experiment
 
 def select_flagged_experiment():
-    print(f"Current database lenght: {len(DATABASE)}")
+    logging.debug(f"Current database lenght: {len(DATABASE)}")
     if(len(DATABASE) == 0):
-        print("No experiments found, creating default experiment")
+        logging.debug("No experiments found, creating default experiment")
         new_experiment = Experiment(EXPERIMENT_NAME, scheduler,
         IMAGEPATH, Camera, EXPERIMENT_POSITIONS, INTERVAL)
         DATABASE.append(new_experiment)
@@ -600,16 +600,22 @@ def select_flagged_experiment():
         # try to select experiment
         # return render_template("gallery.html", image_foldername = foldername_gallery)
         try:
-            print("Trying to select the first flagged experiment")
+            logging.debug("Trying to select the first flagged experiment")
             for experiment in DATABASE:
                 if(experiment.flag):
                     return experiment
-            print("No flagged experiments")
+            logging.debug("No flagged experiments")
             raise Exception 
         except:
-            print("Trying to select the last experiment in DB")
+            logging.debug("Trying to select the last experiment in DB")
             new_experiment = DATABASE[-1]
             return new_experiment
 
 if __name__ == "__main__":
+    
+    level = logging.DEBUG
+    fmt = '[%(levelname)s] %(asctime)s - %(message)s'
+    logging.basicConfig(filename='flask-debug.log', level=level, format=fmt)
+    
     app.run(host='0.0.0.0', port=80, threaded=True)
+    # logging.basicConfig(filename='example.log', encoding='utf-8', level=level, format=fmt)
