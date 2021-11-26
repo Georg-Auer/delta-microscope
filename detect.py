@@ -31,17 +31,17 @@ def detect2(opt):
 
     # Load model
     model = attempt_load(weights, map_location=device)  # load FP32 model
-    # delete printing if it makes any problems
-    print("model weights are:")
-    print(weights)
-    print("model device is:")
-    print(device)
+    # delete logging.debuging if it makes any problems
+    logging.debug("model weights are:")
+    logging.debug(weights)
+    logging.debug("model device is:")
+    logging.debug(device)
     stride = int(model.stride.max())  # model stride
     imgsz = check_img_size(imgsz, s=stride)  # check img_size
     names = model.module.names if hasattr(model, 'module') else model.names  # get class names
     if half:
         model.half()  # to FP16
-        print("half model, FP16 active")
+        logging.debug("half model, FP16 active")
 
     # Second-stage classifier
     classify = False
@@ -91,7 +91,7 @@ def detect2(opt):
             p = Path(p)  # to Path
             save_path = str(save_dir / p.name)  # img.jpg
             txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # img.txt
-            s += '%gx%g ' % img.shape[2:]  # print string
+            s += '%gx%g ' % img.shape[2:]  # logging.debug string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             imc = im0.copy() if opt.save_crop else im0  # for opt.save_crop
             if len(det):
@@ -119,7 +119,7 @@ def detect2(opt):
                             save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
             # Print time (inference + NMS)
-            print(f'{s}Done. ({t2 - t1:.3f}s)')
+            logging.debug(f'{s}Done. ({t2 - t1:.3f}s)')
 
             # Stream results
             if view_img:
@@ -147,9 +147,9 @@ def detect2(opt):
 
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
-        print(f"Results saved to {save_dir}{s}")
+        logging.debug(f"Results saved to {save_dir}{s}")
 
-    print(f'Done. ({time.time() - t0:.3f}s)')
+    logging.debug(f'Done. ({time.time() - t0:.3f}s)')
 
 # py -3.7 detect.py --weights weights/best.pt --img 416 --conf 0.4 --project app/base/static/upload --exist-ok --name het-cam-yolo --source app/base/static/upload/het-cam-raw
 # py -3.9 detect.py --weights weights/best.pt --img 416 --conf 0.4 --project examples --exist-ok --name microscope-yolo --source examples
@@ -187,8 +187,8 @@ def detect(raw_image_foldername, exp_foldername, yolo_dir):
     parser.add_argument('--hide-labels', default=False, action='store_false', help='hide labels')
     parser.add_argument('--hide-conf', default=False, action='store_false', help='hide confidences')
     opt = parser.parse_args()
-    print("Printing set option list")
-    print(opt)
+    logging.debug("Printing set option list")
+    logging.debug(opt)
     # check_requirements(exclude=('torch', 'torchvision', 'tensorboard', 'pycocotools', 'thop'))
 
     detect2(opt=opt)

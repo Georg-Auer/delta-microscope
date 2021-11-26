@@ -14,7 +14,7 @@ def connect_to_arduino(comport = 'COM21',
         motor2_enable = 1, motor2_direction = 0, motor2_position = 0, motor2_speed = 5000,
         motor3_enable = 1, motor3_direction = 0, motor3_position = 0, motor3_speed = 5000):
     try:
-        print(f"Connecting to {comport}")
+        logging.debug(f"Connecting to {comport}")
         link = txfer.SerialTransfer(comport)
         
         link.open()
@@ -26,23 +26,23 @@ def connect_to_arduino(comport = 'COM21',
         # Send a list
         list_ = [motor0_enable, motor0_direction, motor0_position, motor0_speed, motor1_enable, motor1_direction, motor1_position, motor1_speed, 
             motor2_enable, motor2_direction, motor2_position, motor2_speed, motor3_enable, motor3_direction, motor3_position, motor3_speed]
-        print(list_)
+        logging.debug(list_)
         list_size = link.tx_obj(list_)
         send_size += list_size
         
         # Transmit all the data to send in a single packet
         link.send(send_size)
-        print("Message sent...")
+        logging.debug("Message sent...")
         
         # Wait for a response and report any errors while receiving packets
         while not link.available():
             if link.status < 0:
                 if link.status == -1:
-                    print('ERROR: CRC_ERROR')
+                    logging.debug('ERROR: CRC_ERROR')
                 elif link.status == -2:
-                    print('ERROR: PAYLOAD_ERROR')
+                    logging.debug('ERROR: PAYLOAD_ERROR')
                 elif link.status == -3:
-                    print('ERROR: STOP_BYTE_ERROR')
+                    logging.debug('ERROR: STOP_BYTE_ERROR')
 
         # Parse response list
         ###################################################################
@@ -50,8 +50,8 @@ def connect_to_arduino(comport = 'COM21',
                                     obj_byte_size=list_size,
                                     list_format='i')
  
-        print(f'SENT: {list_}')
-        print(f'RCVD: {rec_list_}')
+        logging.debug(f'SENT: {list_}')
+        logging.debug(f'RCVD: {rec_list_}')
 
         link.close()
         return rec_list_
@@ -61,18 +61,18 @@ def connect_to_arduino(comport = 'COM21',
 
     except:
         import traceback
-        traceback.print_exc()
+        traceback.logging.debug_exc()
         link.close()
 
 def list_available_ports() -> list:
     ports = txfer.open_ports()
-    print("Available ports:")
-    print(ports)
+    logging.debug("Available ports:")
+    logging.debug(ports)
     return ports
 
 if __name__ == "__main__":
     ports = list_available_ports()
-    print(ports)
+    logging.debug(ports)
     comport = '/dev/ttyACM0'
     # enable = 0, disable = 1
     motor0_enable = 0
@@ -94,6 +94,6 @@ if __name__ == "__main__":
     try:
         list_ = [motor0_enable, motor0_direction, motor0_position, motor0_speed, motor1_enable, motor1_direction, motor1_position, motor1_speed, 
             motor2_enable, motor2_direction, motor2_position, motor2_speed, motor3_enable, motor3_direction, motor3_position, motor3_speed]
-        print(list_)
+        logging.debug(list_)
     except:
-        print("Sending did not work, please check comport")
+        logging.debug("Sending did not work, please check comport")

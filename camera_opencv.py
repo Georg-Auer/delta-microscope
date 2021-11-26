@@ -32,8 +32,8 @@ class Camera(BaseCamera):
 
     @staticmethod
     def frames(resolution = [640, 480]):
-        print(f"camera_opencv resolution: {resolution}")
-        print(f"camera source: {Camera.video_source}")
+        logging.debug(f"camera_opencv resolution: {resolution}")
+        logging.debug(f"camera source: {Camera.video_source}")
         camera = cv2.VideoCapture(Camera.video_source)
 
         try:
@@ -41,7 +41,7 @@ class Camera(BaseCamera):
             camera.set(3, resolution[0])
             camera.set(4, resolution[1])
         except:
-            print("could not set resolution in camera_opencv")
+            logging.debug("could not set resolution in camera_opencv")
 
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
