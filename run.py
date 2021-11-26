@@ -2,13 +2,13 @@
 """
 start with: sudo CAMERA=opencv python3 run.py
 """
+import logging
 
 from classes.pyserial_connection_arduino import list_available_ports
 from flask_migrate import Migrate
 from os import environ
 from sys import exit
 from decouple import config
-import logging
 
 from config import config_dict
 from app import create_app, db

@@ -19,22 +19,22 @@ import datetime
 def take_raspicampic(i):
     try:
         camera.close()
-        print("camera closed")
+        logging.debug("camera closed")
     except:
-        print("camera was not open")
+        logging.debug("camera was not open")
 
     try:
         from picamera import PiCamera
         from picamera.array import PiRGBArray
         camera = PiCamera()
     except:
-        print("camera was not closed last time or is still in use")
+        logging.debug("camera was not closed last time or is still in use")
         #camera.close()
         #rawCapture.close()
-    print("Raspberry camera")
+    logging.debug("Raspberry camera")
     # import the necessary packages
     #camera = PiCamera()
-    print("Raspberry Camera loaded")
+    logging.debug("Raspberry Camera loaded")
     # following camera settings are not needed
     #x_res = 640
     #y_res = 480
@@ -71,7 +71,7 @@ def take_raspicampic(i):
 
 #for testing:
 def take_webcampic(i):
-    print("Webcam module")
+    logging.debug("Webcam module")
     cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) #0 is the standard number of the connected camera in windows
     #img_name = 'opencv.png'
     time.sleep(0.1)
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     from picamera import mmal, mmalobj as mo
     from time import sleep
     def image_callback(port, buf):
-        print(buf.data)
+        logging.debug(buf.data)
         return False
     camera = mo.MMALCamera()
     preview = mo.MMALRenderer()
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     camera.outputs[0].disable()
 
 else:
-    print("Camera module loaded:")
+    logging.debug("Camera module loaded:")
 
 # def variance_of_laplacian(image):
 # 	# First compute the Laplacian of the image and then return the focus
@@ -174,11 +174,11 @@ else:
 #         cv2.imwrite(filename, image)
 
 #         number += 1
-#         print(lap0)
-#         print(lap1)
+#         logging.debug(lap0)
+#         logging.debug(lap1)
 #         if lap0 >= lap1:
 #             direction^=True #if lap0 is bigger than lap1, change direction
-#             print("toggle")
+#             logging.debug("toggle")
 #         #movement(direction) 
 #         if direction:
 #             z -= 1000
