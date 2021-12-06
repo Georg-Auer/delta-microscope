@@ -25,7 +25,8 @@ def detect(file_in_foldername, detection_class = False, confidence_threshold = 0
     
     image = cv2.imread(file_in_foldername)[..., ::-1]  # OpenCV image (BGR to RGB)
     results = model(image, size=416)  # includes NMS
-    results.logging.debug()
+    # results.logging.debug()
+    results.print()
     # logging.debug(results.xyxy)
     # result2 = pd.DataFrame()
     # https://github.com/ultralytics/yolov5/issues/2703
