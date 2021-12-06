@@ -1,4 +1,5 @@
 import time
+import logging
 import numpy as np
 from pySerialTransfer import pySerialTransfer as txfer
 # please make sure to pip install pySerialTransfer==1.2

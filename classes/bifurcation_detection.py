@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import imutils
+import logging
 from classes.fingerprint import extract_minutiae_features
 
 def prepare_and_analyze(img, scale_percent = 10):

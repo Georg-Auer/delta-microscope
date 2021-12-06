@@ -1,5 +1,6 @@
 import io
 import time
+import logging
 import picamera
 from base_camera import BaseCamera
 

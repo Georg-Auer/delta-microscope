@@ -1,5 +1,6 @@
 import os
 import cv2
+import logging
 from base_camera import BaseCamera
 
 

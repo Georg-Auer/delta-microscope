@@ -1,4 +1,5 @@
 import io
+import logging
 from PIL import Image
 import select
 import v4l2capture

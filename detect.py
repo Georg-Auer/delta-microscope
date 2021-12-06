@@ -1,5 +1,6 @@
 import argparse
 import time
+import logging
 from pathlib import Path
 
 import cv2

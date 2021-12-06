@@ -9,6 +9,7 @@
 
 # define number of classes based on YAML
 import yaml
+import logging
 with open("data.yaml", 'r') as stream:
     num_classes = str(yaml.safe_load(stream)['nc'])
 

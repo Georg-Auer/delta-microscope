@@ -8,6 +8,7 @@ Created on Wed Nov  6 09:49:03 2019
 import cv2
 import numpy as np
 import time
+import logging
 import datetime
 # import os
 # if folder manangment is needed, use: "from pathlib import Path"

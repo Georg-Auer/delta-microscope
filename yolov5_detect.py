@@ -4,6 +4,7 @@
 # F:\spoc-images\hfob-saos0411\microscope-raw
 import cv2
 import torch
+import logging
 # import pandas as pd
 
 # def detect(raw_image_foldername, exp_foldername, yolo_dir):

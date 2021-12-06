@@ -2,7 +2,7 @@
 # pip install pySerialTransfer
 # pip install dearpygui
 
-
+import logging
 from pyserial_connection_arduino import connect_to_arduino, list_available_ports
 import numpy as np
 try:
