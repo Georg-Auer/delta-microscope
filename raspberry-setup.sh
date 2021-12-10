@@ -86,8 +86,8 @@ sudo pip3 install -r requirements.txt
 # sudo pip3 install torchvision-0.8.0a0+45f960c-cp37-cp37m-linux_armv7l.whl
 # cd ~
 #installing on 64bit, if it did not work earlier:
-pip3 install torch -f https://torch.kmtea.eu/whl/stable.html
-pip3 install torchvision -f https://torch.kmtea.eu/whl/stable.html
+sudo pip3 install torch -f https://torch.kmtea.eu/whl/stable.html
+sudo pip3 install torchvision -f https://torch.kmtea.eu/whl/stable.html
 # building does not work because scipy==1.1 is installed via apt and >=1.5 needed
 # building scipy does not work either
 # command line only install:
