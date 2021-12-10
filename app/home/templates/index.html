@@ -106,11 +106,13 @@
                         <i class="fa-camera fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
                       </button>
                     </a>
-                    <a href=# id=yolo-search-go>
+                    {#
+                    <!-- <a href=# id=yolo-search-go>
                       <button>                  
                         <i class="fa-eye fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
                       </button>
-                    </a>
+                    </a> -->
+                    #}
                     <a href=# id=led>
                       <button>                  
                         <i class="fa-lightbulb-o  fa" style="color: rgb(0, 87, 63);" aria-hidden="true" ></i>
@@ -262,14 +264,16 @@
       return false;
     });
 
-    // - take picture, yolo analysis and movement to center to recognized object
-    $('a#yolo-search-go').bind('click', function() {
-      $.getJSON('/yolo-search-go',
-          function(data) {
-        //do nothing
-      });
-      return false;
-    });
+    {#
+    // // - take picture, yolo analysis and movement to center to recognized object
+    // $('a#yolo-search-go').bind('click', function() {
+    //   $.getJSON('/yolo-search-go',
+    //       function(data) {
+    //     //do nothing
+    //   });
+    //   return false;
+    // });
+    #}
 
     // - led
     $('a#led').bind('click', function() {
