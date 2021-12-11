@@ -32,3 +32,6 @@ package-lock.json
 
 # images
 /app/base/static/upload/
+
+# zipped experiments
+*.zip

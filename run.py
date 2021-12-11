@@ -8,6 +8,7 @@ from classes.pyserial_connection_arduino import list_available_ports
 from flask_migrate import Migrate
 from os import environ
 from sys import exit
+import shutil
 from decouple import config
 
 from config import config_dict
@@ -17,8 +18,7 @@ from app import create_app, db
 
 from importlib import import_module
 import os
-from flask import Flask, render_template, url_for, Response
-
+from flask import Flask, render_template, url_for, Response, send_file
 # import camera driver
 if os.environ.get('CAMERA'):
     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
@@ -542,6 +542,13 @@ def experiments():
 
     return render_template('experiments.html', names=names, segment="experiments" ,positions=positions, intervals=intervals, sensors=sensors, form=form, message=message)
 
+# @app.route('/experiment_zip', methods=['GET', 'POST'])
+# def experiment_zip():
+#     current_experiment = select_flagged_experiment()
+#     logging.debug(f"Current experiment name(s): {current_experiment.name}")
+#     current_experiment.zip()
+
+
 @app.route('/get_experiment_status') 
 # @app.route('/experiments')
 def experiment_status():
@@ -572,9 +579,10 @@ def experiment_status():
 
     return f"{new_experiment.name}"
 
-# select experiment by name
+# select experiment by clicking name, using Path Param
 @app.route('/experiment/<experiment_name>')
-def profile(experiment_name):
+@app.route('/experiment/<experiment_name>/<action>')
+def profile(experiment_name=None, action=None):
     experiment_name = experiment_name.lower()
     logging.debug(f"Selected experiment: {experiment_name}")
     # unflag all experiments for preparation
@@ -585,8 +593,23 @@ def profile(experiment_name):
     for experiment in DATABASE:
         if(experiment.name == experiment_name):
             experiment.flag = True
-            return redirect(url_for('index'))
+            current_experiment = select_flagged_experiment()
+            logging.debug(f"Current experiment name(s): {current_experiment.name}")
+            # return redirect(url_for('experiments'))
             # return experiment
+    if action == 'zip_it':
+        # current_experiment = select_flagged_experiment()
+        logging.debug(f"Zipping experiment: {current_experiment.name}")
+        # shutil.make_archive(output_filename, 'zip', dir_name)
+        shutil.make_archive(f'app\\{current_experiment.name}', 'zip', root_dir=IMAGEPATH, base_dir=current_experiment.name)
+        return redirect(url_for('experiments'))
+    if action == 'save_it':
+        # current_experiment = select_flagged_experiment()
+        logging.debug(f"Download zip of experiment: {current_experiment.name}")
+        #For windows you need to use drive name [ex: F:/Example.pdf]
+        print(f"{current_experiment.name}.zip")
+        return send_file(f"{current_experiment.name}.zip", as_attachment=True)
+        # return send_file(f"{current_experiment.name}.zip", as_attachment=True)
 
 def select_flagged_experiment():
     logging.debug(f"Current database lenght: {len(DATABASE)}")

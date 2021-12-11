@@ -75,8 +75,8 @@ class Experiment(object):
         self.detection_class = 0
         self.confidence_threshold = 0.2
         self.raw_dir = "microscope-raw"
-        self.yolo_cropped_dir = "microscope-yolo-cropped"
         self.yolo_dir = "microscope-yolo"
+        self.yolo_cropped_dir = "microscope-yolo-cropped"
         self.img_variant_folders = [self.raw_dir,self.yolo_cropped_dir,self.yolo_dir]
         self.create_directories()
         self.switch_led()
