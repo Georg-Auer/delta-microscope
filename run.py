@@ -610,7 +610,7 @@ def profile(experiment_name=None, action=None):
         #For windows you need to use drive name [ex: F:/Example.pdf]
         print(f"{current_experiment.name}.zip")
         # return send_file(f"{current_experiment.name}.zip", as_attachment=True)
-        return send_file(f"~{current_experiment.name}.zip", as_attachment=True)
+        return send_file(f"{current_experiment.name}.zip", as_attachment=True)
         # return send_file(f"{current_experiment.name}.zip", as_attachment=True)
 
 def select_flagged_experiment():
