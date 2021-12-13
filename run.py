@@ -601,15 +601,14 @@ def profile(experiment_name=None, action=None):
         # current_experiment = select_flagged_experiment()
         logging.debug(f"Zipping experiment: {current_experiment.name}")
         # shutil.make_archive(output_filename, 'zip', dir_name)
-        # shutil.make_archive(f'app\\{current_experiment.name}', 'zip', root_dir=IMAGEPATH, base_dir=current_experiment.name)
-        shutil.make_archive(f'{current_experiment.name}', 'zip', root_dir=IMAGEPATH, base_dir=current_experiment.name)
+        shutil.make_archive(f'/app/{current_experiment.name}', 'zip', root_dir=IMAGEPATH, base_dir=current_experiment.name)
+        # shutil.make_archive(f'{current_experiment.name}', 'zip', root_dir=IMAGEPATH, base_dir=current_experiment.name)
         return redirect(url_for('experiments'))
     if action == 'save_it':
         # current_experiment = select_flagged_experiment()
         logging.debug(f"Download zip of experiment: {current_experiment.name}")
         #For windows you need to use drive name [ex: F:/Example.pdf]
         print(f"{current_experiment.name}.zip")
-        # return send_file(f"{current_experiment.name}.zip", as_attachment=True)
         return send_file(f"{current_experiment.name}.zip", as_attachment=True)
         # return send_file(f"{current_experiment.name}.zip", as_attachment=True)
 
