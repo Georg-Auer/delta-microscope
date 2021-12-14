@@ -474,7 +474,9 @@ class ExperimentForm(FlaskForm):
     # options:
     # string_of_files = ['0,0,0\r\n1000,0,0\r\n0,1000,0\r\n-1000,0,0\r\n0,-1000,0\r\n']
     # 10 positions, starting at the right top (0,0,0), going down 5, 1 left and 5 up
-    string_of_files = ['0,0,0\r\n-125000,0,0\r\n-235000,0,-10000\r\n-345000,-15000,-30000\r\n-445000,-25000,-40000\r\n-435000,100000,-40000\r\n-330000,100000,-35000\r\n-220000,110000,-30000\r\n-105000,125000,-15000\r\n20000,130000,0']
+    # string_of_files = ['0,0,0\r\n-125000,0,0\r\n-235000,0,-10000\r\n-345000,-15000,-30000\r\n-445000,-25000,-40000\r\n-435000,100000,-40000\r\n-330000,100000,-35000\r\n-220000,110000,-30000\r\n-105000,125000,-15000\r\n20000,130000,0']
+    string_of_files = ['0,5000,0\r\n-50000,-140000,-25000\r\n-135000,-125000,-55000\r\n-275000,-140000,-105000']
+
     list_of_files = string_of_files[0].split()
     # logging.debug(list_of_files)
     # logging.debug(type(list_of_files))

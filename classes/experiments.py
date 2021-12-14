@@ -66,7 +66,7 @@ class Experiment(object):
         # for tracking:
         # self.real_world_ratio_x = #how many x-ticks are one screen width
         # self.real_world_ratio_y = #how many x-ticks are one screen height
-        self.moving_time = 14 # standardized time in seconds it takes to move from pos n to n+1 in seconds
+        self.moving_time = 60 # standardized time in seconds it takes to move from pos n to n+1 in seconds
         self.flag = False
         self.motor_comport = '/dev/ttyACM0'
         # self.motor_comport = 'COM9'
