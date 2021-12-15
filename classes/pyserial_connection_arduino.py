@@ -95,6 +95,6 @@ if __name__ == "__main__":
     try:
         list_ = [motor0_enable, motor0_direction, motor0_position, motor0_speed, motor1_enable, motor1_direction, motor1_position, motor1_speed, 
             motor2_enable, motor2_direction, motor2_position, motor2_speed, motor3_enable, motor3_direction, motor3_position, motor3_speed]
-        logging.debug(list_)
+        print(list_)
     except:
-        logging.debug("Sending did not work, please check comport")
+        print("Sending did not work, please check comport")
