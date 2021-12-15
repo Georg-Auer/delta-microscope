@@ -21,6 +21,11 @@
               <h5 class="title">
                 Experiments
               </h5>
+              <div class="row">
+                <div class="col-md-12">
+                    Warning: Do not change/load experiment while experiment is running.      
+                </div>
+              </div>
               <p class="lead">Load an experiment by click:</p>
                 {% for name, position_list, interval, sensors in names|zip(positions, intervals, sensors) %}
                   <a class="dropdown-item" href="/experiment/{{name}}">Experiment:  <b>{{name}}</b>  with x/y/z position(s):<br> <b>{% for item in position_list %}{{item}}<br>{% endfor %}</b> and an interval of <b>{{interval}}</b> minutes. Environmental data collection on pin(s): <b>{{sensors}}</b></a>
