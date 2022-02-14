@@ -69,7 +69,7 @@ class Experiment(object):
         self.moving_time = 60 # standardized time in seconds it takes to move from pos n to n+1 in seconds
         self.flag = False
         self.motor_comport = '/dev/ttyACM0'
-        # self.motor_comport = 'COM9'
+        # self.motor_comport = 'COM8'
         self.creation_time = datetime.today()
         self.exp_foldername = f'{self.image_path}/{self.name}'
         self.detection_class = 0

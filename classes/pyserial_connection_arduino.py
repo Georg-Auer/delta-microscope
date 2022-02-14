@@ -9,7 +9,7 @@ from pySerialTransfer import pySerialTransfer as txfer
 # updated: now works with current SerialTransfer.h, and pySerialTransfer (27.02.2021)
 
 # def connect_to_arduino(comport = '/dev/ttyACM0',
-def connect_to_arduino(comport = 'COM21',
+def connect_to_arduino(comport = 'COM7',
         motor0_enable = 1, motor0_direction = 0, motor0_position = 0, motor0_speed = 5000,
         motor1_enable = 1, motor1_direction = 0, motor1_position = 0, motor1_speed = 5000,
         motor2_enable = 1, motor2_direction = 0, motor2_position = 0, motor2_speed = 5000,
@@ -62,7 +62,7 @@ def connect_to_arduino(comport = 'COM21',
 
     except:
         import traceback
-        traceback.logging.debug_exc()
+        traceback.print_exc()
         link.close()
 
 def list_available_ports() -> list:
@@ -73,7 +73,7 @@ def list_available_ports() -> list:
 
 if __name__ == "__main__":
     ports = list_available_ports()
-    logging.debug(ports)
+    print(ports)
     comport = '/dev/ttyACM0'
     # enable = 0, disable = 1
     motor0_enable = 0
@@ -95,6 +95,6 @@ if __name__ == "__main__":
     try:
         list_ = [motor0_enable, motor0_direction, motor0_position, motor0_speed, motor1_enable, motor1_direction, motor1_position, motor1_speed, 
             motor2_enable, motor2_direction, motor2_position, motor2_speed, motor3_enable, motor3_direction, motor3_position, motor3_speed]
-        print(list_)
+        print(f"Send list: {list_}")
     except:
         print("Sending did not work, please check comport")
